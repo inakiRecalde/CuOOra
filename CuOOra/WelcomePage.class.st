@@ -33,15 +33,35 @@ WelcomePage >> pass: anObject [
 
 { #category : #rendering }
 WelcomePage >> renderContentOn: canvas [
-	canvas anchor
+	canvas paragraph: 'CuOOra'.
+	"canvas anchor
 		callback: [  ];
-		with: 'Registrarse'.
+		with: 'Registrarse'."
 	canvas
-		form: [ canvas
-				paragraph: [ canvas label: 'Usuario: '.
+		form: [ canvas space.
+			canvas space.
+			canvas space.
+			canvas
+				paragraph: [ canvas space.
+					canvas space.
+					canvas space.
+					canvas space.
+					canvas space.
+					canvas space.
+					canvas space.
+					canvas space.
+					canvas label: 'Usuario: '.
 					canvas textInput on: #user of: self ].
 			canvas
-				paragraph: [ canvas label: 'Contraseña: '.
+				paragraph: [ canvas space.
+					canvas space.
+					canvas space.
+					canvas space.
+					canvas space.
+					canvas space.
+					canvas space.
+					canvas space.
+					canvas label: 'Contraseña: '.
 					canvas textInput on: #pass of: self ].
 			canvas button
 				callback: [ self loguear ];
