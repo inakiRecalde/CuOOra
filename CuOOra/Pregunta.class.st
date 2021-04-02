@@ -26,12 +26,16 @@ Pregunta >> calcularPuntaje [
 { #category : #'adding/removing' }
 Pregunta >> darDislike: unUser [
 	"comprobar si habia dado like o ya tenia dislike" 
+	"si tenia dislike, sacarlo"
+	"si tenia like, sacarlo y poner like"
 	dislikes add: (Interacciones user: unUser).
 ]
 
 { #category : #'adding/removing' }
 Pregunta >> darLike: unUser [ 
 	"comprobar si habia dado dislike o ya tenia like "
+	"si tenia like sacarlo"
+	"si tenia dislike sacarlo y poner like"
 	likes add: (Interacciones user: unUser).
 ]
 

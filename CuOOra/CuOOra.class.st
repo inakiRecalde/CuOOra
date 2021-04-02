@@ -9,8 +9,13 @@ Class {
 }
 
 { #category : #adding }
-CuOOra >> agregarTopico: unNombre descripcion: unaDescripcion [
-	topicos add: (Topico nombre: unNombre descripcion: unaDescripcion).
+CuOOra >> agregarPregunta: unaPregunta aUsuario: user [
+	user agregarPregunta: unaPregunta .
+]
+
+{ #category : #adding }
+CuOOra >> agregarTopico: unTopico [
+	topicos add: unTopico.
 ]
 
 { #category : #accesing }
@@ -32,7 +37,7 @@ CuOOra >> initialize [
 
 { #category : #accesing }
 CuOOra >> preguntasDeUnTopico: unTopico [ 
-	^unTopico preguntas .
+	"al eliminar la relacion bidireccional hay q buscarlos por usuarios/preguntas/topicos"
 ]
 
 { #category : #accesing }

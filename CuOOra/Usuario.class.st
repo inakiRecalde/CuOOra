@@ -26,6 +26,11 @@ Usuario >> agregarComentario: unText aPregunta: pregunta [
 ]
 
 { #category : #accesing }
+Usuario >> agregarPregunta: unaPregunta [ 
+	misPreguntas add: unaPregunta .
+]
+
+{ #category : #accesing }
 Usuario >> calcularPuntaje [
 	^ ((misPreguntas size) * 20) +
 			 (misPreguntas sumNumbers: [ :each | each calcularPuntaje ]) + (self  puntajeParticipaciones) .
