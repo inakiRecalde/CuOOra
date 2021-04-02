@@ -21,6 +21,16 @@ WelcomePage >> newUser [
 	"registro user ifNotNil:  [ #group addUser: registro user]"
 ]
 
+{ #category : #accessing }
+WelcomePage >> pass [
+	^ pass
+]
+
+{ #category : #accessing }
+WelcomePage >> pass: anObject [
+	pass := anObject
+]
+
 { #category : #rendering }
 WelcomePage >> renderContentOn: canvas [
 	canvas anchor
@@ -36,4 +46,14 @@ WelcomePage >> renderContentOn: canvas [
 			canvas button
 				callback: [ self loguear ];
 				with: 'Iniciar sesion' ]
+]
+
+{ #category : #accessing }
+WelcomePage >> user [
+	^ user
+]
+
+{ #category : #accessing }
+WelcomePage >> user: anObject [
+	user := anObject
 ]
