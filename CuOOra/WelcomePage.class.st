@@ -14,17 +14,17 @@ WelcomePage >> loguear [
 		ifNotNil: [ :it | self proceedWith: it ].
 	user := nil.
 	password := nil"
-	| theUser |
-	theUser := Usuario nombre: user contrasena: pass  email: 'jorge'.
-	self model addUser: theUser.
-	self proceedWith: theUser
+	| usuario |
+	usuario := Usuario nombre: user contrasena: pass  email: 'jorge'.
+	self model addUsuario: usuario.
+	self proceedWith: usuario
 	
 	
 ]
 
 { #category : #model }
 WelcomePage >> model [
-	^ SimpleNet soleInstance
+	^ CuOOra soleInstance
 ]
 
 { #category : #callbacks }

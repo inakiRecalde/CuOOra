@@ -1,5 +1,5 @@
 Class {
 	#name : #RegisterPage,
-	#superclass : #WAComponent,
+	#superclass : #WelcomePage,
 	#category : #'CuOOra-ui'
 }

@@ -13,9 +13,12 @@ Class {
 	#category : #'CuOOra-model'
 }
 
-{ #category : #constructor }
-Usuario class >> nombre: unNombre contrasena: unaContra email:unEmail [
-	^self new nombre: unNombre contrasena: unaContra email:unEmail.
+{ #category : #'instance creation' }
+Usuario class >> nombre: unNombre contrasena: unaContra email: unEmail [
+	^ self new
+		nombre: unNombre
+		contrasena: unaContra
+		email: unEmail yourself
 ]
 
 { #category : #'adding/removing' }

@@ -21,6 +21,11 @@ CuOOra class >> soleInstance [
 	^ soleInstance
 ]
 
+{ #category : #initialization }
+CuOOra >> addUsuario: aUser [
+	usuarios add: aUser
+]
+
 { #category : #adding }
 CuOOra >> agregarPregunta: unaPregunta aUsuario: user [
 	user agregarPregunta: unaPregunta .
@@ -35,11 +40,6 @@ CuOOra >> agregarTopico: unTopico [
 CuOOra >> calcularPuntaje: unUsuario [
 	^ unUsuario calcularPuntaje .
 	
-]
-
-{ #category : #adding }
-CuOOra >> crearUsuario: unNombre contrasena: unaContra [ 
-	usuarios add: (Usuario nombre: unNombre contrasena: unaContra) .
 ]
 
 { #category : #initialization }
