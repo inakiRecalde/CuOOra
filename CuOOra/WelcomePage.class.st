@@ -10,7 +10,21 @@ Class {
 
 { #category : #callbacks }
 WelcomePage >> loguear [
-	^self.
+	"(self model userWithUser: user protectedBy: password)
+		ifNotNil: [ :it | self proceedWith: it ].
+	user := nil.
+	password := nil"
+	| theUser |
+	theUser := Usuario nombre: user contrasena: pass  email: 'jorge'.
+	self model addUser: theUser.
+	self proceedWith: theUser
+	
+	
+]
+
+{ #category : #model }
+WelcomePage >> model [
+	^ SimpleNet soleInstance
 ]
 
 { #category : #callbacks }
@@ -29,6 +43,12 @@ WelcomePage >> pass [
 { #category : #accessing }
 WelcomePage >> pass: anObject [
 	pass := anObject
+]
+
+{ #category : #private }
+WelcomePage >> proceedWith: aUser [
+	self session user: aUser.
+	self call: HomePage new
 ]
 
 { #category : #rendering }

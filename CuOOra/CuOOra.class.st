@@ -5,8 +5,21 @@ Class {
 		'usuarios',
 		'topicos'
 	],
+	#classInstVars : [
+		'soleInstance'
+	],
 	#category : #'CuOOra-model'
 }
+
+{ #category : #accessing }
+CuOOra class >> clearSoleInstance [
+	soleInstance:=nil
+]
+
+{ #category : #accessing }
+CuOOra class >> soleInstance [
+	^ soleInstance
+]
 
 { #category : #adding }
 CuOOra >> agregarPregunta: unaPregunta aUsuario: user [

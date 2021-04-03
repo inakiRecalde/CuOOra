@@ -4,6 +4,7 @@ Class {
 	#instVars : [
 		'nombre',
 		'contrasena',
+		'email',
 		'follows',
 		'misPreguntas',
 		'misRespuestas',
@@ -13,8 +14,8 @@ Class {
 }
 
 { #category : #constructor }
-Usuario class >> nombre: unNombre contrasena: unaContra [
-	^self new nombre: unNombre contrasena: unaContra .
+Usuario class >> nombre: unNombre contrasena: unaContra email:unEmail [
+	^self new nombre: unNombre contrasena: unaContra email:unEmail.
 ]
 
 { #category : #'adding/removing' }
