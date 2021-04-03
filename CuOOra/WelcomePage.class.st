@@ -54,9 +54,9 @@ WelcomePage >> proceedWith: aUser [
 { #category : #rendering }
 WelcomePage >> renderContentOn: canvas [
 	canvas paragraph: 'CuOOra'.
-	"canvas anchor
+	canvas anchor
 		callback: [  ];
-		with: 'Registrarse'."
+		with: 'Registrarse'.
 	canvas
 		form: [ canvas space.
 			canvas space.
@@ -82,7 +82,7 @@ WelcomePage >> renderContentOn: canvas [
 					canvas space.
 					canvas space.
 					canvas label: 'Contraseña: '.
-					canvas textInput on: #pass of: self ].
+					canvas passwordInput on: #pass of: self ].
 			canvas button
 				callback: [ self loguear ];
 				with: 'Iniciar sesion' ]
