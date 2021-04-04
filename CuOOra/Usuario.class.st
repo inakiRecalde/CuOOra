@@ -77,6 +77,13 @@ Usuario >> nombre: unNombre contrasena: unaContra [
 	contrasena:= unaContra.
 ]
 
+{ #category : #'instance creation' }
+Usuario >> nombre: unNombre contrasena: unaContra email: unEmail [
+		nombre:= unNombre.
+		contrasena:= unaContra.
+		email:= unEmail.
+]
+
 { #category : #accesing }
 Usuario >> preguntasIncluye: unaPregunta [ 
 	^ misPreguntas detect: [ :unaPreg | unaPreg esIgualA: unaPregunta  ]. 
