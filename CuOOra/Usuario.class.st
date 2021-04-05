@@ -71,12 +71,6 @@ Usuario >> initialize [
 	topicoDeInteres := 'desconocido'
 ]
 
-{ #category : #constructor }
-Usuario >> nombre: unNombre contrasena: unaContra [
-	nombre:= unNombre.
-	contrasena:= unaContra.
-]
-
 { #category : #'instance creation' }
 Usuario >> nombre: unNombre contrasena: unaContra email: unEmail [
 		nombre:= unNombre.

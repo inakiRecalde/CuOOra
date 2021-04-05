@@ -18,7 +18,7 @@ CuOOra class >> clearSoleInstance [
 
 { #category : #accessing }
 CuOOra class >> soleInstance [
-	^ soleInstance
+	^ soleInstance ifNil: [ soleInstance := self new ]
 ]
 
 { #category : #initialization }
