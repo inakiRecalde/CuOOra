@@ -16,7 +16,7 @@ Topico class >> nombre: unNombre descripcion: unaDescripcion [
 
 { #category : #accessing }
 Topico >> esIgualA: unTopico [
- 	^(nombre equals: unTopico).
+ 	^( nombre == unTopico nombre).
 	
 ]
 

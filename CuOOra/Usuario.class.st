@@ -7,7 +7,6 @@ Class {
 		'email',
 		'follows',
 		'misPreguntas',
-		'misRespuestas',
 		'topicoDeInteres'
 	],
 	#category : #'CuOOra-model'
@@ -26,10 +25,9 @@ Usuario >> agregarComentario: unText aPregunta: pregunta [
 	|r|
 	r:= Respuesta text: unText.
 	pregunta agregarRespuesta: r	.
-	misRespuestas add: r.
 ]
 
-{ #category : #accesing }
+{ #category : #'adding/removing' }
 Usuario >> agregarPregunta: unaPregunta [ 
 	misPreguntas add: unaPregunta .
 ]
@@ -97,7 +95,6 @@ Usuario >> follows: anObject [
 Usuario >> initialize [ 
 	follows := Set new.
 	misPreguntas := Set new.
-	misRespuestas  := Set new.
 	topicoDeInteres := 'desconocido'
 ]
 
@@ -109,11 +106,6 @@ Usuario >> misPreguntas [
 { #category : #accessing }
 Usuario >> misPreguntas: anObject [
 	misPreguntas := anObject
-]
-
-{ #category : #accessing }
-Usuario >> misRespuestas: anObject [
-	misRespuestas := anObject
 ]
 
 { #category : #accessing }
@@ -134,6 +126,11 @@ Usuario >> nombre: unNombre contrasena: unaContra email: unEmail [
 ]
 
 { #category : #accesing }
+Usuario >> preguntasDeUnTopico: unTopico [ 
+	^ misPreguntas select: [ :preg | preg preguntaDeTopico: unTopico ] .
+]
+
+{ #category : #accesing }
 Usuario >> preguntasIncluye: unaPregunta [ 
 	^ misPreguntas detect: [ :unaPreg | unaPreg esIgualA: unaPregunta  ]. 
 ]
@@ -145,8 +142,14 @@ Usuario >> preguntasRelevantes: topicos [
 ]
 
 { #category : #accesing }
+Usuario >> puntajeParticipacionesRespuestas [
+	(self respuestasDeUser: self size ) * 50. 
+]
+
+{ #category : #accesing }
 Usuario >> puntajesParticipaciones [ 
-	^ misPreguntas puntajeParticipaciones + misRespuestas puntajeParticipaciones .
+	^ ((misPreguntas sumNumbers: [ :preg | preg puntajeParticipaciones ] * 20)  +  
+		(self puntajeParticipacionesRespuestas )).
 ]
 
 { #category : #'adding/removing' }
@@ -155,8 +158,8 @@ Usuario >> registrarTopicoDeInteres: unTopico [
 ]
 
 { #category : #accesing }
-Usuario >> respuestas [ 
-	^ misRespuestas .
+Usuario >> respuestasDeUser: user [
+	^ misPreguntas collect: [ :preg | preg respuestasDeUser: user ]
 ]
 
 { #category : #'adding/removing' }

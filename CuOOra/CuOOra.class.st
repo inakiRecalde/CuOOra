@@ -51,6 +51,7 @@ CuOOra >> initialize [
 { #category : #accesing }
 CuOOra >> preguntasDeUnTopico: unTopico [ 
 	"al eliminar la relacion bidireccional hay q buscarlos por usuarios/preguntas/topicos"
+	^ usuarios collect: [ :user | user preguntasDeUnTopico: unTopico  ] .
 ]
 
 { #category : #accesing }
@@ -59,11 +60,12 @@ CuOOra >> preguntasRelevantesDeUsuario: usuario [
 ]
 
 { #category : #accesing }
-CuOOra >> respuestasDePreguntas: unaPregunta [
-	 ^ (usuarios detect: [ :user | user preguntasIncluye: unaPregunta ] ) respuestas .
+CuOOra >> respuestasDePregunta: unaPregunta [
+	"FALTA ordenar de manera decreciente por puntaje de likes"
+	 ^ (usuarios collect: [ :user | user preguntasIncluye: unaPregunta ] ) respuestas .
 ]
 
 { #category : #accesing }
 CuOOra >> respuestasDeUsuario: unUsuario [
-	^ unUsuario respuestas .
+	^ usuarios collect: [ :user | user respuestasDeUser: unUsuario  ].
 ]

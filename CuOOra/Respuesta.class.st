@@ -1,11 +1,9 @@
 Class {
 	#name : #Respuesta,
-	#superclass : #Object,
+	#superclass : #Posteo,
 	#instVars : [
 		'text',
-		'fecha',
-		'likes',
-		'dislikes'
+		'user'
 	],
 	#category : #'CuOOra-model'
 }
@@ -16,33 +14,18 @@ Respuesta class >> text: unText [
 ]
 
 { #category : #'adding/removing' }
-Respuesta >> darDislike: unUser [
-	"comprobar si habia dado like" 
-	dislikes add: (Interacciones user: unUser).
-]
-
-{ #category : #'adding/removing' }
-Respuesta >> darLike: unUser [ 
-	"comprobar si habia dado dislike o ya tenia like"
-	likes add: (Interacciones user: unUser).
-]
-
-{ #category : #'adding/removing' }
-Respuesta >> eliminarInteracciones [
-	likes removeAll .
-	dislikes removeAll .
-]
-
-{ #category : #initialization }
-Respuesta >> initialize [ 
-	fecha:= Date new .
-	likes:= Interacciones new.
-	dislikes := Interacciones new. 
+Respuesta >> eliminarRespuestas [ 
+	^self .
 ]
 
 { #category : #accessing }
-Respuesta >> puntajeParticipaciones [
-	^ likes cant - dislikes cant .
+Respuesta >> esDeUser: aUser [
+	^ user equals: aUser .
+]
+
+{ #category : #accessing }
+Respuesta >> respuestaDiferenteAUsuario: aUser [
+	^ user equals: aUser 
 ]
 
 { #category : #accessing }

@@ -55,7 +55,7 @@ WelcomePage >> proceedWith: aUser [
 WelcomePage >> renderContentOn: canvas [
 	canvas paragraph: 'CuOOra'.
 	canvas anchor
-		callback: [  ];
+		callback: [self newUser  ];
 		with: 'Registrarse'.
 	canvas
 		form: [ canvas space.

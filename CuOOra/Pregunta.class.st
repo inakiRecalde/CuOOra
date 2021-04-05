@@ -1,12 +1,9 @@
 Class {
 	#name : #Pregunta,
-	#superclass : #Object,
+	#superclass : #Posteo,
 	#instVars : [
 		'titulo',
 		'descipcion',
-		'fecha',
-		'likes',
-		'dislikes',
 		'respuestas',
 		'topicos'
 	],
@@ -20,38 +17,25 @@ Pregunta >> agregarRespuesta: unaRespuesta [
 
 { #category : #accesing }
 Pregunta >> calcularPuntaje [ 
-	^ ( respuestas size * 50 )
+	^ (respuestas sumNumbers: [ :resp | resp respuestaDiferenteAUsuario: self ] ) * 50 .
 ]
 
 { #category : #'adding/removing' }
-Pregunta >> darDislike: unUser [
-	"comprobar si habia dado like o ya tenia dislike" 
-	"si tenia dislike, sacarlo"
-	"si tenia like, sacarlo y poner like"
-	dislikes add: (Interacciones user: unUser).
-]
-
-{ #category : #'adding/removing' }
-Pregunta >> darLike: unUser [ 
-	"comprobar si habia dado dislike o ya tenia like "
-	"si tenia like sacarlo"
-	"si tenia dislike sacarlo y poner like"
-	likes add: (Interacciones user: unUser).
-]
-
-{ #category : #'adding/removing' }
-Pregunta >> eliminarRespuestas [
-	respuestas do: [ :r | r eliminarInteracciones ] .
+Pregunta >> eliminarRespuestas [ 
 	respuestas removeAll.
 ]
 
 { #category : #initialization }
 Pregunta >> initialize [ 	
-	fecha := DateAndTime today .
-	likes:= Interacciones new.
-	dislikes:= Interacciones new.
 	respuestas:= Set new.
 	topicos:= Set new.
+]
+
+{ #category : #accesing }
+Pregunta >> preguntaDeTopico: unTopico [
+	topicos detect: [ :topico | topico esIgualA: unTopico  ]  
+	ifFound: [ ^true ] 
+	ifNone: [ ^false ] .
 ]
 
 { #category : #accesing }
@@ -62,4 +46,9 @@ Pregunta >> puntajeParticipaciones [
 { #category : #accesing }
 Pregunta >> respuestas [ 
 	^respuestas .
+]
+
+{ #category : #accesing }
+Pregunta >> respuestasDeUser: user [
+	^ respuestas collect: [ :resp | resp esDeUser: user ]
 ]
