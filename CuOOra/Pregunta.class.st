@@ -17,7 +17,8 @@ Pregunta >> agregarRespuesta: unaRespuesta [
 
 { #category : #accesing }
 Pregunta >> calcularPuntaje [ 
-	^ (respuestas sumNumbers: [ :resp | resp respuestaDiferenteAUsuario: self ] ) * 50 .
+	" chequemaos que las respuestas no sean de el, esas no suman puntos"
+	^ (respuestas sumNumbers: [ :resp | resp userDiferenteA: self ] ) * 50 .
 ]
 
 { #category : #'adding/removing' }
@@ -50,5 +51,5 @@ Pregunta >> respuestas [
 
 { #category : #accesing }
 Pregunta >> respuestasDeUser: user [
-	^ respuestas collect: [ :resp | resp esDeUser: user ]
+	^ respuestas collect: [ :resp | resp userIgualA: user ]
 ]

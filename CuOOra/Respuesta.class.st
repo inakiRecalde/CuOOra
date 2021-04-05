@@ -19,16 +19,6 @@ Respuesta >> eliminarRespuestas [
 ]
 
 { #category : #accessing }
-Respuesta >> esDeUser: aUser [
-	^ user equals: aUser .
-]
-
-{ #category : #accessing }
-Respuesta >> respuestaDiferenteAUsuario: aUser [
-	^ user equals: aUser 
-]
-
-{ #category : #accessing }
 Respuesta >> text [
 	^ text
 ]
@@ -36,4 +26,14 @@ Respuesta >> text [
 { #category : #accessing }
 Respuesta >> text: anObject [
 	text := anObject
+]
+
+{ #category : #accessing }
+Respuesta >> userDiferenteA: aUser [
+	^ user equals: aUser not .
+]
+
+{ #category : #accessing }
+Respuesta >> userIgualA: aUser [
+	^ user equals: aUser .
 ]
