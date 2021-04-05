@@ -40,6 +40,16 @@ Usuario >> calcularPuntaje [
 			 (misPreguntas sumNumbers: [ :each | each calcularPuntaje ]) + (self  puntajeParticipaciones) .
 ]
 
+{ #category : #accessing }
+Usuario >> contrasena [
+	^ contrasena
+]
+
+{ #category : #accessing }
+Usuario >> contrasena: anObject [
+	contrasena := anObject
+]
+
 { #category : #accesing }
 Usuario >> darDislike:  posteo [
 	posteo darDislike: self .
@@ -63,12 +73,57 @@ Usuario >> eliminarPregunta: unaPregunta [
 	misPreguntas remove: unaPregunta . 
 ]
 
+{ #category : #accessing }
+Usuario >> email [
+	^ email
+]
+
+{ #category : #accessing }
+Usuario >> email: anObject [
+	email := anObject
+]
+
+{ #category : #accessing }
+Usuario >> follows [
+	^ follows
+]
+
+{ #category : #accessing }
+Usuario >> follows: anObject [
+	follows := anObject
+]
+
 { #category : #initialization }
 Usuario >> initialize [ 
 	follows := Set new.
 	misPreguntas := Set new.
 	misRespuestas  := Set new.
 	topicoDeInteres := 'desconocido'
+]
+
+{ #category : #accessing }
+Usuario >> misPreguntas [
+	^ misPreguntas
+]
+
+{ #category : #accessing }
+Usuario >> misPreguntas: anObject [
+	misPreguntas := anObject
+]
+
+{ #category : #accessing }
+Usuario >> misRespuestas: anObject [
+	misRespuestas := anObject
+]
+
+{ #category : #accessing }
+Usuario >> nombre [
+	^ nombre
+]
+
+{ #category : #accessing }
+Usuario >> nombre: anObject [
+	nombre := anObject
 ]
 
 { #category : #'instance creation' }
@@ -107,4 +162,9 @@ Usuario >> respuestas [
 { #category : #'adding/removing' }
 Usuario >> seguirUser: unUsuario [
 	follows add: unUsuario 
+]
+
+{ #category : #accessing }
+Usuario >> topicoDeInteres [
+	^ topicoDeInteres
 ]

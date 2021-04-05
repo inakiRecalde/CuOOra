@@ -6,5 +6,6 @@ Class {
 
 { #category : #rendering }
 HomePage >> renderContentOn: canvas [
-	canvas paragraph: 'CuOOra'.
+	
+	canvas heading: 'Welcome to CuOOra ' , self session user nombre.
 ]
