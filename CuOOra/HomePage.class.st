@@ -14,6 +14,11 @@ HomePage >> findFriend [
 	self call: FriendsFinderPage new.
 ]
 
+{ #category : #accessing }
+HomePage >> model [
+	^ CuOOra soleInstance
+]
+
 { #category : #rendering }
 HomePage >> renderContentOn: aCanvas [
 	aCanvas heading: 'Welcome to CuOOra'. aCanvas heading
@@ -23,6 +28,9 @@ HomePage >> renderContentOn: aCanvas [
 	self renderPostsOn: aCanvas.
 	aCanvas horizontalRule.
 	self renderFriendsOn: aCanvas.
+	aCanvas horizontalRule .
+	aCanvas text: 'Registro de usuarios'.
+	aCanvas unorderedList: [ self model usuarios do:[:each | aCanvas listItem: each nombre] ] .
 ]
 
 { #category : #rendering }
@@ -51,8 +59,13 @@ HomePage >> renderPostsOn: canvas [
 			level: 2;
 			with: 'Ultimas Preguntas'.
 	canvas 
-			unorderedList: [ ( CuOOra soleInstance preguntasRelevantesDeUsuario: self session user )
-					do: [ :each | canvas listItem: each titulo & (each descripcion) ]].
+			unorderedList: [ ( CuOOra soleInstance preguntasRelevantes: self session user )
+					do: [ :each | canvas listItem: 
+										each titulo & 
+										each descripcion &
+										each likes & 
+										each dislikes  &
+										each user]].
 	canvas anchor 
 			callback: [ self createNewPost ];
 			with: [ canvas button: 'New post' ].

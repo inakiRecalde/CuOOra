@@ -2,9 +2,11 @@ Class {
 	#name : #Posteo,
 	#superclass : #Object,
 	#instVars : [
+		'text',
 		'fecha',
 		'likes',
-		'dislikes'
+		'dislikes',
+		'user'
 	],
 	#category : #'CuOOra-model'
 }
@@ -34,6 +36,11 @@ Posteo >> darLike: aUser [
 		self chequearCol: dislikes user: aUser . ].
 ]
 
+{ #category : #accessing }
+Posteo >> dislikes [
+	^ dislikes
+]
+
 { #category : #'adding/removing' }
 Posteo >> eliminarParticipaciones [
 	likes removeAll .
@@ -46,6 +53,11 @@ Posteo >> eliminarRespuestas [
 	self subclassResponsibility .
 ]
 
+{ #category : #accessing }
+Posteo >> fecha [
+	^ fecha
+]
+
 { #category : #initialization }
 Posteo >> initialize [ 
 	fecha:= DateAndTime now.
@@ -53,7 +65,27 @@ Posteo >> initialize [
 	dislikes := Interacciones new. 
 ]
 
+{ #category : #accessing }
+Posteo >> likes [
+	^ likes
+]
+
 { #category : #accesing }
 Posteo >> puntajeParticipaciones [ 
 	^ likes size - dislikes size 
+]
+
+{ #category : #accessing }
+Posteo >> text [
+	^ text
+]
+
+{ #category : #accessing }
+Posteo >> user [
+	^ user
+]
+
+{ #category : #abstract }
+Posteo >> userPuntaje: aUser [
+	self subclassResponsibility .
 ]

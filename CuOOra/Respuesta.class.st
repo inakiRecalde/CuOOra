@@ -1,10 +1,6 @@
 Class {
 	#name : #Respuesta,
 	#superclass : #Posteo,
-	#instVars : [
-		'text',
-		'user'
-	],
 	#category : #'CuOOra-model'
 }
 
@@ -19,23 +15,10 @@ Respuesta >> eliminarRespuestas [
 ]
 
 { #category : #accessing }
-Respuesta >> text [
-	^ text
-]
-
-{ #category : #accessing }
-Respuesta >> text: anObject [
-	text := anObject
-]
-
-{ #category : #accessing }
-Respuesta >> user [ 
-	^user 
-]
-
-{ #category : #accessing }
-Respuesta >> user: aUser [
-	user:= aUser
+Respuesta >> respuestaDeUserPuntaje: aUser [
+	(user equals: aUser)
+	ifTrue: [ ^ self puntajeParticipaciones  ].
+	^false.
 ]
 
 { #category : #accessing }
@@ -46,4 +29,11 @@ Respuesta >> userDiferenteA: aUser [
 { #category : #accessing }
 Respuesta >> userIgualA: aUser [
 	^ user equals: aUser .
+]
+
+{ #category : #accessing }
+Respuesta >> userPuntaje: aUser [
+	(user equals: aUser)
+	ifTrue: [ ^ self puntajeParticipaciones  ].
+	^false.
 ]

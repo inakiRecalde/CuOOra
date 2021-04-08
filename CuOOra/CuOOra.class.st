@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'usuarios',
-		'topicos'
+		'topicos',
+		'preguntas'
 	],
 	#classInstVars : [
 		'soleInstance'
@@ -43,8 +44,8 @@ CuOOra >> addUsuario: aUser contraseña: aPass email: unMail [
 ]
 
 { #category : #adding }
-CuOOra >> agregarPregunta: unaPregunta aUsuario: user [
-	user agregarPregunta: unaPregunta .
+CuOOra >> agregarPregunta: unaPregunta [
+	preguntas add: unaPregunta.
 ]
 
 { #category : #adding }
@@ -53,26 +54,56 @@ CuOOra >> agregarTopico: unTopico [
 ]
 
 { #category : #accesing }
-CuOOra >> calcularPuntaje: unUsuario [
-	^ unUsuario calcularPuntaje .
-	
+CuOOra >> calcularPuntaje: user [ 
+	|pregUser|
+	pregUser := self preguntasDeUser: user.
+	^ (( pregUser size) * 20) +
+			 (pregUser sumNumbers: [ :each | each calcularPuntaje ]) + (self  puntajeParticipaciones: user) .
+]
+
+{ #category : #accesing }
+CuOOra >> eliminarPregunta: unaPregunta [ 
+	|preg|
+	preg:= preguntas detect: [ :p | p esIgualA: unaPregunta  ] 
+	ifFound: [ (preg preguntaDeUser: unaPregunta user)
+					ifTrue: [ unaPregunta eliminarRespuestas 
+								preguntas remove: unaPregunta  ] ]. 
 ]
 
 { #category : #initialization }
 CuOOra >> initialize [
 	topicos := Set new.
 	usuarios := Set new.
+	preguntas := Set new.
+]
+
+{ #category : #accessing }
+CuOOra >> preguntas [
+	^ preguntas
 ]
 
 { #category : #accesing }
 CuOOra >> preguntasDeUnTopico: unTopico [ 
-	"al eliminar la relacion bidireccional hay q buscarlos por usuarios/preguntas/topicos"
-	^ usuarios collect: [ :user | user preguntasDeUnTopico: unTopico  ] .
+	^ self preguntas select: [ :preg | preg preguntaDeTopico: unTopico ].
 ]
 
 { #category : #accesing }
-CuOOra >> preguntasRelevantesDeUsuario: usuario [
-	^ usuario preguntasRelevantes: topicos.
+CuOOra >> preguntasDeUser: user [
+	^ preguntas select: [ :preg | preg preguntaDeUser: user ].
+]
+
+{ #category : #accesing }
+CuOOra >> preguntasRelevantes: user [
+	|pregRelevantes|
+	pregRelevantes := OrderedCollection new.
+	"pregRelevantes addAll: (self preguntasDeUnTopico: user topicoDeInteres ).
+	pregRelevantes addAll: (user follows collect: [ :follower | self preguntasDeUser: follower ] )."
+	^pregRelevantes .
+]
+
+{ #category : #accesing }
+CuOOra >> puntajeParticipaciones: user [
+	^ preguntas sumNumbers:  [ :preg | preg preguntaDeUserPuntaje: user ].
 ]
 
 { #category : #accesing }

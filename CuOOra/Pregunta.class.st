@@ -3,7 +3,6 @@ Class {
 	#superclass : #Posteo,
 	#instVars : [
 		'titulo',
-		'descripcion',
 		'respuestas',
 		'topicos'
 	],
@@ -38,16 +37,6 @@ Pregunta >> calcularPuntaje [
 	^ (respuestas sumNumbers: [ :resp | resp userDiferenteA: self ] ) * 50 .
 ]
 
-{ #category : #accessing }
-Pregunta >> descripcion [
-	^ descripcion
-]
-
-{ #category : #accessing }
-Pregunta >> descripcion: anObject [
-	descripcion := anObject
-]
-
 { #category : #'adding/removing' }
 Pregunta >> eliminarRespuestas [ 
 	respuestas removeAll.
@@ -64,6 +53,12 @@ Pregunta >> preguntaDeTopico: unTopico [
 	topicos detect: [ :topico | topico esIgualA: unTopico  ]  
 	ifFound: [ ^true ] 
 	ifNone: [ ^false ] .
+]
+
+{ #category : #accesing }
+Pregunta >> preguntaDeUser: aUser [
+	^ user equals: aUser 
+	
 ]
 
 { #category : #accesing }
@@ -99,7 +94,7 @@ Pregunta >> titulo: anObject [
 { #category : #initialization }
 Pregunta >> titulo:title descripcion:desc topicos: top [
 	titulo:= title.
-	descripcion:= desc.
+	text:= desc.
 	topicos add: top.
 ]
 
@@ -111,4 +106,13 @@ Pregunta >> topicos [
 { #category : #accessing }
 Pregunta >> topicos: anObject [
 	topicos add: anObject
+]
+
+{ #category : #accesing }
+Pregunta >> userPuntaje: aUser [
+	(user equals: aUser)
+	ifTrue: [ ^ self puntajeParticipaciones + 
+			respuestas sumNumbers: [ :resp | resp userPuntaje: aUser ]  ]
+	ifFalse:[ ^ respuestas sumNumbers: [ :resp | resp userPuntaje: aUser ] ] 
+	"si es falso la pregunta no es de el y me fijo si hizo comentarios"
 ]
