@@ -48,7 +48,7 @@ Posteo >> eliminarRespuestas [
 
 { #category : #initialization }
 Posteo >> initialize [ 
-	fecha:= DateAndTime today.
+	fecha:= DateAndTime now.
 	likes:= Interacciones new.
 	dislikes := Interacciones new. 
 ]

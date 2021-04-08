@@ -15,7 +15,7 @@ Interacciones class >> user: unUser [
 
 { #category : #initialization }
 Interacciones >> initialize [
-	fecha := DateAndTime today.
+	fecha := DateAndTime now.
 ]
 
 { #category : #accessing }

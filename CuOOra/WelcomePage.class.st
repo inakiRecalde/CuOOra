@@ -2,37 +2,33 @@ Class {
 	#name : #WelcomePage,
 	#superclass : #WAComponent,
 	#instVars : [
-		'user',
+		'email',
 		'pass'
 	],
 	#category : #'CuOOra-ui'
 }
 
+{ #category : #accessing }
+WelcomePage >> email [
+	^ email
+]
+
+{ #category : #accessing }
+WelcomePage >> email: anObject [
+	email := anObject
+]
+
 { #category : #callbacks }
 WelcomePage >> loguear [
-	"(self model userWithUser: user protectedBy: password)
+	(self model usuario: email protectedBy: pass)
 		ifNotNil: [ :it | self proceedWith: it ].
-	user := nil.
-	password := nil"
-	| usuario |
-	usuario := Usuario nombre: user contrasena: pass  email: 'jorge'.
-	self model addUsuario: usuario.
-	self proceedWith: usuario
-	
-	
+	email := nil.
+	pass := nil.
 ]
 
 { #category : #model }
 WelcomePage >> model [
 	^ CuOOra soleInstance
-]
-
-{ #category : #callbacks }
-WelcomePage >> newUser [
-	| registro |
-	registro= RegisterPage user: Usuario new.
-	self call: registro.
-	"registro user ifNotNil:  [ #group addUser: registro user]"
 ]
 
 { #category : #accessing }
@@ -47,53 +43,42 @@ WelcomePage >> pass: anObject [
 
 { #category : #private }
 WelcomePage >> proceedWith: aUser [
-	self session user: aUser.
-	self call: HomePage new
+	self session user: aUser. 
+	self call: HomePage new.
+]
+
+{ #category : #callbacks }
+WelcomePage >> registerNewUser [
+	self call: RegisterPage new.
 ]
 
 { #category : #rendering }
 WelcomePage >> renderContentOn: canvas [
-	canvas paragraph: 'CuOOra'.
-	canvas anchor
-		callback: [self newUser  ];
-		with: 'Registrarse'.
-	canvas
-		form: [ canvas space.
-			canvas space.
-			canvas space.
-			canvas
-				paragraph: [ canvas space.
-					canvas space.
-					canvas space.
-					canvas space.
-					canvas space.
-					canvas space.
-					canvas space.
-					canvas space.
-					canvas label: 'Usuario: '.
-					canvas textInput on: #user of: self ].
-			canvas
-				paragraph: [ canvas space.
-					canvas space.
-					canvas space.
-					canvas space.
-					canvas space.
-					canvas space.
-					canvas space.
-					canvas space.
-					canvas label: 'Contraseña: '.
-					canvas passwordInput on: #pass of: self ].
+	canvas heading: 'CuOOra'.
+	canvas horizontalRule .
+		canvas
+		form: [
+			self renderInputElementsOn: canvas.
 			canvas button
 				callback: [ self loguear ];
-				with: 'Iniciar sesion' ]
+				with: 'Iniciar sesion' .
+			canvas button
+				callback: [ self registerNewUser ];
+				with: 'Registrarse' ]
+	
 ]
 
-{ #category : #accessing }
-WelcomePage >> user [
-	^ user
+{ #category : #rendering }
+WelcomePage >> renderInputElementsOn: aCanvas [
+	aCanvas label: 'Email'.
+	aCanvas paragraph: [ aCanvas textInput on: #email of: self ].
+	aCanvas label: 'Password'.
+	aCanvas paragraph: [ aCanvas passwordInput on: #pass of: self ]
 ]
 
-{ #category : #accessing }
-WelcomePage >> user: anObject [
-	user := anObject
+{ #category : #rendering }
+WelcomePage >> renderSignUpButtonOn: aCanvas [
+	aCanvas submitButton
+		callback: [ self registerNewUser ];
+		with: 'Registrarse'.
 ]

@@ -29,6 +29,16 @@ Respuesta >> text: anObject [
 ]
 
 { #category : #accessing }
+Respuesta >> user [ 
+	^user 
+]
+
+{ #category : #accessing }
+Respuesta >> user: aUser [
+	user:= aUser
+]
+
+{ #category : #accessing }
 Respuesta >> userDiferenteA: aUser [
 	^ user equals: aUser not .
 ]

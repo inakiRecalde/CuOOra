@@ -13,7 +13,7 @@ Class {
 
 { #category : #accessing }
 CuOOra class >> clearSoleInstance [
-	soleInstance:=nil
+	soleInstance:= nil
 ]
 
 { #category : #accessing }
@@ -24,6 +24,22 @@ CuOOra class >> soleInstance [
 { #category : #initialization }
 CuOOra >> addUsuario: aUser [
 	usuarios add: aUser
+]
+
+{ #category : #initialization }
+CuOOra >> addUsuario: aUser contraseña: aPass [
+	|u|
+	u:= Usuario nombre: aUser contrasena: aPass.
+	usuarios add: u. 
+	
+]
+
+{ #category : #initialization }
+CuOOra >> addUsuario: aUser contraseña: aPass email: unMail [
+	|u|
+	u:= Usuario nombre: aUser contrasena: aPass email: unMail.
+	usuarios add: u. 
+	
 ]
 
 { #category : #adding }
@@ -68,4 +84,21 @@ CuOOra >> respuestasDePregunta: unaPregunta [
 { #category : #accesing }
 CuOOra >> respuestasDeUsuario: unUsuario [
 	^ usuarios collect: [ :user | user respuestasDeUser: unUsuario  ].
+]
+
+{ #category : #accessing }
+CuOOra >> topicos [
+	^ topicos
+]
+
+{ #category : #utilities }
+CuOOra >> usuario: unEmail protectedBy: contraseña [
+	^ usuarios
+		detect: [ :each | each email = unEmail & (each contrasena  = contraseña ) ]
+		ifNone: [ nil ].
+]
+
+{ #category : #accessing }
+CuOOra >> usuarios [
+	^ usuarios
 ]

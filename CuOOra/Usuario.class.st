@@ -13,11 +13,20 @@ Class {
 }
 
 { #category : #'instance creation' }
-Usuario class >> nombre: unNombre contrasena: unaContra email: unEmail [
+Usuario class >> nombre: unNombre contrasena: unaContra [
+		^ self new
+		nombre: unNombre
+		contrasena: unaContra
+		yourself 
+]
+
+{ #category : #'instance creation' }
+Usuario class >> nombre: unNombre contrasena: unaContra email: unMail [.
 	^ self new
 		nombre: unNombre
 		contrasena: unaContra
-		email: unEmail yourself
+		email: unMail
+		yourself
 ]
 
 { #category : #'adding/removing' }
@@ -104,11 +113,6 @@ Usuario >> misPreguntas [
 ]
 
 { #category : #accessing }
-Usuario >> misPreguntas: anObject [
-	misPreguntas := anObject
-]
-
-{ #category : #accessing }
 Usuario >> nombre [
 	^ nombre
 ]
@@ -119,10 +123,16 @@ Usuario >> nombre: anObject [
 ]
 
 { #category : #'instance creation' }
-Usuario >> nombre: unNombre contrasena: unaContra email: unEmail [
+Usuario >> nombre: unNombre contrasena: unaContra [
+	nombre:= unNombre.
+	contrasena:= unaContra
+]
+
+{ #category : #'instance creation' }
+Usuario >> nombre: unNombre contrasena: unaContra email: unMail [
 		nombre:= unNombre.
 		contrasena:= unaContra.
-		email:= unEmail.
+		email:= unMail.
 ]
 
 { #category : #accesing }
@@ -137,8 +147,9 @@ Usuario >> preguntasIncluye: unaPregunta [
 
 { #category : #accesing }
 Usuario >> preguntasRelevantes: topicos [
-	^ (topicos select: [ :topico | topico esIgualA: topicoDeInteres  ]) preguntas.
-	
+	^misPreguntas . 
+	"(topicos select: [ :topico | topico esIgualA: topicoDeInteres  ]) 
+	   add: (follows select: [ :fol | fol misPreguntas ]))  preguntas."
 ]
 
 { #category : #accesing }
@@ -164,7 +175,8 @@ Usuario >> respuestasDeUser: user [
 
 { #category : #'adding/removing' }
 Usuario >> seguirUser: unUsuario [
-	follows add: unUsuario 
+	(follows includes: unUsuario )
+	ifFalse: [ follows add: unUsuario ]
 ]
 
 { #category : #accessing }
