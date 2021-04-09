@@ -7,17 +7,17 @@ Class {
 	#category : #'CuOOra-ui'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 SessionWithUser >> isLoggedIn [
     ^ user isNil not
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 SessionWithUser >> login: aString [
     user := aString
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 SessionWithUser >> logout [
     user := nil
 ]
