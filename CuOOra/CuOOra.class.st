@@ -24,11 +24,10 @@ CuOOra class >> soleInstance [
 
 { #category : #initialization }
 CuOOra >> addUsuario: aUser [
-	[ usuarios
-		detect:
-			[ :user | user email = aUser email | (user nombre = aUser nombre) ]
-		ifNone: [ nil ] ] ifNil: [ usuarios add: aUser ]
-	"usuarios add: aUser."
+		^ usuarios
+		detect: [ :each | 
+			each email = aUser email | (each nombre = aUser nombre) ]
+		ifNone: [  usuarios add: aUser].
 ]
 
 { #category : #adding }
@@ -80,6 +79,14 @@ CuOOra >> preguntas [
 ]
 
 { #category : #accesing }
+CuOOra >> preguntasDeSeguidores: follows [
+	|pregs|
+	pregs:= OrderedCollection new.
+	follows do: [ :each | pregs addAll: (self preguntasDeUser: each) ] .
+	^pregs.
+]
+
+{ #category : #accesing }
 CuOOra >> preguntasDeUnTopico: unTopico [ 
 	^ self preguntas select: [ :preg | preg preguntaDeTopico: unTopico ].
 ]
@@ -92,9 +99,9 @@ CuOOra >> preguntasDeUser: user [
 { #category : #accesing }
 CuOOra >> preguntasRelevantes: user [
 	|pregRelevantes|
-	pregRelevantes := OrderedCollection new.
+	pregRelevantes := Set new.
 	pregRelevantes addAll: (self preguntasDeUnTopico: user topicoDeInteres ).
-	"pregRelevantes addAll: (user follows collect: [ :follower | self preguntasDeUser: follower ] )."
+	pregRelevantes addAll: (self preguntasDeSeguidores: user follows ).
 	^pregRelevantes.
 ]
 

@@ -5,8 +5,8 @@ Class {
 }
 
 { #category : #constructor }
-Respuesta class >> text: unText [
-	^ self new text: unText .
+Respuesta class >> text: unText user: aUser [
+	^ self new text: unText user: aUser .
 ]
 
 { #category : #'adding/removing' }
@@ -19,6 +19,12 @@ Respuesta >> respuestaDeUserPuntaje: aUser [
 	(user equals: aUser)
 	ifTrue: [ ^ self puntajeParticipaciones  ].
 	^false.
+]
+
+{ #category : #constructor }
+Respuesta >> text: aText user: aUser [  
+	text:= aText .
+	user:= aUser . 
 ]
 
 { #category : #accessing }

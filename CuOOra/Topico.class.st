@@ -19,6 +19,12 @@ Topico >> esIgualA: unTopico [
 	
 ]
 
+{ #category : #construction }
+Topico >> initialize [ 
+	nombre := ''.
+	descripcion := ''.
+]
+
 { #category : #accessing }
 Topico >> nombre [
 	^nombre .

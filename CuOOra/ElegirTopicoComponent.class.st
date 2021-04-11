@@ -56,9 +56,11 @@ ElegirTopicoComponent >> renderTopicosOn: aCanvas [
 	aCanvas unorderedList: [ 
 			CuOOra soleInstance
 					topicos 
-							do: [ :each | aCanvas anchor 
+							do: [ :each |
+								 aCanvas listItem: [
+											aCanvas anchor 
 											callback: [ self seleccionarTopico: each ];
-												with: each nombre ] ].
+											with: each nombre ] ]].
 ]
 
 { #category : #callback }

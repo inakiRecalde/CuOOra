@@ -61,8 +61,8 @@ Posteo >> fecha [
 { #category : #initialization }
 Posteo >> initialize [ 
 	fecha:= DateAndTime now.
-	likes:= Interacciones new.
-	dislikes := Interacciones new. 
+	likes:= OrderedCollection  new.
+	dislikes := OrderedCollection new. 
 ]
 
 { #category : #accessing }

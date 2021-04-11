@@ -21,7 +21,7 @@ HomePage >> findFriend [
 
 { #category : #accessing }
 HomePage >> model [
-	^ CuOOra soleInstance
+	^ CuOOra soleInstance.
 ]
 
 { #category : #callback }
@@ -77,9 +77,19 @@ HomePage >> renderPostsOn: canvas [
 	canvas 
 			unorderedList: [ 
 				( self session model preguntasRelevantes: self session user )
-				do: [ :each |  (canvas anchor 
-										callback:[];
-										with: each titulo) ]].
+				do: [ :each |  
+					canvas listItem: [ 
+								(canvas anchor 
+								callback:[(self verPregunta: each)];
+								with: each titulo).
+							   canvas space.
+								canvas text: 'Realizada por: ',  each user nombre.
+								canvas space.
+								canvas text:'Respuestas: ' .
+								canvas space.
+								canvas text:'Likes: '.
+								canvas space.
+								canvas text:'Dislikes: ']]].
 	canvas anchor 
 			callback: [ self createNewPost ];
 			with: [ canvas button: 'New post' ].
@@ -91,4 +101,9 @@ HomePage >> renderTopicoInteresOn: aCanvas [
 			paragraph:  [ aCanvas anchor
 							callback: [ self elegirTopico ];
 							with: [aCanvas button with: 'Elegir Topico de Interes' . ]]	
+]
+
+{ #category : #callback }
+HomePage >> verPregunta: unaPregunta [ 
+	self call: (PreguntaComponent pregunta: unaPregunta ).
 ]

@@ -12,7 +12,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-Usuario class >> nombre: unNombre contrasena: unaContra email: unMail [.
+Usuario class >> nombre: unNombre contrasena: unaContra email: unMail [
 	^ self new
 		nombre: unNombre
 		contrasena: unaContra
@@ -64,6 +64,11 @@ Usuario >> email: anObject [
 	email := anObject
 ]
 
+{ #category : #accesing }
+Usuario >> emailIgual: aUserEmail [
+	^ email == aUserEmail .
+]
+
 { #category : #accessing }
 Usuario >> follows [
 	^ follows
@@ -77,6 +82,7 @@ Usuario >> follows: anObject [
 { #category : #initialization }
 Usuario >> initialize [ 
 	follows := Set new.
+	topicoDeInteres := Topico new.
 ]
 
 { #category : #accessing }
@@ -94,6 +100,11 @@ Usuario >> nombre: unNombre contrasena: unaContra email: unMail [
 		nombre:= unNombre.
 		contrasena:= unaContra.
 		email:= unMail.
+]
+
+{ #category : #accesing }
+Usuario >> nombreIgual: aUserNombre [
+	^ nombre == aUserNombre.
 ]
 
 { #category : #accesing }

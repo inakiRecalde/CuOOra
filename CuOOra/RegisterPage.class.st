@@ -22,6 +22,7 @@ RegisterPage >> register [
 	| theUser |
 	theUser := Usuario nombre: name contrasena: pass email: email.
 	self session model addUsuario: theUser.
+	"pordria evaluar que retorna addUsuario y mostrar cartel de user registrado ?"
 	self answer .
 ]
 
