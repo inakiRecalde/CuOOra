@@ -189,8 +189,10 @@ CuOOra >> topicos [
 { #category : #utilities }
 CuOOra >> usuario: unEmail protectedBy: contraseña [
 	^ usuarios
-		detect: [ :each | (each email = unEmail) |  (each nombre = unEmail ) & (each contrasena  = contraseña ) ]
-		ifNone: [ nil ].
+		detect: [ :each | 
+			each email = unEmail | (each nombre = unEmail)
+				& (each contrasena = contraseña) ]
+		ifNone: [ nil ]
 ]
 
 { #category : #accessing }
