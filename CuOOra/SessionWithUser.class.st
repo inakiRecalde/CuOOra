@@ -23,6 +23,11 @@ SessionWithUser >> logout [
 ]
 
 { #category : #accessing }
+SessionWithUser >> model [
+	^ CuOOra soleInstance
+]
+
+{ #category : #accessing }
 SessionWithUser >> user [
 	^ user
 ]

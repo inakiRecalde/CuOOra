@@ -62,9 +62,7 @@ WelcomePage >> renderContentOn: canvas [
 			canvas button
 				callback: [ self loguear ];
 				with: 'Iniciar sesion' .
-			canvas button
-				callback: [ self registerNewUser ];
-				with: 'Registrarse' ]
+			self renderSignUpButtonOn: canvas ]
 	
 ]
 

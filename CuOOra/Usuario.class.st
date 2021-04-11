@@ -12,14 +12,6 @@ Class {
 }
 
 { #category : #'instance creation' }
-Usuario class >> nombre: unNombre contrasena: unaContra [
-		^ self new
-		nombre: unNombre
-		contrasena: unaContra
-		yourself 
-]
-
-{ #category : #'instance creation' }
 Usuario class >> nombre: unNombre contrasena: unaContra email: unMail [.
 	^ self new
 		nombre: unNombre

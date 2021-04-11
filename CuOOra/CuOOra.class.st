@@ -24,23 +24,7 @@ CuOOra class >> soleInstance [
 
 { #category : #initialization }
 CuOOra >> addUsuario: aUser [
-	usuarios add: aUser
-]
-
-{ #category : #initialization }
-CuOOra >> addUsuario: aUser contraseña: aPass [
-	|u|
-	u:= Usuario nombre: aUser contrasena: aPass.
-	usuarios add: u. 
-	
-]
-
-{ #category : #initialization }
-CuOOra >> addUsuario: aUser contraseña: aPass email: unMail [
-	|u|
-	u:= Usuario nombre: aUser contrasena: aPass email: unMail.
-	usuarios add: u. 
-	
+	usuarios add: aUser.
 ]
 
 { #category : #adding }
@@ -59,6 +43,13 @@ CuOOra >> calcularPuntaje: user [
 	pregUser := self preguntasDeUser: user.
 	^ (( pregUser size) * 20) +
 			 (pregUser sumNumbers: [ :each | each calcularPuntaje ]) + (self  puntajeParticipaciones: user) .
+]
+
+{ #category : #accesing }
+CuOOra >> elegirTopicoInteres: aUser topico: topico [ 
+	topicos add: topico.
+	aUser agregarTopico: topico.
+
 ]
 
 { #category : #accesing }
@@ -94,8 +85,12 @@ CuOOra >> preguntasDeUser: user [
 
 { #category : #accesing }
 CuOOra >> preguntasRelevantes: user [
-	|pregRelevantes|
+	|pregRelevantes u p|
 	pregRelevantes := OrderedCollection new.
+	u:= Usuario nombre: 'alberto' contrasena: '123'email: 'aa'.
+	p:= Pregunta titulo: 'primer preg' descripcion:'a'  topicos:'a'  user: u.
+	pregRelevantes add: p.
+	
 	"pregRelevantes addAll: (self preguntasDeUnTopico: user topicoDeInteres ).
 	pregRelevantes addAll: (user follows collect: [ :follower | self preguntasDeUser: follower ] )."
 	^pregRelevantes .

@@ -10,6 +10,11 @@ HomePage >> createNewPost [
 ]
 
 { #category : #callback }
+HomePage >> elegirTopico [
+	self call: ElegirTopicoComponent new.
+]
+
+{ #category : #callback }
 HomePage >> findFriend [
 	self call: FriendsFinderPage new.
 ]
@@ -19,15 +24,24 @@ HomePage >> model [
 	^ CuOOra soleInstance
 ]
 
+{ #category : #callback }
+HomePage >> perfilUser [
+	self call: PerfilUserComponent new.
+]
+
 { #category : #rendering }
 HomePage >> renderContentOn: aCanvas [
-	aCanvas heading: 'Welcome to CuOOra'. aCanvas heading
-				level: 2;
-				with: self session user nombre. self renderLogoutButtonOn: aCanvas.
+	aCanvas heading: 'Welcome to CuOOra'. 
+	aCanvas anchor
+			callback: [ self perfilUser];
+			with: self session user nombre.
+	self renderLogoutButtonOn: aCanvas.
 	aCanvas horizontalRule.
 	self renderPostsOn: aCanvas.
 	aCanvas horizontalRule.
 	self renderFriendsOn: aCanvas.
+	aCanvas horizontalRule .
+	self renderTopicoInteresOn: aCanvas.
 	aCanvas horizontalRule .
 	aCanvas text: 'Registro de usuarios'.
 	aCanvas unorderedList: [ self model usuarios do:[:each | aCanvas listItem: each nombre] ] .
@@ -59,14 +73,22 @@ HomePage >> renderPostsOn: canvas [
 			level: 2;
 			with: 'Ultimas Preguntas'.
 	canvas 
-			unorderedList: [ ( CuOOra soleInstance preguntasRelevantes: self session user )
-					do: [ :each | canvas listItem: 
-										each titulo & 
-										each descripcion &
-										each likes & 
-										each dislikes  &
-										each user]].
+			unorderedList: [ ( self session model preguntasRelevantes: self session user )
+					do: [ :each |  (canvas anchor 
+										callback:[];
+										with: each titulo).
+										canvas listItem: 
+										each topicos]].
 	canvas anchor 
 			callback: [ self createNewPost ];
 			with: [ canvas button: 'New post' ].
+]
+
+{ #category : #rendering }
+HomePage >> renderTopicoInteresOn: aCanvas [
+		aCanvas
+		form: [
+			aCanvas button
+				callback: [ self elegirTopico ];
+				with: 'Elegir Topico de Interes' . ]
 ]

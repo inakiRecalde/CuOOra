@@ -10,19 +10,12 @@ Class {
 }
 
 { #category : #constructor }
-Pregunta class >> titulo:title descripcion:desc [
-	^self new 
-	titulo: title
-	descripcion: desc
-	yourself .
-]
-
-{ #category : #constructor }
-Pregunta class >> titulo:title descripcion:desc topicos: top [
+Pregunta class >> titulo:title descripcion:desc topicos: top user: aUser [
 	^self new 
 	titulo: title
 	descripcion: desc
 	topicos: top
+	user: aUser
 	yourself .
 ]
 
@@ -57,7 +50,7 @@ Pregunta >> preguntaDeTopico: unTopico [
 
 { #category : #accesing }
 Pregunta >> preguntaDeUser: aUser [
-	^ user equals: aUser 
+	^ user == aUser 
 	
 ]
 
@@ -96,6 +89,14 @@ Pregunta >> titulo:title descripcion:desc topicos: top [
 	titulo:= title.
 	text:= desc.
 	topicos add: top.
+]
+
+{ #category : #initialization }
+Pregunta >> titulo:title descripcion:desc topicos: top user: aUser [
+	titulo:= title.
+	text:= desc.
+	topicos addAll: top.
+	user:= aUser.
 ]
 
 { #category : #accessing }

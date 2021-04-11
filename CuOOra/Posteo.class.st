@@ -85,6 +85,11 @@ Posteo >> user [
 	^ user
 ]
 
+{ #category : #accessing }
+Posteo >> user: anObject [
+	user := anObject
+]
+
 { #category : #abstract }
 Posteo >> userPuntaje: aUser [
 	self subclassResponsibility .

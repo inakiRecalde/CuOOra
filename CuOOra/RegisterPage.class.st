@@ -21,7 +21,7 @@ RegisterPage >> name: anObject [
 RegisterPage >> register [
 	| theUser |
 	theUser := Usuario nombre: name contrasena: pass email: email.
-	self model addUsuario: theUser.
+	self session model addUsuario: theUser.
 	self answer .
 ]
 
