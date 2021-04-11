@@ -19,7 +19,7 @@ CuOOra class >> clearSoleInstance [
 
 { #category : #accessing }
 CuOOra class >> soleInstance [
-	^ soleInstance ifNil: [ soleInstance := self new ]
+	^ soleInstance ifNil: [ soleInstance := self new. ]
 ]
 
 { #category : #initialization }
@@ -34,7 +34,8 @@ CuOOra >> agregarPregunta: unaPregunta [
 
 { #category : #adding }
 CuOOra >> agregarTopico: unTopico [
-	topicos add: unTopico.
+	topicos detect: [ :topic | topic esIgualA: unTopico ]
+	 ifNone:[topicos add: unTopico]
 ]
 
 { #category : #accesing }
@@ -86,54 +87,76 @@ CuOOra >> preguntasDeUser: user [
 
 { #category : #accesing }
 CuOOra >> preguntasRelevantes: user [
-	|pregRelevantes u p|
+	|pregRelevantes|
 	pregRelevantes := OrderedCollection new.
-	u:= Usuario nombre: 'alberto' contrasena: '123'email: 'aa'.
-	p:= Pregunta titulo: 'primer preg' descripcion:'a'  topicos:'a'  user: u.
-	pregRelevantes add: p.
-	
-	"pregRelevantes addAll: (self preguntasDeUnTopico: user topicoDeInteres ).
-	pregRelevantes addAll: (user follows collect: [ :follower | self preguntasDeUser: follower ] )."
-	^pregRelevantes .
+	pregRelevantes addAll: (self preguntasDeUnTopico: user topicoDeInteres ).
+	"pregRelevantes addAll: (user follows collect: [ :follower | self preguntasDeUser: follower ] )."
+	^pregRelevantes.
 ]
 
 { #category : #initialization }
 CuOOra >> pruebas [
 
-| theUser preg|
+| theUser messi ronaldo preg topic|
+	
+	"Nuevo topic"
+	topic := Topico nombre:'Futbol' descripcion:'todo sobre futbol' .
+	self agregarTopico: topic.
 	"Nuevo usuario"
-	theUser := Usuario nombre: 'Messi' contrasena: 'pass1' email: 'Messi@gmail.com'.
-	preg :=Pregunta titulo: 'Me voy del barsa?' descripcion: 'Que dicen gente, me voy al city aunque se vaya el kun o me voy con neymar al psg???' topicos: 'Futbol' user:'Messi'.
-	self addUsuario: theUser.
+	messi := Usuario nombre: 'Messi' contrasena: 'pass1' email: 'Messi@gmail.com'.
+	"nueva preg"
+	preg :=Pregunta titulo: 'Me voy del barsa?' descripcion: 'Que dicen gente, me voy al city aunque se vaya el kun o me voy con neymar al psg???' topicos: topic user: messi .
+	
+	self addUsuario: messi.
 	self agregarPregunta: preg.
 	
 	"Nuevo usuario"
-	theUser := Usuario nombre: 'Ronaldo' contrasena: 'pass2' email: 'Ronaldo@gmail.com'.
-	preg :=Pregunta titulo: 'Que dicen sigo en la juve?' descripcion: 'Fua chaval es que no se si irme con messi al psg y que nos vean juntos o si me quedo en la aburrida liga italiana. 100 likes y me voy!!!' topicos: 'Futbol' user:'Ronaldo'.
-	self addUsuario: theUser.
+	
+	ronaldo := Usuario nombre: 'Ronaldo' contrasena: 'pass2' email: 'Ronaldo@gmail.com'.
+	preg :=Pregunta titulo: 'Que dicen sigo en la juve?' descripcion: 'Fua chaval es que no se si irme con messi al psg y que nos vean juntos o si me quedo en la aburrida liga italiana. 100 likes y me voy!!!' topicos: topic user: ronaldo .
+	self addUsuario: ronaldo.
 	self agregarPregunta: preg.
 	
+		
 	"Nuevo usuario"
+		theUser := Usuario nombre: 'Aguero' contrasena: 'pass5' email: 'Aguero@gmail.com'.
+	preg :=Pregunta titulo: 'Encuesta gente' descripcion: 'Psg con messi? o sigo stremeando??? los del rojo sigan esperando jaja' topicos: topic user: theUser .
+		theUser topicoDeInteres: topic.
+		self addUsuario: theUser .
+		self agregarPregunta: preg.
+		
+		theUser seguirUser: messi.
+		theUser  seguirUser: ronaldo.
+	
+	"Nuevo topic"
+	
+	topic := Topico nombre:'Politica' descripcion:'todo sobre politica' .
+	self agregarTopico: topic.
+	
+		"Nuevo usuario"
 	theUser := Usuario nombre: 'Obama' contrasena: 'pass3' email: 'Obama@gmail.com'.
-	preg :=Pregunta titulo: 'Did you buy my new book?' descripcion: 'I just released my new book on the secret passages of the white house and a 30% discount offer !!' topicos: 'Politica' user:'Obama'.
+	preg :=Pregunta titulo: 'Did you buy my new book?' descripcion: 'I just released my new book on the secret passages of the white house and a 30% discount offer !!' topicos: topic user: theUser .
 	self addUsuario: theUser.
 	self agregarPregunta: preg.
 	
 	"Nuevo usuario"
 	theUser := Usuario nombre: 'Trump' contrasena: 'pass4' email: 'Trump@gmail.com'.
-	preg :=Pregunta titulo: 'Help me now !' descripcion: 'Does anyone know where to buy orange paint?' topicos: 'Politica' user:'Trump'.
+	preg :=Pregunta titulo: 'Help me now !' descripcion: 'Does anyone know where to buy orange paint?' topicos: topic  user: theUser .
 	self addUsuario: theUser.
 	self agregarPregunta: preg.
 	
-	"Nuevo usuario"
-	theUser := Usuario nombre: 'Aguero' contrasena: 'pass5' email: 'Aguero@gmail.com'.
-	preg :=Pregunta titulo: 'Encuesta gente' descripcion: 'Psg con messi? o sigo stremeando??? los del rojo sigan esperando jaja' topicos: 'Futbol' user:'Ronaldo'.
 	self addUsuario: theUser.
 	self agregarPregunta: preg.
 	"Nuevo usuario"
 	theUser := Usuario nombre: 'admin' contrasena: 'admin' email: 'admin@gmail.com'.
 	self addUsuario: theUser.
-
+	
+	"Topicos"
+	topic := Topico nombre:'Futbol' descripcion:'todo sobre futbol' .
+	self agregarTopico: topic.
+	topic := Topico nombre:'Politica' descripcion:'todo sobre politica' .
+	self agregarTopico: topic.
+	
 ]
 
 { #category : #accesing }

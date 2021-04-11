@@ -45,6 +45,8 @@ HomePage >> renderContentOn: aCanvas [
 	aCanvas horizontalRule .
 	aCanvas text: 'Registro de usuarios'.
 	aCanvas unorderedList: [ self model usuarios do:[:each | aCanvas listItem: each nombre] ] .
+		aCanvas text: 'topicos'.
+	aCanvas unorderedList: [ self model topicos do:[:each | aCanvas listItem: each nombre] ] .
 ]
 
 { #category : #rendering }
@@ -53,7 +55,7 @@ HomePage >> renderFriendsOn: aCanvas [
 		level: 2;
 		with: 'Friends'.
 	aCanvas
-		unorderedList: [ self session user follows do: [ :each | aCanvas listItem: each name ] ].
+		unorderedList: [ self session user follows do: [ :each | aCanvas listItem: each nombre ] ].
 	aCanvas anchor
 		callback: [ self findFriend ];
 		with: [ aCanvas button: 'Find friends' ]
@@ -73,12 +75,11 @@ HomePage >> renderPostsOn: canvas [
 			level: 2;
 			with: 'Ultimas Preguntas'.
 	canvas 
-			unorderedList: [ ( self session model preguntasRelevantes: self session user )
-					do: [ :each |  (canvas anchor 
+			unorderedList: [ 
+				( self session model preguntasRelevantes: self session user )
+				do: [ :each |  (canvas anchor 
 										callback:[];
-										with: each titulo).
-										canvas listItem: 
-										each topicos]].
+										with: each titulo) ]].
 	canvas anchor 
 			callback: [ self createNewPost ];
 			with: [ canvas button: 'New post' ].
@@ -86,9 +87,8 @@ HomePage >> renderPostsOn: canvas [
 
 { #category : #rendering }
 HomePage >> renderTopicoInteresOn: aCanvas [
-		aCanvas
-		form: [
-			aCanvas button
-				callback: [ self elegirTopico ];
-				with: 'Elegir Topico de Interes' . ]
+		aCanvas 
+			paragraph:  [ aCanvas anchor
+							callback: [ self elegirTopico ];
+							with: [aCanvas button with: 'Elegir Topico de Interes' . ]]	
 ]

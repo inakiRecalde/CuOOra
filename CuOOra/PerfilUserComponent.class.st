@@ -15,7 +15,7 @@ PerfilUserComponent >> renderPreguntasOn: aCanvas [
 	aCanvas text: 'Mis preguntas'.
 	aCanvas unorderedList: [ 
 			(CuOOra soleInstance preguntasDeUser: self session user)
-										do: [ :each | aCanvas anchor 
+										do: [ :each | aCanvas space. aCanvas anchor 
 													callback: [];
 													with: each titulo ] ] .
 ]

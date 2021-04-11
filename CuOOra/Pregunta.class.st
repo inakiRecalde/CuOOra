@@ -95,7 +95,7 @@ Pregunta >> titulo:title descripcion:desc topicos: top [
 Pregunta >> titulo:title descripcion:desc topicos: top user: aUser [
 	titulo:= title.
 	text:= desc.
-	topicos addAll: top.
+	topicos add: top.
 	user:= aUser.
 ]
 

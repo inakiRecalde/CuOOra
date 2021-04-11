@@ -3,8 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'nombre',
-		'descripcion',
-		'preguntas'
+		'descripcion'
 	],
 	#category : #'CuOOra-model'
 }
@@ -29,9 +28,4 @@ Topico >> nombre [
 Topico >> nombre: unNombre descripcion: unaDescripcion [ 
 	nombre:= unNombre .
 	descripcion:= unaDescripcion.
-]
-
-{ #category : #accessing }
-Topico >> preguntas [
-	^preguntas .
 ]

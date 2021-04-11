@@ -97,12 +97,6 @@ Usuario >> nombre: unNombre contrasena: unaContra email: unMail [
 ]
 
 { #category : #accesing }
-Usuario >> preguntasRelevantes: topicos [
-	"(topicos select: [ :topico | topico esIgualA: topicoDeInteres  ]) 
-	   add: (follows collect: [ :fol | fol misPreguntas ]))  preguntas."
-]
-
-{ #category : #accesing }
 Usuario >> puntajeParticipacionesRespuestas [
 	(self respuestasDeUser: self size ) * 50. 
 ]

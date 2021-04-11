@@ -8,6 +8,15 @@ Class {
 	#category : #'CuOOra-ui'
 }
 
+{ #category : #callback }
+ElegirTopicoComponent >> crearTopico [
+	|topic|
+	topic:= Topico nombre: topico descripcion: descripcion .
+	CuOOra soleInstance agregarTopico: topic.
+	self session user topicoDeInteres: topic.
+	self answer .
+]
+
 { #category : #accessing }
 ElegirTopicoComponent >> descripcion [
 	^ descripcion
@@ -20,20 +29,17 @@ ElegirTopicoComponent >> descripcion: anObject [
 
 { #category : #rendering }
 ElegirTopicoComponent >> renderButtonsOn:  aCanvas [
-		|newTopic|
-		newTopic := Topico nombre: topico descripcion: descripcion . 
-		aCanvas submitButton
-		callback: [ CuOOra soleInstance elegirTopicoInteres: self session user topico: newTopic ];
-		with: 'Crear topico'.
+			aCanvas 
+			paragraph:  [ aCanvas anchor
+							callback: [ self crearTopico ];
+							with: [aCanvas button with: 'Crear topico' ]]	
 ]
 
 { #category : #rendering }
-ElegirTopicoComponent >> renderContentOn: aCanvas [
-	aCanvas  form: [  
+ElegirTopicoComponent >> renderContentOn: aCanvas [ 
 		self renderTopicosOn: aCanvas.
 		self renderInputElementOn: aCanvas.
-		self renderButtonsOn: aCanvas.
-		self answer. ]
+		self renderButtonsOn: aCanvas. 
 ]
 
 { #category : #rendering }
@@ -50,16 +56,15 @@ ElegirTopicoComponent >> renderTopicosOn: aCanvas [
 	aCanvas unorderedList: [ 
 			CuOOra soleInstance
 					topicos 
-							do: [ 
-								:each | 
-										aCanvas listItem: [ aCanvas anchor 
-													callback: [ self seleccionarTopico: each ];
-													with: each nombre ] ] ] .
+							do: [ :each | aCanvas anchor 
+											callback: [ self seleccionarTopico: each ];
+												with: each nombre ] ].
 ]
 
 { #category : #callback }
 ElegirTopicoComponent >> seleccionarTopico: unTopico [ 
-	self session user elegirTopico: unTopico.
+	self session user topicoDeInteres: unTopico.
+	self answer.
 ]
 
 { #category : #accessing }
