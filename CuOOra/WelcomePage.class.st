@@ -54,6 +54,7 @@ WelcomePage >> registerNewUser [
 
 { #category : #rendering }
 WelcomePage >> renderContentOn: canvas [
+	
 	canvas heading: 'CuOOra'.
 	canvas horizontalRule .
 		canvas
@@ -62,7 +63,8 @@ WelcomePage >> renderContentOn: canvas [
 			canvas button
 				callback: [ self loguear ];
 				with: 'Iniciar sesion' .
-			self renderSignUpButtonOn: canvas ]
+			self renderSignUpButtonOn: canvas ].
+
 	
 ]
 
