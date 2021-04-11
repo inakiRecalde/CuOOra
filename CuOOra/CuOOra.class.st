@@ -19,15 +19,16 @@ CuOOra class >> clearSoleInstance [
 
 { #category : #accessing }
 CuOOra class >> soleInstance [
-	^ soleInstance ifNil: [ soleInstance := self new. ]
+	^ soleInstance ifNil: [ soleInstance := self new ]
 ]
 
 { #category : #initialization }
 CuOOra >> addUsuario: aUser [
 	[ usuarios
 		detect:
-			[ :user | user email == aUser email & (user nombre == aUser nombre) ]
+			[ :user | user email = aUser email | (user nombre = aUser nombre) ]
 		ifNone: [ nil ] ] ifNil: [ usuarios add: aUser ]
+	"usuarios add: aUser."
 ]
 
 { #category : #adding }
