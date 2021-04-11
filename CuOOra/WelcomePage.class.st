@@ -24,6 +24,7 @@ WelcomePage >> loguear [
 		ifNotNil: [ :it | self proceedWith: it ].
 	email := nil.
 	pass := nil.
+	"CuOOra clearSoleInstance ."
 ]
 
 { #category : #model }
@@ -54,7 +55,6 @@ WelcomePage >> registerNewUser [
 
 { #category : #rendering }
 WelcomePage >> renderContentOn: canvas [
-	
 	canvas heading: 'CuOOra'.
 	canvas horizontalRule .
 		canvas

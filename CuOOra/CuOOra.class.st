@@ -66,6 +66,7 @@ CuOOra >> initialize [
 	topicos := Set new.
 	usuarios := Set new.
 	preguntas := Set new.
+	self pruebas.
 ]
 
 { #category : #accessing }
@@ -103,36 +104,35 @@ CuOOra >> pruebas [
 	"Nuevo usuario"
 	theUser := Usuario nombre: 'Messi' contrasena: 'pass1' email: 'Messi@gmail.com'.
 	preg :=Pregunta titulo: 'Me voy del barsa?' descripcion: 'Que dicen gente, me voy al city aunque se vaya el kun o me voy con neymar al psg???' topicos: 'Futbol' user:'Messi'.
-	usuarios add: theUser.
+	self addUsuario: theUser.
 	self agregarPregunta: preg.
 	
 	"Nuevo usuario"
 	theUser := Usuario nombre: 'Ronaldo' contrasena: 'pass2' email: 'Ronaldo@gmail.com'.
-	
 	preg :=Pregunta titulo: 'Que dicen sigo en la juve?' descripcion: 'Fua chaval es que no se si irme con messi al psg y que nos vean juntos o si me quedo en la aburrida liga italiana. 100 likes y me voy!!!' topicos: 'Futbol' user:'Ronaldo'.
-	usuarios add: theUser.
+	self addUsuario: theUser.
 	self agregarPregunta: preg.
 	
 	"Nuevo usuario"
 	theUser := Usuario nombre: 'Obama' contrasena: 'pass3' email: 'Obama@gmail.com'.
 	preg :=Pregunta titulo: 'Did you buy my new book?' descripcion: 'I just released my new book on the secret passages of the white house and a 30% discount offer !!' topicos: 'Politica' user:'Obama'.
-	usuarios add: theUser.
+	self addUsuario: theUser.
 	self agregarPregunta: preg.
 	
 	"Nuevo usuario"
 	theUser := Usuario nombre: 'Trump' contrasena: 'pass4' email: 'Trump@gmail.com'.
 	preg :=Pregunta titulo: 'Help me now !' descripcion: 'Does anyone know where to buy orange paint?' topicos: 'Politica' user:'Trump'.
-	usuarios add: theUser.
+	self addUsuario: theUser.
 	self agregarPregunta: preg.
 	
 	"Nuevo usuario"
 	theUser := Usuario nombre: 'Aguero' contrasena: 'pass5' email: 'Aguero@gmail.com'.
 	preg :=Pregunta titulo: 'Encuesta gente' descripcion: 'Psg con messi? o sigo stremeando??? los del rojo sigan esperando jaja' topicos: 'Futbol' user:'Ronaldo'.
-	usuarios add: theUser.
+	self addUsuario: theUser.
 	self agregarPregunta: preg.
 	"Nuevo usuario"
 	theUser := Usuario nombre: 'admin' contrasena: 'admin' email: 'admin@gmail.com'.
-	usuarios add: theUser.
+	self addUsuario: theUser.
 
 ]
 
