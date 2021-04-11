@@ -70,9 +70,9 @@ WelcomePage >> renderContentOn: canvas [
 
 { #category : #rendering }
 WelcomePage >> renderInputElementsOn: aCanvas [
-	aCanvas label: 'Email'.
+	aCanvas label: 'Ingrese su email o su usuario'.
 	aCanvas paragraph: [ aCanvas textInput on: #email of: self ].
-	aCanvas label: 'Password'.
+	aCanvas label: 'Ingrese su contraseña'.
 	aCanvas paragraph: [ aCanvas passwordInput on: #pass of: self ]
 ]
 

@@ -24,7 +24,10 @@ CuOOra class >> soleInstance [
 
 { #category : #initialization }
 CuOOra >> addUsuario: aUser [
-	usuarios add: aUser.
+	[ usuarios
+		detect:
+			[ :user | user email == aUser email & (user nombre == aUser nombre) ]
+		ifNone: [ nil ] ] ifNil: [ usuarios add: aUser ]
 ]
 
 { #category : #adding }
@@ -183,7 +186,7 @@ CuOOra >> topicos [
 { #category : #utilities }
 CuOOra >> usuario: unEmail protectedBy: contraseña [
 	^ usuarios
-		detect: [ :each | each email = unEmail & (each contrasena  = contraseña ) ]
+		detect: [ :each | (each email = unEmail) |  (each nombre = unEmail ) & (each contrasena  = contraseña ) ]
 		ifNone: [ nil ].
 ]
 
