@@ -148,8 +148,6 @@ CuOOra >> pruebas [
 	self addUsuario: theUser.
 	self agregarPregunta: preg.
 	
-	self addUsuario: theUser.
-	self agregarPregunta: preg.
 	"Nuevo usuario"
 	theUser := Usuario nombre: 'admin' contrasena: 'admin' email: 'admin@gmail.com'.
 	self addUsuario: theUser.
