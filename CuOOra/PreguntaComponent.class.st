@@ -21,6 +21,14 @@ PreguntaComponent >> comentario [
 	self answer.
 ]
 
+{ #category : #callback }
+PreguntaComponent >> perfilUser: aUser [
+|perfil|
+	perfil :=PerfilVisitorComponent new.
+	perfil user: aUser.
+	self call: perfil .
+]
+
 { #category : #accessing }
 PreguntaComponent >> pregunta [
 	^ pregunta
@@ -34,39 +42,47 @@ PreguntaComponent >> pregunta: anObject [
 { #category : #rendering }
 PreguntaComponent >> renderContentOn: canvas [
 	canvas heading: 'CuOOra'.
-								(canvas text: pregunta titulo).
-							   canvas space.
-								canvas text: 'Realizada por: ',  pregunta user nombre.
-								canvas space.
-								canvas text: 'Descripcion: ',  pregunta text.
-								canvas space.
-								canvas text:'Respuestas: ' .
-								canvas space.
-								canvas text:'Likes: '.
-								canvas space.
-								canvas text:'Dislikes: '.
+	canvas text: pregunta titulo.
+	canvas space.
+	canvas text: 'Realizada por: '.
+	canvas anchor
+		callback: [ self
+				perfilUser: (CuOOra soleInstance buscarUsuario: pregunta user nombre) ];
+		with: pregunta user nombre.
+	canvas space.
+	canvas text: 'Descripcion: ' , pregunta text.
+	canvas space.
+	canvas text: 'Respuestas: '.
+	canvas space.
+	canvas text: 'Likes: '.
+	canvas space.
+	canvas text: 'Dislikes: '.
 	"comentarios"
 	canvas text: 'Respuestas'.
-	canvas 
-			unorderedList: [ 
-				pregunta respuestas 
-				do: [ :each |  
-					canvas listItem: [ 
-								(canvas text: each text).
-							   canvas space.
-								canvas text: 'Realizada por: ',  each user nombre.
-								canvas space.
-								canvas text:'Respuestas: ' .
-								canvas space.
-								canvas text:'Likes: '.
-								canvas space.
-								canvas text:'Dislikes: ']]].
-		canvas form: [ 
-		canvas paragraph: [ canvas label: 'realizar comentario '.
-							canvas textInput on: #textComent of: self].
-		canvas submitButton
-				callback: [ self comentario];
-			with: 'Comentar'  ] .
+	canvas
+		unorderedList: [ pregunta respuestas
+				do: [ :each | 
+					canvas
+						listItem: [ canvas text: each text.
+							canvas space.
+							canvas text: 'Realizada por: '.
+							canvas anchor
+								callback: [ self
+										perfilUser: (CuOOra soleInstance buscarUsuario: each user nombre) ];
+								with: each user nombre.
+							canvas space.
+							canvas text: 'Respuestas: '.
+							canvas space.
+							canvas text: 'Likes: '.
+							canvas space.
+							canvas text: 'Dislikes: ' ] ] ].
+	canvas
+		form: [ canvas
+				paragraph: [ canvas label: 'realizar comentario '.
+					canvas textInput on: #textComent of: self ].
+			canvas submitButton
+				callback: [ self comentario ];
+				with: 'Comentar' ]
 ]
 
 { #category : #accessing }

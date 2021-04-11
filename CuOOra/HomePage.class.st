@@ -29,6 +29,14 @@ HomePage >> perfilUser [
 	self call: PerfilUserComponent new.
 ]
 
+{ #category : #callback }
+HomePage >> perfilUser: aUser [
+|perfil|
+	perfil :=PerfilVisitorComponent new.
+	perfil user: aUser.
+	self call: perfil .
+]
+
 { #category : #rendering }
 HomePage >> renderContentOn: aCanvas [
 	aCanvas heading: 'Welcome to CuOOra'. 
@@ -55,10 +63,16 @@ HomePage >> renderFriendsOn: aCanvas [
 		level: 2;
 		with: 'Friends'.
 	aCanvas
-		unorderedList: [ self session user follows do: [ :each | aCanvas listItem: each nombre ] ].
+		unorderedList: [ self session user follows
+				do: [ :each | 
+					aCanvas
+						listItem:
+							(aCanvas anchor
+								callback: [ self perfilUser: (self model buscarUsuario: each  nombre) ];
+								with: each  nombre) ] ].
 	aCanvas anchor
 		callback: [ self findFriend ];
-		with: [ aCanvas button: 'Find friends' ]
+		with: [ aCanvas button: 'Buscar Amigos' ]
 ]
 
 { #category : #rendering }

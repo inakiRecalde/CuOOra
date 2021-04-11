@@ -27,6 +27,15 @@ Usuario >> agregarComentario: unText aPregunta: pregunta [
 	pregunta agregarRespuesta: r	.
 ]
 
+{ #category : #testing }
+Usuario >> canBefriend: aUser [
+	aUser == self
+		ifTrue: [ ^ false ].
+	(follows includes: aUser)
+		ifTrue: [ ^ false ].
+	^ true
+]
+
 { #category : #accessing }
 Usuario >> contrasena [
 	^ contrasena

@@ -42,6 +42,11 @@ CuOOra >> agregarTopico: unTopico [
 ]
 
 { #category : #accesing }
+CuOOra >> buscarUsuario: unNombre [
+	^ usuarios detect: [ :user | user nombre == unNombre ].
+]
+
+{ #category : #accesing }
 CuOOra >> calcularPuntaje: user [ 
 	|pregUser|
 	pregUser := self preguntasDeUser: user.
@@ -192,6 +197,13 @@ CuOOra >> respuestasDeUsuario: unUsuario [
 { #category : #accessing }
 CuOOra >> topicos [
 	^ topicos
+]
+
+{ #category : #utility }
+CuOOra >> usersMatchingNamePart: aString [
+	^ usuarios
+		select:
+			[ :each | each nombre asLowercase includesSubstring: aString asLowercase ]
 ]
 
 { #category : #utilities }
