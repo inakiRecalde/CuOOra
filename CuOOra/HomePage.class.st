@@ -46,22 +46,30 @@ HomePage >> perfilUser: aUser [
 
 { #category : #rendering }
 HomePage >> renderContentOn: aCanvas [
-	aCanvas heading: 'Welcome to CuOOra'. 
+	aCanvas heading: 'Welcome to CuOOra'.
 	aCanvas anchor
-			callback: [ self perfilUser: self session user];
-			with: self session user nombre.
+		callback: [ self perfilUser: self session user ];
+		with: self session user nombre.
 	self renderLogoutButtonOn: aCanvas.
 	aCanvas horizontalRule.
 	self renderPostsOn: aCanvas.
 	aCanvas horizontalRule.
 	self renderFriendsOn: aCanvas.
-	aCanvas horizontalRule .
+	aCanvas horizontalRule.
 	self renderTopicoInteresOn: aCanvas.
-	aCanvas horizontalRule .
+	aCanvas horizontalRule.
 	aCanvas text: 'Registro de usuarios'.
-	aCanvas unorderedList: [ self model usuarios do:[:each | aCanvas listItem: each nombre] ] .
-		aCanvas text: 'topicos'.
-	aCanvas unorderedList: [ self model topicos do:[:each | aCanvas listItem: each nombre] ] .
+	aCanvas
+		unorderedList: [ self model usuarios
+				do: [ :each | 
+					aCanvas
+						listItem:[
+							aCanvas anchor
+								callback: [ self perfilUser: each ];
+								with: each nombre ]] ].
+	aCanvas text: 'topicos'.
+	aCanvas
+		unorderedList: [ self model topicos do: [ :each | aCanvas listItem: each nombre ] ]
 ]
 
 { #category : #rendering }
@@ -74,9 +82,9 @@ HomePage >> renderFriendsOn: aCanvas [
 				do: [ :each | 
 					aCanvas
 						listItem:
-							(aCanvas anchor
+							[aCanvas anchor
 								callback: [ self perfilUser: (self model buscarUsuario: each  nombre) ];
-								with: each  nombre) ] ].
+								with: each  nombre]] ].
 	aCanvas anchor
 		callback: [ self findFriend ];
 		with: [ aCanvas button: 'Buscar Amigos' ]
