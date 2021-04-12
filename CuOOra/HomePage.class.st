@@ -45,19 +45,27 @@ HomePage >> perfilUser: aUser [
 ]
 
 { #category : #rendering }
-HomePage >> renderContentOn: aCanvas [
-	aCanvas heading: 'Welcome to CuOOra'.
-	aCanvas anchor
-		callback: [ self perfilUser: self session user ];
-		with: self session user nombre.
+HomePage >> renderCabecera: aCanvas [
+	aCanvas heading: 'CuOOra'. 
+	self renderPerfilUserOn: aCanvas.
+	aCanvas space.
 	self renderLogoutButtonOn: aCanvas.
 	aCanvas horizontalRule.
+]
+
+{ #category : #rendering }
+HomePage >> renderContentOn: aCanvas [
+	self renderCabecera: aCanvas.
+	
 	self renderPostsOn: aCanvas.
 	aCanvas horizontalRule.
+	
 	self renderFriendsOn: aCanvas.
 	aCanvas horizontalRule.
+	
 	self renderTopicoInteresOn: aCanvas.
 	aCanvas horizontalRule.
+	
 	aCanvas text: 'Registro de usuarios'.
 	aCanvas
 		unorderedList: [ self model usuarios
@@ -91,11 +99,39 @@ HomePage >> renderFriendsOn: aCanvas [
 ]
 
 { #category : #rendering }
+HomePage >> renderListItem: canvas post: each [
+		canvas text: each text.
+		canvas text: 'Realizada por: '.
+		canvas anchor
+				callback: [ 
+				self perfilUser: (CuOOra soleInstance buscarUsuario: each user nombre) ];
+				with: each user nombre.
+		canvas space.
+		canvas text: 'Likes: '.canvas text: each cantLikes.
+		canvas space.
+		canvas text: 'Dislikes: '.canvas text: each cantDislikes.
+		(canvas anchor 
+				callback:[(self darLike: each)];
+				with: 'like').
+		canvas space.
+		(canvas anchor 
+					callback:[(self darDislike: each)];
+					with: 'Dislike').
+]
+
+{ #category : #rendering }
 HomePage >> renderLogoutButtonOn: aCanvas [
 	aCanvas
 		paragraph: [ aCanvas anchor
 				callback: [ self answer ];
 				with: [ aCanvas button with: 'Logout' ] ]
+]
+
+{ #category : #rendering }
+HomePage >> renderPerfilUserOn: aCanvas [.
+	aCanvas anchor
+			callback: [ self perfilUser: self session user];
+			with: self session user nombre.
 ]
 
 { #category : #rendering }
@@ -138,10 +174,18 @@ HomePage >> renderPostsOn: canvas [
 
 { #category : #rendering }
 HomePage >> renderTopicoInteresOn: aCanvas [
-		aCanvas 
-			paragraph:  [ aCanvas anchor
-							callback: [ self elegirTopico ];
-							with: [aCanvas button with: 'Elegir Topico de Interes' . ]]	
+	aCanvas form:[
+		aCanvas submitButton 
+					callback: [ self elegirTopico ];	
+					with: 'Elegir Topico de Interes'.].
+]
+
+{ #category : #rendering }
+HomePage >> renderVolverButtonOn: aCanvas [.
+	aCanvas anchor
+			callback: [ self answer];
+			with: 'volver'.
+	aCanvas space.
 ]
 
 { #category : #callback }

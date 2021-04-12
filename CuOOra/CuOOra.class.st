@@ -210,8 +210,8 @@ CuOOra >> usersMatchingNamePart: aString [
 CuOOra >> usuario: unEmail protectedBy: contraseña [
 	^ usuarios
 		detect: [ :each | 
-			each email = unEmail | (each nombre = unEmail)
-				& (each contrasena = contraseña) ]
+			((each email = unEmail) | (each nombre = unEmail)
+				& (each contrasena = contraseña)) ]
 		ifNone: [ nil ]
 ]
 

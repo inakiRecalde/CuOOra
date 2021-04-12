@@ -1,6 +1,6 @@
 Class {
 	#name : #ElegirTopicoComponent,
-	#superclass : #WAComponent,
+	#superclass : #HomePage,
 	#instVars : [
 		'topico',
 		'descripcion'
@@ -10,11 +10,8 @@ Class {
 
 { #category : #callback }
 ElegirTopicoComponent >> crearTopico [
-	|topic|
-	topic:= Topico nombre: topico descripcion: descripcion .
-	CuOOra soleInstance agregarTopico: topic.
-	self session user topicoDeInteres: topic.
-	self answer .
+	self call: CrearTopicoComponent new.
+	
 ]
 
 { #category : #accessing }
@@ -29,25 +26,19 @@ ElegirTopicoComponent >> descripcion: anObject [
 
 { #category : #rendering }
 ElegirTopicoComponent >> renderButtonsOn:  aCanvas [
-			aCanvas 
-			paragraph:  [ aCanvas anchor
-							callback: [ self crearTopico ];
-							with: [aCanvas button with: 'Crear topico' ]]	
+	aCanvas submitButton 
+			callback: [ self crearTopico ];
+			with: 'Crear topico'.
 ]
 
 { #category : #rendering }
 ElegirTopicoComponent >> renderContentOn: aCanvas [ 
+	self renderCabecera: aCanvas.
+	self renderVolverButtonOn: aCanvas.
+	aCanvas form: [  
 		self renderTopicosOn: aCanvas.
-		self renderInputElementOn: aCanvas.
-		self renderButtonsOn: aCanvas. 
-]
-
-{ #category : #rendering }
-ElegirTopicoComponent >> renderInputElementOn: aCanvas [
-	aCanvas label: 'Crear Topico'.
-	aCanvas paragraph: [ aCanvas textInput on: #topico of: self ].
-	aCanvas label: 'Descripcion del topico'.
-	aCanvas paragraph: [ aCanvas textInput on: #descripcion of: self ].
+		aCanvas text: 'no le interesan ? Crea uno!!'.
+		self renderButtonsOn: aCanvas. ].
 ]
 
 { #category : #rendering }

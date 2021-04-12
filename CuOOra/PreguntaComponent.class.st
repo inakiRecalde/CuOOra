@@ -1,6 +1,6 @@
 Class {
 	#name : #PreguntaComponent,
-	#superclass : #WAComponent,
+	#superclass : #HomePage,
 	#instVars : [
 		'pregunta',
 		'textComent'
@@ -22,16 +22,6 @@ PreguntaComponent >> comentario [
 ]
 
 { #category : #callback }
-PreguntaComponent >> darDislike: unPost [
-	 unPost darDislike: self session user.
-]
-
-{ #category : #callback }
-PreguntaComponent >> darLike: unPost [
-	 unPost darLike: self session user.
-]
-
-{ #category : #callback }
 PreguntaComponent >> perfilUser: aUser [
 |perfil|
 	perfil :=PerfilVisitorComponent new.
@@ -50,47 +40,7 @@ PreguntaComponent >> pregunta: anObject [
 ]
 
 { #category : #rendering }
-PreguntaComponent >> renderContentOn: canvas [
-	canvas heading: 'CuOOra'.
-	canvas text: pregunta titulo.
-	canvas space.
-	canvas text: 'Realizada por: '.
-	canvas anchor
-		callback: [ self
-				perfilUser: (CuOOra soleInstance buscarUsuario: pregunta user nombre) ];
-		with: pregunta user nombre.
-	canvas space.
-	canvas text: 'Descripcion: ' , pregunta text.
-	canvas space.
-	canvas text: 'Respuestas: '.
-	canvas space.
-	canvas text: 'Likes: '.
-	canvas space.
-	canvas text: 'Dislikes: '.
-	"comentarios"
-	canvas text: 'Respuestas'.
-	canvas
-		unorderedList: [ pregunta respuestas
-				do: [ :each | 
-					canvas
-						listItem: [ canvas text: each text.
-							canvas space.
-							canvas text: 'Realizada por: '.
-							canvas anchor
-								callback: [ self
-										perfilUser: (CuOOra soleInstance buscarUsuario: each user nombre) ];
-								with: each user nombre.
-							canvas space.
-							canvas text: 'Likes: '.canvas text: each cantLikes.
-							canvas space.
-							canvas text: 'Dislikes: '.canvas text: each cantDislikes.
-							(canvas anchor 
-									callback:[(self darLike: each)];
-									with: 'like').
-							canvas space.
-							(canvas anchor 
-									callback:[(self darDislike: each)];
-									with: 'Dislike'). ] ] ].
+PreguntaComponent >> renderComentarOn: canvas [
 	canvas
 		form: [ canvas
 				paragraph: [ canvas label: 'realizar comentario '.
@@ -98,6 +48,37 @@ PreguntaComponent >> renderContentOn: canvas [
 			canvas submitButton
 				callback: [ self comentario ];
 				with: 'Comentar' ]
+]
+
+{ #category : #rendering }
+PreguntaComponent >> renderComentariosOn: canvas [
+	canvas
+		unorderedList: [ pregunta respuestas
+				do: [ :each | 
+					canvas
+						listItem: [ self renderListItem: canvas post: each ]]].
+]
+
+{ #category : #rendering }
+PreguntaComponent >> renderContentOn: canvas [
+	self renderCabecera: canvas.
+	
+	self renderVolverButtonOn: canvas.
+	
+	self renderPreguntaOn: canvas.
+	
+	self renderComentariosOn: canvas.
+	
+	self renderComentarOn: canvas.
+]
+
+{ #category : #rendering }
+PreguntaComponent >> renderPreguntaOn: canvas [
+	canvas text: pregunta titulo.
+	canvas space.
+	self renderListItem: canvas post: pregunta.
+	canvas space.
+	canvas text: 'Respuestas: '. canvas text: pregunta cantRespuestas . 
 ]
 
 { #category : #accessing }

@@ -1,6 +1,6 @@
 Class {
 	#name : #NewPostPage,
-	#superclass : #WAComponent,
+	#superclass : #HomePage,
 	#instVars : [
 		'title',
 		'desc',
@@ -8,6 +8,11 @@ Class {
 	],
 	#category : #'CuOOra-ui'
 }
+
+{ #category : #callback }
+NewPostPage >> agregarTopico: aTopic [ 
+	top add: aTopic.
+]
 
 { #category : #accessing }
 NewPostPage >> desc [
@@ -20,8 +25,20 @@ NewPostPage >> desc: anObject [
 ]
 
 { #category : #callback }
+NewPostPage >> elegirTopico [ 
+	self call: CrearTopicoComponent new.
+]
+
+{ #category : #initialize }
+NewPostPage >> initialize [
+	super initialize .
+	top:= OrderedCollection new.
+]
+
+{ #category : #callback }
 NewPostPage >> post [
-	title | desc | top ifEmpty: [ ^ self ].
+	title | desc  ifEmpty: [ ^ self ].
+	top ifEmpty: [ ^ self ].
 	CuOOra soleInstance
 		agregarPregunta: 
 			(Pregunta titulo: title descripcion:desc topicos: top user: self session user).
@@ -31,17 +48,29 @@ NewPostPage >> post [
 { #category : #rendering }
 NewPostPage >> renderContentOn: aCanvas [
 
-	aCanvas heading: 'CuOOra'. aCanvas heading.
-				"level: 2;
-				with: self session user nombre. self renderLogoutButtonOn: aCanvas."
-	aCanvas horizontalRule .
+	self renderCabecera: aCanvas.
+	self renderVolverButtonOn: aCanvas.
 	aCanvas form: [ 
 		aCanvas paragraph: [ aCanvas label: 'titulo: '.
 							aCanvas textInput on: #title of: self].
 		aCanvas paragraph: [ aCanvas label: 'descripcion: '.
 							aCanvas textInput on: #desc of: self].
-	 	aCanvas paragraph: [ aCanvas label: 'topicos: '.
-							aCanvas textInput on: #top of: self].				
+		aCanvas text: 'Elegir topicos para su pregunta'.
+		aCanvas unorderedList: [ 
+			CuOOra soleInstance
+					topicos 
+							do: [ :each |
+								 aCanvas listItem: [
+											aCanvas anchor 
+											callback: [ self agregarTopico: each ];
+											with: each nombre ] ]].	
+		aCanvas text: 'topicos elegidos'.
+		aCanvas unorderedList: [
+			top
+				do: [ :each | aCanvas listItem: [ aCanvas text: each nombre ]]].
+		aCanvas submitButton
+					callback: [ self elegirTopico ];	
+					with: 'crear topico'	.				
 		aCanvas submitButton
 				callback: [ self post ];
 			with: 'Post'  ] .
