@@ -99,7 +99,7 @@ Pregunta >> titulo: anObject [
 Pregunta >> titulo:title descripcion:desc topicos: top [
 	titulo:= title.
 	text:= desc.
-	topicos add: top.
+	topicos addAll: top.
 ]
 
 { #category : #initialization }

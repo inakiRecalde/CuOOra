@@ -57,6 +57,12 @@ Usuario >> darLike:  posteo [
 ]
 
 { #category : #'adding/removing' }
+Usuario >> dejarDeSeguirUser: unUsuario [
+	(follows includes: unUsuario )
+	ifTrue: [ follows remove: unUsuario ]
+]
+
+{ #category : #'adding/removing' }
 Usuario >> dejarDeSeguirUsuer: unUsuario [ 
 
 	"verificar si el usuario existe en la coleccion"

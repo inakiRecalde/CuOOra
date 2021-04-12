@@ -29,6 +29,11 @@ NewPostPage >> elegirTopico [
 	self call: CrearTopicoComponent new.
 ]
 
+{ #category : #callback }
+NewPostPage >> eliminarTopico: aTopic [ 
+	top remove: aTopic.
+]
+
 { #category : #initialize }
 NewPostPage >> initialize [
 	super initialize .
@@ -47,34 +52,39 @@ NewPostPage >> post [
 
 { #category : #rendering }
 NewPostPage >> renderContentOn: aCanvas [
-
 	self renderCabecera: aCanvas.
-	self renderVolverButtonOn: aCanvas.
-	aCanvas form: [ 
-		aCanvas paragraph: [ aCanvas label: 'titulo: '.
-							aCanvas textInput on: #title of: self].
-		aCanvas paragraph: [ aCanvas label: 'descripcion: '.
-							aCanvas textInput on: #desc of: self].
-		aCanvas text: 'Elegir topicos para su pregunta'.
-		aCanvas unorderedList: [ 
-			CuOOra soleInstance
-					topicos 
-							do: [ :each |
-								 aCanvas listItem: [
-											aCanvas anchor 
-											callback: [ self agregarTopico: each ];
-											with: each nombre ] ]].	
-		aCanvas text: 'topicos elegidos'.
-		aCanvas unorderedList: [
-			top
-				do: [ :each | aCanvas listItem: [ aCanvas text: each nombre ]]].
-		aCanvas submitButton
-					callback: [ self elegirTopico ];	
-					with: 'crear topico'	.				
-		aCanvas submitButton
+	self renderHomeButtonOn: aCanvas.
+	aCanvas
+		form: [ aCanvas
+				paragraph: [ aCanvas label: 'Titulo: '.
+					aCanvas textInput on: #title of: self ].
+			aCanvas
+				paragraph: [ aCanvas label: 'Descripcion: '.
+					aCanvas textInput on: #desc of: self ].
+			aCanvas text: 'Elegir topicos para su pregunta'.
+			aCanvas
+				unorderedList: [ CuOOra soleInstance topicos
+						do: [ :each | 
+							aCanvas
+								listItem: [ aCanvas anchor
+										callback: [ self agregarTopico: each ];
+										with: each nombre ] ] ].
+			aCanvas text: 'Topicos elegidos'.
+			aCanvas
+				unorderedList: [ top
+						do: [ :each | 
+							aCanvas
+								listItem: [ aCanvas text: each nombre.
+									aCanvas space.
+									aCanvas anchor
+										callback: [ self eliminarTopico: each ];
+										with: 'X' ] ] ].
+			aCanvas submitButton
+				callback: [ self elegirTopico ];
+				with: 'Crear topico'.
+			aCanvas submitButton
 				callback: [ self post ];
-			with: 'Post'  ] .
-
+				with: 'Post' ]
 ]
 
 { #category : #callback }

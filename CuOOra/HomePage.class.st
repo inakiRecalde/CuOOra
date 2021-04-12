@@ -35,13 +35,11 @@ HomePage >> model [
 ]
 
 { #category : #callback }
-HomePage >> perfilUser [
-	self call: PerfilUserComponent new.
-]
-
-{ #category : #callback }
 HomePage >> perfilUser: aUser [
-	self call: (PerfilUserComponent user: aUser).
+
+	(self session user == aUser)
+	ifTrue: [self call: (PerfilUserComponent user: aUser)].
+	self call: (PerfilVisitorComponent new user: aUser).
 ]
 
 { #category : #rendering }
@@ -50,18 +48,22 @@ HomePage >> renderCabecera: aCanvas [
 	self renderPerfilUserOn: aCanvas.
 	aCanvas space.
 	self renderLogoutButtonOn: aCanvas.
-	aCanvas horizontalRule.
+	aCanvas space.
+	self renderbuttonsOn: aCanvas.
+
+	
 ]
 
 { #category : #rendering }
 HomePage >> renderContentOn: aCanvas [
 	self renderCabecera: aCanvas.
+	aCanvas horizontalRule.
 	
 	self renderPostsOn: aCanvas.
 	aCanvas horizontalRule.
 	
-	self renderFriendsOn: aCanvas.
-	aCanvas horizontalRule.
+	"self renderFriendsOn: aCanvas.
+	aCanvas horizontalRule."
 	
 	self renderTopicoInteresOn: aCanvas.
 	aCanvas horizontalRule.
@@ -75,7 +77,7 @@ HomePage >> renderContentOn: aCanvas [
 							aCanvas anchor
 								callback: [ self perfilUser: each ];
 								with: each nombre ]] ].
-	aCanvas text: 'topicos'.
+	aCanvas text: 'Topicos'.
 	aCanvas
 		unorderedList: [ self model topicos do: [ :each | aCanvas listItem: each nombre ] ]
 ]
@@ -99,24 +101,34 @@ HomePage >> renderFriendsOn: aCanvas [
 ]
 
 { #category : #rendering }
+HomePage >> renderHomeButtonOn: aCanvas [
+	aCanvas space.
+	aCanvas anchor
+		callback: [ self volverHome ];
+		with: [ aCanvas button: 'Home' ].
+	aCanvas space.
+	aCanvas horizontalRule
+]
+
+{ #category : #rendering }
 HomePage >> renderListItem: canvas post: each [
-		canvas text: each text.
-		canvas text: 'Realizada por: '.
-		canvas anchor
-				callback: [ 
-				self perfilUser: (CuOOra soleInstance buscarUsuario: each user nombre) ];
-				with: each user nombre.
-		canvas space.
-		canvas text: 'Likes: '.canvas text: each cantLikes.
-		canvas space.
-		canvas text: 'Dislikes: '.canvas text: each cantDislikes.
-		(canvas anchor 
-				callback:[(self darLike: each)];
-				with: 'like').
-		canvas space.
-		(canvas anchor 
-					callback:[(self darDislike: each)];
-					with: 'Dislike').
+	canvas text: each text.
+	canvas text: 'Realizada por: '.
+	canvas anchor
+		callback: [ self
+				perfilUser: (CuOOra soleInstance buscarUsuario: each user nombre) ];
+		with: each user nombre.
+	canvas space.
+	canvas anchor
+		callback: [ self darLike: each ];
+		with: 'like'.
+	canvas space.
+	canvas text: each cantLikes.
+	canvas anchor
+		callback: [ self darDislike: each ];
+		with: 'Dislike'.
+	canvas space.
+	
 ]
 
 { #category : #rendering }
@@ -154,7 +166,7 @@ HomePage >> renderPostsOn: canvas [
 									with: each user nombre).
 								canvas space.
 								canvas text: 'Topicos: '. 
-								each topicos do:[ :topic |  canvas text: topic nombre].
+								each topicos do:[ :topic |  canvas text: topic nombre. canvas space.].
 								canvas space.
 								canvas text:'Respuestas: '. canvas text: each cantRespuestas .
 								canvas space.
@@ -172,7 +184,7 @@ HomePage >> renderPostsOn: canvas [
 								canvas text: each cantDislikes.]]].
 	canvas anchor 
 			callback: [ self createNewPost ];
-			with: [ canvas button: 'New post' ].
+			with: [ canvas button: 'Nueva Pregunta' ].
 ]
 
 { #category : #rendering }
@@ -184,14 +196,19 @@ HomePage >> renderTopicoInteresOn: aCanvas [
 ]
 
 { #category : #rendering }
-HomePage >> renderVolverButtonOn: aCanvas [.
-	aCanvas anchor
+HomePage >> renderbuttonsOn: aCanvas [
+	aCanvas anchor 
 			callback: [ self answer];
-			with: 'volver'.
-	aCanvas space.
+			with: [ aCanvas button: 'volver' ].
+		
 ]
 
 { #category : #callback }
 HomePage >> verPregunta: unaPregunta [ 
 	self call: (PreguntaComponent pregunta: unaPregunta ).
+]
+
+{ #category : #callback }
+HomePage >> volverHome [
+	self call: HomePage new.
 ]

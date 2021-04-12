@@ -1,9 +1,6 @@
 Class {
 	#name : #PerfilUserComponent,
-	#superclass : #WAComponent,
-	#instVars : [
-		'user'
-	],
+	#superclass : #PerfilComponent,
 	#category : #'CuOOra-ui'
 }
 
@@ -13,15 +10,26 @@ PerfilUserComponent class >> user: aUser [
 		user: aUser.
 ]
 
+{ #category : #callback }
+PerfilUserComponent >> perfilVisitor: aUser [
+
+	self call:(PerfilVisitorComponent new user:aUser).
+]
+
 { #category : #rendering }
 PerfilUserComponent >> renderContentOn: aCanvas [
 	self renderPreguntasOn: aCanvas.
+	self renderSeguidosOn: aCanvas.
 	self renderbuttonsOn: aCanvas .
 ]
 
 { #category : #rendering }
 PerfilUserComponent >> renderPreguntasOn: aCanvas [
-	aCanvas text: 'Perfil de', self user nombre .
+aCanvas
+		paragraph: [ aCanvas
+				text: self user nombre;
+				break;
+				text: 'Mis preguntas' ].
 	aCanvas unorderedList: [ 
 			(CuOOra soleInstance preguntasDeUser: self user)
 										do: [ :each | aCanvas space. aCanvas anchor 
@@ -30,18 +38,16 @@ PerfilUserComponent >> renderPreguntasOn: aCanvas [
 ]
 
 { #category : #rendering }
-PerfilUserComponent >> renderbuttonsOn: aCanvas [
-	aCanvas anchor 
-			callback: [ self answer];
-			with: [ aCanvas button: 'volver' ].
-]
-
-{ #category : #accessing }
-PerfilUserComponent >> user [
-	^ user
-]
-
-{ #category : #accessing }
-PerfilUserComponent >> user: anObject [
-	user := anObject
+PerfilUserComponent >> renderSeguidosOn: aCanvas [
+	aCanvas heading
+		level: 2;
+		with: 'Friends'.
+	aCanvas
+		unorderedList: [ self session user follows
+				do: [ :each | 
+					aCanvas
+						listItem:
+							[aCanvas anchor
+								callback: [ self perfilVisitor: ( CuOOra soleInstance  buscarUsuario: each  nombre) ];
+								with: each  nombre]] ].
 ]

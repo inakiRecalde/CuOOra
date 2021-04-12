@@ -36,9 +36,11 @@ CrearTopicoComponent >> renderButtonOn: aCanvas [
 
 { #category : #rendering }
 CrearTopicoComponent >> renderContentOn: aCanvas [
-		aCanvas form: [  
-			self renderInputElementOn: aCanvas.
-			self renderButtonOn: aCanvas.].
+	self renderCabecera: aCanvas.
+	self renderHomeButtonOn: aCanvas.
+	aCanvas
+		form: [ self renderInputElementOn: aCanvas.
+			self renderButtonOn: aCanvas ]
 ]
 
 { #category : #rendering }

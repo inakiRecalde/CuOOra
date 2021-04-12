@@ -1,41 +1,71 @@
 Class {
 	#name : #PerfilVisitorComponent,
-	#superclass : #WAComponent,
-	#instVars : [
-		'user'
-	],
+	#superclass : #PerfilComponent,
 	#category : #'CuOOra-ui'
 }
 
+{ #category : #'accessing structure variables' }
+PerfilVisitorComponent >> button: aCanvas [
+	(self session user canBefriend: user)
+		ifFalse: [ ^[aCanvas anchor
+										callback: [ self seguirA: user ];
+										with: 'Seguir' ] ];
+		ifTrue:[ ^[aCanvas anchor
+										callback: [ self dejarDeSeguirA: user ];
+										with:'Siguiendo'  ] ].
+		
+
+]
+
+{ #category : #callbacks }
+PerfilVisitorComponent >> dejarDeSeguirA: anUser [
+	self session user dejarDeSeguirUser: anUser
+]
+
+{ #category : #rendering }
+PerfilVisitorComponent >> renderCabeceraOn: aCanvas [
+(self session user canBefriend: user)
+		ifTrue: [aCanvas anchor
+										callback: [ self seguirA: user ];
+										with: 'Seguir' ];
+		ifFalse:[aCanvas anchor
+										callback: [ self dejarDeSeguirA: user ];
+										with:'Siguiendo' ].
+aCanvas
+		paragraph: [ aCanvas
+				text: 'Perfil de ' , self user nombre;
+				break;
+				text: 'Sus preguntas'.].
+
+			
+
+]
+
 { #category : #rendering }
 PerfilVisitorComponent >> renderContentOn: aCanvas [
+	self renderCabeceraOn: aCanvas.
 	self renderPreguntasOn: aCanvas.
 	self renderbuttonsOn: aCanvas .
 ]
 
 { #category : #rendering }
 PerfilVisitorComponent >> renderPreguntasOn: aCanvas [
-	aCanvas text: 'Preguntas de ', self user nombre .
-	aCanvas unorderedList: [ 
-			(CuOOra soleInstance preguntasDeUser: self user)
-										do: [ :each | aCanvas space. aCanvas anchor 
-													callback: [];
-													with: each titulo ] ] .
+	
+	aCanvas
+		unorderedList: [ (CuOOra soleInstance preguntasDeUser: self user)
+				do: [ :each | 
+					aCanvas space.
+					aCanvas anchor
+						callback: [ self verPregunta: each ];
+						with: each titulo ] ]
 ]
 
-{ #category : #rendering }
-PerfilVisitorComponent >> renderbuttonsOn: aCanvas [
-	aCanvas anchor 
-			callback: [ self answer];
-			with: [ aCanvas button: 'volver' ].
+{ #category : #callbacks }
+PerfilVisitorComponent >> seguirA: anUser [
+	self session user seguirUser: anUser
 ]
 
-{ #category : #accessing }
-PerfilVisitorComponent >> user [
-	^ user
-]
-
-{ #category : #accessing }
-PerfilVisitorComponent >> user: anObject [
-	user := anObject
+{ #category : #callbacks }
+PerfilVisitorComponent >> verPregunta: unaPregunta [ 
+	self call: (PreguntaComponent pregunta: unaPregunta ).
 ]

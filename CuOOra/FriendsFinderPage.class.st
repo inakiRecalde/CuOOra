@@ -15,6 +15,7 @@ FriendsFinderPage >> initialize [
 
 { #category : #rendering }
 FriendsFinderPage >> renderContentOn: aCanvas [
+	self renderbuttonsOn: aCanvas.
 	self renderSearchFormOn: aCanvas.
 	self renderSearchResultsOn: aCanvas.
 	aCanvas horizontalRule.
@@ -58,6 +59,17 @@ FriendsFinderPage >> renderUsers: users on: aCanvas [
 										with: [ aCanvas button: 'Befriend' ] ] ] ] ]
 ]
 
+{ #category : #rendering }
+FriendsFinderPage >> renderbuttonsOn: aCanvas [
+	aCanvas anchor 
+			callback: [ self answer];
+			with: [ aCanvas button: 'volver' ].
+			
+		aCanvas anchor 
+			callback: [ self volverHome];
+			with: [ aCanvas button: 'Home' ].
+]
+
 { #category : #accessing }
 FriendsFinderPage >> searchText [
 	^ searchText
@@ -71,4 +83,9 @@ FriendsFinderPage >> searchText: anObject [
 { #category : #callbacks }
 FriendsFinderPage >> seguirA: anUser [
 	self session user seguirUser: anUser
+]
+
+{ #category : #callbacks }
+FriendsFinderPage >> volverHome [
+	self call: HomePage new.
 ]

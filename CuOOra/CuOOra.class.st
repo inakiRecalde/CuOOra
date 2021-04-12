@@ -113,16 +113,23 @@ CuOOra >> preguntasRelevantes: user [
 { #category : #initialization }
 CuOOra >> pruebas [
 
-| pedro diego  juan oo1 test smaltallk admin preg |
+| pedro diego  juan oo1 test smalltalk admin preg  topicos1 |
+	topicos1:=  OrderedCollection new.
 	
 	"Nuevo topic"
 	oo1 := Topico nombre:'OO1' descripcion:'Información sobre la materia OO1' .
 	test := Topico nombre:' Test de unidad' descripcion:'Información sobre los test' .
-	smaltallk := Topico nombre:'Smalltalk' descripcion:'Información sobre Smalltalk' .
+	smalltalk := Topico nombre:'Smalltalk' descripcion:'Información sobre Smalltalk' .
+	self agregarTopico: oo1.
+	self agregarTopico: test.
+	self agregarTopico: smalltalk.
+	
 	"Usuarios: pedro@cuoora.com, diego@cuoora.com, juan@cuoora.com"
 	"Nuevo usuario"
 	pedro := Usuario nombre: 'pedro' contrasena: 'pedro@cuoora.com@gmail.com' email: 'pedro@cuoora.com@gmail.com'.
-	preg :=Pregunta titulo: 'Duda metodo setUp' descripcion: '¿Para qué sirve el método SetUp?' topicos: test "oo1" user: pedro .
+	topicos1 add:oo1.
+	topicos1 add: test.
+	preg :=Pregunta titulo: 'Duda metodo setUp' descripcion: '¿Para qué sirve el método SetUp?' topicos: topicos1 user: pedro .
 	self agregarPregunta: preg.
 	self addUsuario: pedro.
 	"Nuevo usuario"
@@ -130,8 +137,11 @@ CuOOra >> pruebas [
 	self addUsuario: juan.
 	self agregarPregunta: preg.
 	"Nuevo usuario"
+	topicos1:=  OrderedCollection new.
+	topicos1 add:oo1.
+	topicos1 add: smalltalk.
 	diego := Usuario nombre: 'diego' contrasena: 'diego@cuoora.com' email: 'diego@cuoora.com'.
-	preg :=Pregunta titulo: 'Ayuda con erro SmallTalk' descripcion: '¿Qué significa #messageNotUnderstood?' topicos: oo1 "smaltallk" user: diego .
+	preg :=Pregunta titulo: 'Ayuda con error SmallTalk' descripcion: '¿Qué significa #messageNotUnderstood?' topicos:topicos1 user: diego .
 	self addUsuario: diego.
 	self agregarPregunta: preg.
 	
