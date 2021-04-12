@@ -44,7 +44,6 @@ HomePage >> perfilUser: aUser [
 
 { #category : #rendering }
 HomePage >> renderContentOn: aCanvas [
-	aCanvas text: 'hola'.
 	self renderCabecera: aCanvas.
 	aCanvas horizontalRule.
 	
