@@ -22,6 +22,16 @@ PreguntaComponent >> comentario [
 ]
 
 { #category : #callback }
+PreguntaComponent >> darDislike: unPost [
+	 unPost darDislike: self session user.
+]
+
+{ #category : #callback }
+PreguntaComponent >> darLike: unPost [
+	 unPost darLike: self session user.
+]
+
+{ #category : #callback }
 PreguntaComponent >> perfilUser: aUser [
 |perfil|
 	perfil :=PerfilVisitorComponent new.
@@ -71,11 +81,16 @@ PreguntaComponent >> renderContentOn: canvas [
 										perfilUser: (CuOOra soleInstance buscarUsuario: each user nombre) ];
 								with: each user nombre.
 							canvas space.
-							canvas text: 'Respuestas: '.
+							canvas text: 'Likes: '.canvas text: each cantLikes.
 							canvas space.
-							canvas text: 'Likes: '.
+							canvas text: 'Dislikes: '.canvas text: each cantDislikes.
+							(canvas anchor 
+									callback:[(self darLike: each)];
+									with: 'like').
 							canvas space.
-							canvas text: 'Dislikes: ' ] ] ].
+							(canvas anchor 
+									callback:[(self darDislike: each)];
+									with: 'Dislike'). ] ] ].
 	canvas
 		form: [ canvas
 				paragraph: [ canvas label: 'realizar comentario '.

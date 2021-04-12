@@ -30,6 +30,16 @@ Pregunta >> calcularPuntaje [
 	^ (respuestas sumNumbers: [ :resp | resp userDiferenteA: self ] ) * 50 .
 ]
 
+{ #category : #accesing }
+Pregunta >> cantRespuestas [
+	^ respuestas size.
+]
+
+{ #category : #accesing }
+Pregunta >> darDislike: aUser [
+	^super darDislike: aUser.
+]
+
 { #category : #'adding/removing' }
 Pregunta >> eliminarRespuestas [ 
 	respuestas removeAll.
@@ -37,6 +47,7 @@ Pregunta >> eliminarRespuestas [
 
 { #category : #initialization }
 Pregunta >> initialize [ 	
+	super initialize .
 	respuestas:= Set new.
 	topicos:= Set new.
 ]
