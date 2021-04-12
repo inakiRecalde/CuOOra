@@ -113,67 +113,45 @@ CuOOra >> preguntasRelevantes: user [
 { #category : #initialization }
 CuOOra >> pruebas [
 
-| aguero messi ronaldo  obama trump admin preg topic|
+| pedro diego  juan oo1 test smaltallk admin preg |
 	
 	"Nuevo topic"
-	topic := Topico nombre:'Futbol' descripcion:'todo sobre futbol' .
-	self agregarTopico: topic.
+	oo1 := Topico nombre:'OO1' descripcion:'Información sobre la materia OO1' .
+	test := Topico nombre:' Test de unidad' descripcion:'Información sobre los test' .
+	smaltallk := Topico nombre:'Smalltalk' descripcion:'Información sobre Smalltalk' .
+	"Usuarios: pedro@cuoora.com, diego@cuoora.com, juan@cuoora.com"
 	"Nuevo usuario"
-	messi := Usuario nombre: 'Messi' contrasena: 'messi' email: 'Messi@gmail.com'.
-	"nueva preg"
-	preg :=Pregunta titulo: 'Me voy del barsa?' descripcion: 'Que dicen gente, me voy al city aunque se vaya el kun o me voy con neymar al psg???' topicos: topic user: messi .
-	
-	self addUsuario: messi.
+	pedro := Usuario nombre: 'pedro' contrasena: 'pedro@cuoora.com@gmail.com' email: 'pedro@cuoora.com@gmail.com'.
+	preg :=Pregunta titulo: 'Duda metodo setUp' descripcion: '¿Para qué sirve el método SetUp?' topicos: test "oo1" user: pedro .
+	self agregarPregunta: preg.
+	self addUsuario: pedro.
+	"Nuevo usuario"
+	juan := Usuario nombre: 'juan' contrasena: 'juan@cuoora.com' email: 'juan@cuoora.com'.
+	self addUsuario: juan.
+	self agregarPregunta: preg.
+	"Nuevo usuario"
+	diego := Usuario nombre: 'diego' contrasena: 'diego@cuoora.com' email: 'diego@cuoora.com'.
+	preg :=Pregunta titulo: 'Ayuda con erro SmallTalk' descripcion: '¿Qué significa #messageNotUnderstood?' topicos: oo1 "smaltallk" user: diego .
+	self addUsuario: diego.
 	self agregarPregunta: preg.
 	
-	"Nuevo usuario"
 	
-	ronaldo := Usuario nombre: 'Ronaldo' contrasena: 'ronaldo' email: 'Ronaldo@gmail.com'.
-	preg :=Pregunta titulo: 'Que dicen sigo en la juve?' descripcion: 'Fua chaval es que no se si irme con messi al psg y que nos vean juntos o si me quedo en la aburrida liga italiana. 100 likes y me voy!!!' topicos: topic user: ronaldo .
-	self addUsuario: ronaldo.
-	self agregarPregunta: preg.
 	
-		
-	"Nuevo usuario"
-		aguero := Usuario nombre: 'Aguero' contrasena: 'aguero' email: 'Aguero@gmail.com'.
-	preg :=Pregunta titulo: 'Encuesta gente' descripcion: 'Psg con messi? o sigo stremeando??? los del rojo sigan esperando jaja' 	topicos: topic user: aguero .
-		aguero topicoDeInteres: topic.
-		self addUsuario: aguero .
-		self agregarPregunta: preg.
-		
-		aguero seguirUser: messi.
-		aguero  seguirUser: ronaldo.
 	
-	"Nuevo topic"
+	"relaciones"
+	juan seguirUser: diego.
+	pedro seguirUser: juan.
 	
-	topic := Topico nombre:'Politica' descripcion:'todo sobre politica' .
-	self agregarTopico: topic.
 	
-		"Nuevo usuario"
-	obama := Usuario nombre: 'Obama' contrasena: 'obama' email: 'Obama@gmail.com'.
-	preg :=Pregunta titulo: 'Did you buy my new book?' descripcion: 'I just released my new book on the secret passages of the white house and a 30% discount offer !!' topicos: topic user: obama .
-	self addUsuario: obama.
-	self agregarPregunta: preg.
 	
-	"Nuevo usuario"
-	trump := Usuario nombre: 'Trump' contrasena: 'trump' email: 'Trump@gmail.com'.
-	preg :=Pregunta titulo: 'Help me now !' descripcion: 'Does anyone know where to buy orange paint?' topicos: topic  user: trump .
-	self addUsuario: trump.
-	self agregarPregunta: preg.
+	
+	
 	
 	"Nuevo usuario"
 	admin := Usuario nombre: 'admin' contrasena: 'admin' email: 'admin@gmail.com'.
 	self addUsuario: admin.
-	admin seguirUser: messi.
-	admin seguirUser: ronaldo.
-	admin seguirUser: aguero.
-	admin seguirUser: obama.
-	admin seguirUser: trump.
-	"Topicos"
-	topic := Topico nombre:'Futbol' descripcion:'todo sobre futbol' .
-	self agregarTopico: topic.
-	topic := Topico nombre:'Politica' descripcion:'todo sobre politica' .
-	self agregarTopico: topic.
+	
+
 
 	
 ]
