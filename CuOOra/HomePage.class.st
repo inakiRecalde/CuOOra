@@ -119,16 +119,18 @@ HomePage >> renderPostsOn: canvas [
 								canvas space.
 								canvas text:'Respuestas: '. canvas text: each cantRespuestas .
 								canvas space.
-								canvas text:'Likes: '. canvas text: each cantLikes.
-								canvas space.
-								canvas text:'Dislikes: '. canvas text: each cantDislikes.
+								
 								(canvas anchor 
 									callback:[(self darLike: each)];
 									with: 'like').
 								canvas space.
+								canvas text: each cantLikes.
 								(canvas anchor 
 									callback:[(self darDislike: each)];
-									with: 'Dislike').]]].
+									with: 'Dislike').
+								
+								canvas space.
+								canvas text: each cantDislikes.]]].
 	canvas anchor 
 			callback: [ self createNewPost ];
 			with: [ canvas button: 'New post' ].
