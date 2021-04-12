@@ -86,27 +86,29 @@ HomePage >> renderLogoutButtonOn: aCanvas [
 { #category : #rendering }
 HomePage >> renderPostsOn: canvas [
 	canvas heading
-			level: 2;
-			with: 'Ultimas Preguntas'.
-	canvas 
-			unorderedList: [ 
-				( self session model preguntasRelevantes: self session user )
-				do: [ :each |  
-					canvas listItem: [ 
-								(canvas anchor 
-								callback:[(self verPregunta: each)];
-								with: each titulo).
-							   canvas space.
-								canvas text: 'Realizada por: ',  each user nombre.
-								canvas space.
-								canvas text:'Respuestas: ' .
-								canvas space.
-								canvas text:'Likes: '.
-								canvas space.
-								canvas text:'Dislikes: ']]].
-	canvas anchor 
-			callback: [ self createNewPost ];
-			with: [ canvas button: 'New post' ].
+		level: 2;
+		with: 'Ultimas Preguntas'.
+	canvas
+		unorderedList: [ (self session model preguntasRelevantes: self session user)
+				do: [ :each | 
+					canvas
+						listItem: [ canvas anchor
+								callback: [ self verPregunta: each ];
+								with: each titulo.
+							canvas space.
+							canvas text: 'Realizada por '.
+							canvas anchor
+								callback: [ self perfilUser: (self model buscarUsuario: each user nombre) ];
+								with: each user nombre.
+							canvas space.
+							canvas text: 'Respuestas: '.
+							canvas space.
+							canvas text: 'Likes: '.
+							canvas space.
+							canvas text: 'Dislikes: ' ] ] ].
+	canvas anchor
+		callback: [ self createNewPost ];
+		with: [ canvas button: 'New post' ]
 ]
 
 { #category : #rendering }

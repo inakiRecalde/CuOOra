@@ -43,7 +43,7 @@ Pregunta >> initialize [
 
 { #category : #accesing }
 Pregunta >> preguntaDeTopico: unTopico [
-	topicos detect: [ :topico | topico esIgualA: unTopico  ]  
+	topicos detect: [ :topico | topico esIgualA: unTopico ]  
 	ifFound: [ ^true ] 
 	ifNone: [ ^false ] .
 ]
