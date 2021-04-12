@@ -13,6 +13,11 @@ Interacciones class >> user: unUser [
 	^self new user: unUser .
 ]
 
+{ #category : #accessing }
+Interacciones >> esDe: aUser [
+	^ user nombre == aUser nombre .
+]
+
 { #category : #initialization }
 Interacciones >> initialize [
 	fecha := DateAndTime now.

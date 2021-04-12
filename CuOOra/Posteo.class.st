@@ -11,27 +11,44 @@ Class {
 	#category : #'CuOOra-model'
 }
 
+{ #category : #accesing }
+Posteo >> cantDislikes [
+	^dislikes size.
+]
+
+{ #category : #accesing }
+Posteo >> cantLikes [
+	^likes size.
+]
+
 { #category : #'adding/removing' }
 Posteo >> chequearCol: aCol user: aUser [
-	|interac |
-	interac:= aCol detect: [ :interaccion | interaccion esIgualA: aUser ] 
-	ifFound: [ aCol remove: interac ] .
+	aCol detect: [ :interaccion | interaccion esDe: aUser ] 
+	ifFound: [ :it | aCol remove: it] .
+]
+
+{ #category : #accesing }
+Posteo >> dar: colInteraccion chequear: colOtroTipoInteraccion de: aUser [
+	colInteraccion detect: [ :interaccion | interaccion esDe: aUser ] 
+	ifFound: [ :it | colInteraccion remove: it ]
+	ifNone:  [ colInteraccion add: (Interacciones user: aUser).
+		self chequearCol:  colOtroTipoInteraccion user: aUser . ].
+	
+	"preguntar, seria un darLike o dislike para no repetir codigo pero le tendrian q pasar la colecciones por parametro"
 ]
 
 { #category : #'adding/removing' }
 Posteo >> darDislike: aUser [
-	|in|
-	in := dislikes detect: [ :interaccion | interaccion esIgualA: aUser ] 
-	ifFound: [ dislikes remove: in ]
+	 dislikes detect: [ :interaccion | interaccion esDe: aUser ] 
+	ifFound: [ :it | dislikes remove: it ]
 	ifNone:  [ dislikes add: (Interacciones user: aUser).
 		self chequearCol: likes user: aUser . ].
 ]
 
 { #category : #'adding/removing' }
 Posteo >> darLike: aUser [
-	|in|
-	in := likes detect: [ :interaccion | interaccion esIgualA: aUser ] 
-	ifFound: [ likes remove: in ]
+	 likes detect: [ :interaccion | interaccion esDe: aUser ] 
+	ifFound: [ :it | likes remove: it ]
 	ifNone:  [ likes add: (Interacciones user: aUser).
 		self chequearCol: dislikes user: aUser . ].
 ]

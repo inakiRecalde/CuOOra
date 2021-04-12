@@ -10,6 +10,16 @@ HomePage >> createNewPost [
 ]
 
 { #category : #callback }
+HomePage >> darDislike: unPost [
+	 unPost darDislike: self session user .
+]
+
+{ #category : #callback }
+HomePage >> darLike: unPost [
+	 unPost darLike: self session user.
+]
+
+{ #category : #callback }
 HomePage >> elegirTopico [
 	self call: ElegirTopicoComponent new.
 ]
@@ -31,17 +41,14 @@ HomePage >> perfilUser [
 
 { #category : #callback }
 HomePage >> perfilUser: aUser [
-|perfil|
-	perfil :=PerfilVisitorComponent new.
-	perfil user: aUser.
-	self call: perfil .
+	self call: (PerfilUserComponent user: aUser).
 ]
 
 { #category : #rendering }
 HomePage >> renderContentOn: aCanvas [
 	aCanvas heading: 'Welcome to CuOOra'. 
 	aCanvas anchor
-			callback: [ self perfilUser];
+			callback: [ self perfilUser: self session user];
 			with: self session user nombre.
 	self renderLogoutButtonOn: aCanvas.
 	aCanvas horizontalRule.
@@ -86,29 +93,37 @@ HomePage >> renderLogoutButtonOn: aCanvas [
 { #category : #rendering }
 HomePage >> renderPostsOn: canvas [
 	canvas heading
-		level: 2;
-		with: 'Ultimas Preguntas'.
-	canvas
-		unorderedList: [ (self session model preguntasRelevantes: self session user)
-				do: [ :each | 
-					canvas
-						listItem: [ canvas anchor
-								callback: [ self verPregunta: each ];
-								with: each titulo.
-							canvas space.
-							canvas text: 'Realizada por '.
-							canvas anchor
-								callback: [ self perfilUser: (self model buscarUsuario: each user nombre) ];
-								with: each user nombre.
-							canvas space.
-							canvas text: 'Respuestas: '.
-							canvas space.
-							canvas text: 'Likes: '.
-							canvas space.
-							canvas text: 'Dislikes: ' ] ] ].
-	canvas anchor
-		callback: [ self createNewPost ];
-		with: [ canvas button: 'New post' ]
+			level: 2;
+			with: 'Ultimas Preguntas'.
+	canvas 
+			unorderedList: [ 
+				( self session model preguntasRelevantes: self session user )
+				do: [ :each |  
+					canvas listItem: [ 
+								(canvas anchor 
+								callback:[(self verPregunta: each)];
+								with: each titulo).
+							   canvas space.
+								canvas text: 'Realizada por: '. 
+								(canvas anchor 
+									callback:[(self perfilUser: each user)];
+									with: each user nombre).
+								canvas space.
+								canvas text:'Respuestas: '. canvas text: each cantRespuestas .
+								canvas space.
+								canvas text:'Likes: '. canvas text: each cantLikes.
+								canvas space.
+								canvas text:'Dislikes: '. canvas text: each cantDislikes.
+								(canvas anchor 
+									callback:[(self darLike: each)];
+									with: 'like').
+								canvas space.
+								(canvas anchor 
+									callback:[(self darDislike: each)];
+									with: 'Dislike').]]].
+	canvas anchor 
+			callback: [ self createNewPost ];
+			with: [ canvas button: 'New post' ].
 ]
 
 { #category : #rendering }

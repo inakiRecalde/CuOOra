@@ -14,6 +14,11 @@ Respuesta >> eliminarRespuestas [
 	^self .
 ]
 
+{ #category : #initialization }
+Respuesta >> initialize [ 
+	super initialize .
+]
+
 { #category : #accessing }
 Respuesta >> respuestaDeUserPuntaje: aUser [
 	(user equals: aUser)
