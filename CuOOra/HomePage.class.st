@@ -117,6 +117,9 @@ HomePage >> renderPostsOn: canvas [
 									callback:[(self perfilUser: each user)];
 									with: each user nombre).
 								canvas space.
+								canvas text: 'Topicos: '. 
+								each topicos do:[ :topic |  canvas text: topic nombre].
+								canvas space.
 								canvas text:'Respuestas: '. canvas text: each cantRespuestas .
 								canvas space.
 								

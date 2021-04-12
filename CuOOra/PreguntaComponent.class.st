@@ -64,9 +64,16 @@ PreguntaComponent >> renderContentOn: canvas [
 	canvas space.
 	canvas text: 'Respuestas: '.
 	canvas space.
-	canvas text: 'Likes: '.
+	canvas anchor
+		callback: [ self darLike: pregunta ];
+		with: 'like'.
 	canvas space.
-	canvas text: 'Dislikes: '.
+	canvas text: pregunta cantLikes.
+	canvas anchor
+		callback: [ self darDislike: pregunta ];
+		with: 'Dislike'.
+	canvas space.
+	canvas text: pregunta cantDislikes.
 	"comentarios"
 	canvas text: 'Respuestas'.
 	canvas
@@ -81,16 +88,16 @@ PreguntaComponent >> renderContentOn: canvas [
 										perfilUser: (CuOOra soleInstance buscarUsuario: each user nombre) ];
 								with: each user nombre.
 							canvas space.
-							canvas text: 'Likes: '.canvas text: each cantLikes.
+							canvas anchor
+								callback: [ self darLike: pregunta ];
+								with: 'like'.
 							canvas space.
-							canvas text: 'Dislikes: '.canvas text: each cantDislikes.
-							(canvas anchor 
-									callback:[(self darLike: each)];
-									with: 'like').
+							canvas text: pregunta cantLikes.
+							canvas anchor
+								callback: [ self darDislike: pregunta ];
+								with: 'Dislike'.
 							canvas space.
-							(canvas anchor 
-									callback:[(self darDislike: each)];
-									with: 'Dislike'). ] ] ].
+							canvas text: pregunta cantDislikes ] ] ].
 	canvas
 		form: [ canvas
 				paragraph: [ canvas label: 'realizar comentario '.
