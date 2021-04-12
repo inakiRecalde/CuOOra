@@ -53,7 +53,7 @@ NewPostPage >> post [
 { #category : #rendering }
 NewPostPage >> renderContentOn: aCanvas [
 	self renderCabecera: aCanvas.
-	self renderHomeButtonOn: aCanvas.
+	self renderBackButtonOn: aCanvas.
 	aCanvas
 		form: [ aCanvas
 				paragraph: [ aCanvas label: 'Titulo: '.

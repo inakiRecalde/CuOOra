@@ -34,7 +34,7 @@ ElegirTopicoComponent >> renderButtonsOn:  aCanvas [
 { #category : #rendering }
 ElegirTopicoComponent >> renderContentOn: aCanvas [
 	self renderCabecera: aCanvas.
-	self renderHomeButtonOn: aCanvas.
+	self renderBackButtonOn: aCanvas.
 	aCanvas
 		form: [ self renderTopicosOn: aCanvas.
 			aCanvas text: 'no le interesan ? Crea uno!!'.

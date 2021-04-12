@@ -126,7 +126,7 @@ CuOOra >> pruebas [
 	
 	"Usuarios: pedro@cuoora.com, diego@cuoora.com, juan@cuoora.com"
 	"Nuevo usuario"
-	pedro := Usuario nombre: 'pedro' contrasena: 'pedro@cuoora.com@gmail.com' email: 'pedro@cuoora.com@gmail.com'.
+	pedro := Usuario nombre: 'pedro' contrasena: 'pedro' email: 'pedro@cuoora.com@gmail.com'.
 	topicos1 add:oo1.
 	topicos1 add: test.
 	preg :=Pregunta titulo: 'Duda metodo setUp' descripcion: '¿Para qué sirve el método SetUp?' topicos: topicos1 user: pedro .

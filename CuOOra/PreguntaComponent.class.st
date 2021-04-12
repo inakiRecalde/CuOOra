@@ -62,7 +62,7 @@ PreguntaComponent >> renderComentariosOn: canvas [
 { #category : #rendering }
 PreguntaComponent >> renderContentOn: canvas [
 	self renderCabecera: canvas.
-	self renderHomeButtonOn: canvas.
+	self renderBackButtonOn: canvas.
 	self renderPreguntaOn: canvas.
 	self renderComentariosOn: canvas.
 	self renderComentarOn: canvas.

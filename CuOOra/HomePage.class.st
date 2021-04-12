@@ -1,6 +1,6 @@
 Class {
 	#name : #HomePage,
-	#superclass : #WAComponent,
+	#superclass : #CabeceraComponent,
 	#category : #'CuOOra-ui'
 }
 
@@ -43,19 +43,8 @@ HomePage >> perfilUser: aUser [
 ]
 
 { #category : #rendering }
-HomePage >> renderCabecera: aCanvas [
-	aCanvas heading: 'CuOOra'. 
-	self renderPerfilUserOn: aCanvas.
-	aCanvas space.
-	self renderLogoutButtonOn: aCanvas.
-	aCanvas space.
-	self renderbuttonsOn: aCanvas.
-
-	
-]
-
-{ #category : #rendering }
 HomePage >> renderContentOn: aCanvas [
+	aCanvas text: 'hola'.
 	self renderCabecera: aCanvas.
 	aCanvas horizontalRule.
 	
@@ -101,16 +90,6 @@ HomePage >> renderFriendsOn: aCanvas [
 ]
 
 { #category : #rendering }
-HomePage >> renderHomeButtonOn: aCanvas [
-	aCanvas space.
-	aCanvas anchor
-		callback: [ self volverHome ];
-		with: [ aCanvas button: 'Home' ].
-	aCanvas space.
-	aCanvas horizontalRule
-]
-
-{ #category : #rendering }
 HomePage >> renderListItem: canvas post: each [
 	canvas text: each text.
 	canvas text: 'Realizada por: '.
@@ -129,21 +108,6 @@ HomePage >> renderListItem: canvas post: each [
 		with: 'Dislike'.
 	canvas space.
 	
-]
-
-{ #category : #rendering }
-HomePage >> renderLogoutButtonOn: aCanvas [
-	aCanvas
-		paragraph: [ aCanvas anchor
-				callback: [ self answer ];
-				with: [ aCanvas button with: 'Logout' ] ]
-]
-
-{ #category : #rendering }
-HomePage >> renderPerfilUserOn: aCanvas [.
-	aCanvas anchor
-			callback: [ self perfilUser: self session user];
-			with: self session user nombre.
 ]
 
 { #category : #rendering }
@@ -195,20 +159,7 @@ HomePage >> renderTopicoInteresOn: aCanvas [
 					with: 'Elegir Topico de Interes'.].
 ]
 
-{ #category : #rendering }
-HomePage >> renderbuttonsOn: aCanvas [
-	aCanvas anchor 
-			callback: [ self answer];
-			with: [ aCanvas button: 'volver' ].
-		
-]
-
 { #category : #callback }
 HomePage >> verPregunta: unaPregunta [ 
 	self call: (PreguntaComponent pregunta: unaPregunta ).
-]
-
-{ #category : #callback }
-HomePage >> volverHome [
-	self call: HomePage new.
 ]
