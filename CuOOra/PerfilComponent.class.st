@@ -12,6 +12,7 @@ PerfilComponent >> renderPreguntasOn: aCanvas [
 	aCanvas
 		unorderedList: [ (CuOOra soleInstance preguntasDeUser: self user)
 				do: [ :each | 
+					self renderTitulo: aCanvas pregunta:each. 
 					self renderListItem: aCanvas pregunta: each.  ]]
 ]
 

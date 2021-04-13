@@ -18,7 +18,6 @@ PreguntaComponent >> comentario [
 
 	textComent ifEmpty: [ ^ self ].
 	pregunta respuestas: (Respuesta text: textComent  user:self session user ).
-	self answer.
 ]
 
 { #category : #accessing }
