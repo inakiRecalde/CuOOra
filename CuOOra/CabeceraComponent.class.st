@@ -5,6 +5,11 @@ Class {
 }
 
 { #category : #callback }
+CabeceraComponent >> findFriend [
+	self call: FriendsFinderPage new.
+]
+
+{ #category : #callback }
 CabeceraComponent >> perfilUser: aUser [
 
 	(self session user == aUser)
@@ -22,11 +27,20 @@ CabeceraComponent >> renderBackButtonOn: aCanvas [
 ]
 
 { #category : #rendering }
+CabeceraComponent >> renderBuscarOn: aCanvas [.
+		aCanvas anchor
+		callback: [ self findFriend ];
+		with: [ aCanvas button: 'Buscar Amigos' ]
+]
+
+{ #category : #rendering }
 CabeceraComponent >> renderCabecera: aCanvas [
 	aCanvas heading: 'CuOOra'. 
 	self renderPerfilUserOn: aCanvas.
 	aCanvas space.
 	self renderLogoutButtonOn: aCanvas.
+	aCanvas space.
+	self renderBuscarOn: aCanvas.
 
 	
 ]

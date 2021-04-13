@@ -1,6 +1,6 @@
 Class {
 	#name : #FriendsFinderPage,
-	#superclass : #WAComponent,
+	#superclass : #CabeceraComponent,
 	#instVars : [
 		'searchText'
 	],
@@ -21,7 +21,7 @@ FriendsFinderPage >> renderContentOn: aCanvas [
 	aCanvas horizontalRule.
 	aCanvas anchor
 		callback: [ self answer ];
-		with: [ aCanvas button: 'Finish' ]
+		with: [ aCanvas button: 'Finalizar' ]
 ]
 
 { #category : #rendering }
@@ -29,7 +29,7 @@ FriendsFinderPage >> renderSearchFormOn: aCanvas [
 	aCanvas
 		form: [ aCanvas textInput on: #searchText of: self.
 			aCanvas space.
-			aCanvas submitButton with: 'Search' ]
+			aCanvas submitButton with: 'Buscar' ]
 ]
 
 { #category : #rendering }
@@ -39,7 +39,7 @@ FriendsFinderPage >> renderSearchResultsOn: aCanvas [
 	users := CuOOra soleInstance usersMatchingNamePart: searchText.
 	users
 		ifEmpty: [ aCanvas
-				paragraph: 'Sorry... no matches... no friends for you this time.' ]
+				paragraph: 'Disculpa, no hemos podido encontrar ningun usuario con ese nombre.' ]
 		ifNotEmpty:
 			[ self renderUsers: users on: aCanvas ]
 ]
@@ -49,14 +49,14 @@ FriendsFinderPage >> renderUsers: users on: aCanvas [
 	^ aCanvas
 		unorderedList: [ users
 				do: [ :each | 
-					(self session user canBefriend: each)
-						ifTrue: [ aCanvas
-								listItem: [ aCanvas
-										text: each nombre;
-										space.
-									aCanvas anchor
+					aCanvas
+						listItem: [ aCanvas anchor
+								callback: [ self perfilUser: each  ];
+								with: each nombre.
+							(self session user canBefriend: each)
+								ifTrue: [ aCanvas anchor
 										callback: [ self seguirA: each ];
-										with: [ aCanvas button: 'Befriend' ] ] ] ] ]
+										with: [ aCanvas button: 'Seguir' ] ] ] ] ]
 ]
 
 { #category : #rendering }
@@ -83,9 +83,4 @@ FriendsFinderPage >> searchText: anObject [
 { #category : #callbacks }
 FriendsFinderPage >> seguirA: anUser [
 	self session user seguirUser: anUser
-]
-
-{ #category : #callbacks }
-FriendsFinderPage >> volverHome [
-	self call: HomePage new.
 ]

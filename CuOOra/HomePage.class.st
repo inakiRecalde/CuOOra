@@ -14,11 +14,6 @@ HomePage >> elegirTopico [
 	self call: ElegirTopicoComponent new.
 ]
 
-{ #category : #callback }
-HomePage >> findFriend [
-	self call: FriendsFinderPage new.
-]
-
 { #category : #accessing }
 HomePage >> model [
 	^ CuOOra soleInstance.
