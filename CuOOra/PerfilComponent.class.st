@@ -1,11 +1,19 @@
 Class {
 	#name : #PerfilComponent,
-	#superclass : #CabeceraComponent,
+	#superclass : #InteraccionesComponent,
 	#instVars : [
 		'user'
 	],
 	#category : #'CuOOra-ui'
 }
+
+{ #category : #rendering }
+PerfilComponent >> renderPreguntasOn: aCanvas [
+	aCanvas
+		unorderedList: [ (CuOOra soleInstance preguntasDeUser: self user)
+				do: [ :each | 
+					self renderListItem: aCanvas pregunta: each.  ]]
+]
 
 { #category : #accessing }
 PerfilComponent >> user [

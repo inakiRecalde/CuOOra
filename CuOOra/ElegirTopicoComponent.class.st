@@ -1,10 +1,6 @@
 Class {
 	#name : #ElegirTopicoComponent,
-	#superclass : #HomePage,
-	#instVars : [
-		'topico',
-		'descripcion'
-	],
+	#superclass : #CrearTopicoComponent,
 	#category : #'CuOOra-ui'
 }
 
@@ -12,16 +8,6 @@ Class {
 ElegirTopicoComponent >> crearTopico [
 	self call: CrearTopicoComponent new.
 	
-]
-
-{ #category : #accessing }
-ElegirTopicoComponent >> descripcion [
-	^ descripcion
-]
-
-{ #category : #accessing }
-ElegirTopicoComponent >> descripcion: anObject [
-	descripcion := anObject
 ]
 
 { #category : #rendering }
@@ -58,14 +44,4 @@ ElegirTopicoComponent >> renderTopicosOn: aCanvas [
 ElegirTopicoComponent >> seleccionarTopico: unTopico [ 
 	self session user topicoDeInteres: unTopico.
 	self answer.
-]
-
-{ #category : #accessing }
-ElegirTopicoComponent >> topico [
-	^ topico
-]
-
-{ #category : #accessing }
-ElegirTopicoComponent >> topico: anObject [
-	topico := anObject
 ]

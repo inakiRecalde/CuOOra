@@ -1,6 +1,6 @@
 Class {
 	#name : #TopicoComponent,
-	#superclass : #HomePage,
+	#superclass : #CabeceraComponent,
 	#instVars : [
 		'topico',
 		'descripcion'

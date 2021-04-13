@@ -52,13 +52,7 @@ PerfilVisitorComponent >> renderPreguntasOn: aCanvas [
 	aCanvas heading
 			level: 2;
 			with: 'Sus preguntas'.	
-	aCanvas
-		unorderedList: [ (CuOOra soleInstance preguntasDeUser: self user)
-				do: [ :each | 
-					aCanvas space.
-					aCanvas anchor
-						callback: [ self verPregunta: each ];
-						with: each titulo ] ]
+	super renderPreguntasOn: aCanvas.
 ]
 
 { #category : #callbacks }

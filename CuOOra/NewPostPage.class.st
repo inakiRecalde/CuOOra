@@ -1,6 +1,6 @@
 Class {
 	#name : #NewPostPage,
-	#superclass : #HomePage,
+	#superclass : #CabeceraComponent,
 	#instVars : [
 		'title',
 		'desc',
@@ -51,11 +51,35 @@ NewPostPage >> post [
 ]
 
 { #category : #rendering }
+NewPostPage >> renderButtonsOn: aCanvas [
+	aCanvas text: 'Publicar post'.
+	aCanvas space.
+	aCanvas submitButton
+				callback: [ self post ];
+				with: 'Post' .
+	aCanvas break.
+	aCanvas break.
+	aCanvas text: 'No encuentra el topico ideal ?	 PUEDE CREARLO!!'.
+	aCanvas break.
+	aCanvas submitButton
+				callback: [ self elegirTopico ];
+				with: 'Crear topico'.
+	
+]
+
+{ #category : #rendering }
 NewPostPage >> renderContentOn: aCanvas [
 	self renderCabecera: aCanvas.
 	self renderBackButtonOn: aCanvas.
 	aCanvas
-		form: [ aCanvas
+		form: [ 
+			self renderInputElementOn: aCanvas.
+		   self renderButtonsOn: aCanvas]
+]
+
+{ #category : #rendering }
+NewPostPage >> renderInputElementOn: aCanvas [
+	aCanvas
 				paragraph: [ aCanvas label: 'Titulo: '.
 					aCanvas textInput on: #title of: self ].
 			aCanvas
@@ -69,7 +93,7 @@ NewPostPage >> renderContentOn: aCanvas [
 								listItem: [ aCanvas anchor
 										callback: [ self agregarTopico: each ];
 										with: each nombre ] ] ].
-			aCanvas text: 'Topicos elegidos'.
+			aCanvas text: 'Topicos elegidos: '. aCanvas text: top size.
 			aCanvas
 				unorderedList: [ top
 						do: [ :each | 
@@ -79,12 +103,6 @@ NewPostPage >> renderContentOn: aCanvas [
 									aCanvas anchor
 										callback: [ self eliminarTopico: each ];
 										with: 'X' ] ] ].
-			aCanvas submitButton
-				callback: [ self elegirTopico ];
-				with: 'Crear topico'.
-			aCanvas submitButton
-				callback: [ self post ];
-				with: 'Post' ]
 ]
 
 { #category : #callback }

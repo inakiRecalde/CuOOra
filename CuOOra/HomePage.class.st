@@ -1,22 +1,12 @@
 Class {
 	#name : #HomePage,
-	#superclass : #CabeceraComponent,
+	#superclass : #InteraccionesComponent,
 	#category : #'CuOOra-ui'
 }
 
 { #category : #callback }
 HomePage >> createNewPost [
 	self call: NewPostPage new.
-]
-
-{ #category : #callback }
-HomePage >> darDislike: unPost [
-	 unPost darDislike: self session user .
-]
-
-{ #category : #callback }
-HomePage >> darLike: unPost [
-	 unPost darLike: self session user.
 ]
 
 { #category : #callback }
@@ -81,27 +71,6 @@ HomePage >> renderFriendsOn: aCanvas [
 ]
 
 { #category : #rendering }
-HomePage >> renderListItem: canvas post: each [
-	canvas text: each text.
-	canvas text: 'Realizada por: '.
-	canvas anchor
-		callback: [ self
-				perfilUser: (CuOOra soleInstance buscarUsuario: each user nombre) ];
-		with: each user nombre.
-	canvas space.
-	canvas anchor
-		callback: [ self darLike: each ];
-		with: 'like'.
-	canvas space.
-	canvas text: each cantLikes.
-	canvas anchor
-		callback: [ self darDislike: each ];
-		with: 'Dislike'.
-	canvas space.
-	
-]
-
-{ #category : #rendering }
 HomePage >> renderPostsOn: canvas [
 	canvas heading
 			level: 2;
@@ -111,32 +80,8 @@ HomePage >> renderPostsOn: canvas [
 				( self session model preguntasRelevantes: self session user )
 				do: [ :each |  
 					canvas listItem: [ 
-								(canvas anchor 
-								callback:[(self verPregunta: each)];
-								with: each titulo).
-							   canvas space.
-								canvas text: 'Realizada por: '. 
-								(canvas anchor 
-									callback:[(self perfilUser: each user)];
-									with: each user nombre).
-								canvas space.
-								canvas text: 'Topicos: '. 
-								each topicos do:[ :topic |  canvas text: topic nombre. canvas space.].
-								canvas space.
-								canvas text:'Respuestas: '. canvas text: each cantRespuestas .
-								canvas space.
-								
-								(canvas anchor 
-									callback:[(self darLike: each)];
-									with: 'like').
-								canvas space.
-								canvas text: each cantLikes.
-								(canvas anchor 
-									callback:[(self darDislike: each)];
-									with: 'Dislike').
-								
-								canvas space.
-								canvas text: each cantDislikes.]]].
+								self renderListItem: canvas pregunta: each . ]]].
+												
 	canvas anchor 
 			callback: [ self createNewPost ];
 			with: [ canvas button: 'Nueva Pregunta' ].
@@ -148,9 +93,4 @@ HomePage >> renderTopicoInteresOn: aCanvas [
 		aCanvas submitButton 
 					callback: [ self elegirTopico ];	
 					with: 'Elegir Topico de Interes'.].
-]
-
-{ #category : #callback }
-HomePage >> verPregunta: unaPregunta [ 
-	self call: (PreguntaComponent pregunta: unaPregunta ).
 ]

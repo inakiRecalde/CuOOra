@@ -1,6 +1,6 @@
 Class {
 	#name : #PreguntaComponent,
-	#superclass : #HomePage,
+	#superclass : #InteraccionesComponent,
 	#instVars : [
 		'pregunta',
 		'textComent'
@@ -48,14 +48,18 @@ PreguntaComponent >> renderComentariosOn: canvas [
 		unorderedList: [ pregunta respuestas
 				do: [ :each | 
 					canvas
-						listItem: [ self renderListItem: canvas post: each ]]].
+						listItem: [ canvas text: each text.
+							canvas break. 
+							self renderListItem: canvas post: each ]]].
 ]
 
 { #category : #rendering }
 PreguntaComponent >> renderContentOn: canvas [
 	self renderCabecera: canvas.
 	self renderBackButtonOn: canvas.
-	self renderPreguntaOn: canvas.
+	
+	self renderListItem: canvas pregunta: pregunta.
+	
 	self renderComentariosOn: canvas.
 	self renderComentarOn: canvas.
 ]

@@ -23,7 +23,7 @@ PerfilUserComponent >> renderContentOn: aCanvas [
 PerfilUserComponent >> renderNombreOn: aCanvas [
 	aCanvas heading
 			level: 2;
-			with: self session user nombre.
+			with: 'Perfil de: ',self session user nombre.
 	
 ]
 
@@ -33,11 +33,7 @@ PerfilUserComponent >> renderPreguntasOn: aCanvas [
 	aCanvas heading
 			level: 2;
 			with:' Mis preguntas'.
-	aCanvas unorderedList: [ 
-			(CuOOra soleInstance preguntasDeUser: self user)
-										do: [ :each | aCanvas space. aCanvas anchor 
-													callback: [];
-													with: each titulo ] ] .
+	super renderPreguntasOn: aCanvas.
 ]
 
 { #category : #rendering }

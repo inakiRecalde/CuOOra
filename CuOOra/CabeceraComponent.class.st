@@ -14,11 +14,6 @@ CabeceraComponent >> perfilUser: aUser [
 
 { #category : #rendering }
 CabeceraComponent >> renderBackButtonOn: aCanvas [
-	aCanvas space.
-	aCanvas anchor
-		callback: [ self volver ];
-		with: [ aCanvas button: 'Volver' ].
-	aCanvas space.
 		aCanvas anchor 
 			callback: [ self volverHome];
 			with: [ aCanvas button: 'Home' ].
@@ -40,7 +35,7 @@ CabeceraComponent >> renderCabecera: aCanvas [
 CabeceraComponent >> renderLogoutButtonOn: aCanvas [
 	aCanvas
 		paragraph: [ aCanvas anchor
-				callback: [ self answer ];
+				callback: [ self volverLogin ];
 				with: [ aCanvas button with: 'Logout' ] ]
 ]
 
@@ -51,7 +46,7 @@ CabeceraComponent >> renderPerfilUserOn: aCanvas [.
 			with: self session user nombre.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #callback }
 CabeceraComponent >> volver [
 	self answer .
 ]
@@ -59,4 +54,9 @@ CabeceraComponent >> volver [
 { #category : #callback }
 CabeceraComponent >> volverHome [
 	self call: HomePage new.
+]
+
+{ #category : #callback }
+CabeceraComponent >> volverLogin [
+	self call: WelcomePage new.
 ]
