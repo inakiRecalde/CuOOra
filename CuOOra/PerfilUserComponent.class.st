@@ -10,26 +10,29 @@ PerfilUserComponent class >> user: aUser [
 		user: aUser.
 ]
 
-{ #category : #callback }
-PerfilUserComponent >> perfilVisitor: aUser [
-
-	self call:(PerfilVisitorComponent new user:aUser).
-]
-
 { #category : #rendering }
 PerfilUserComponent >> renderContentOn: aCanvas [
 	self renderCabecera: aCanvas .
 	self renderBackButtonOn: aCanvas.
-	
+	self renderNombreOn: aCanvas.
 	self renderPreguntasOn: aCanvas.
 	self renderSeguidosOn: aCanvas.
 ]
 
 { #category : #rendering }
-PerfilUserComponent >> renderPreguntasOn: aCanvas [
+PerfilUserComponent >> renderNombreOn: aCanvas [
 	aCanvas heading
 			level: 2;
-			with: 'misPreguntas', self session user nombre.
+			with: self session user nombre.
+	
+]
+
+{ #category : #rendering }
+PerfilUserComponent >> renderPreguntasOn: aCanvas [
+
+	aCanvas heading
+			level: 2;
+			with:' Mis preguntas'.
 	aCanvas unorderedList: [ 
 			(CuOOra soleInstance preguntasDeUser: self user)
 										do: [ :each | aCanvas space. aCanvas anchor 
@@ -48,7 +51,7 @@ PerfilUserComponent >> renderSeguidosOn: aCanvas [
 					aCanvas
 						listItem:
 							[aCanvas anchor
-								callback: [ self perfilVisitor: 
+								callback: [ self perfilUser: 
 									( CuOOra soleInstance  buscarUsuario: each  nombre) ];
 								with: each  nombre]] ].
 ]

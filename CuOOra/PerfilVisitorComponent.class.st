@@ -43,7 +43,7 @@ PerfilVisitorComponent >> renderFollowsButtonsOn: aCanvas [
 
 	aCanvas heading
 			level: 2;
-			with: self session user nombre.	
+			with: user nombre.	
 
 ]
 

@@ -21,14 +21,6 @@ PreguntaComponent >> comentario [
 	self answer.
 ]
 
-{ #category : #callback }
-PreguntaComponent >> perfilUser: aUser [
-|perfil|
-	perfil :=PerfilVisitorComponent new.
-	perfil user: aUser.
-	self call: perfil .
-]
-
 { #category : #accessing }
 PreguntaComponent >> pregunta [
 	^ pregunta

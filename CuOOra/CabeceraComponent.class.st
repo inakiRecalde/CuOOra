@@ -4,12 +4,24 @@ Class {
 	#category : #'CuOOra-ui'
 }
 
+{ #category : #callback }
+CabeceraComponent >> perfilUser: aUser [
+
+	(self session user == aUser)
+	ifTrue: [self call: (PerfilUserComponent user: aUser)].
+	self call: (PerfilVisitorComponent new user: aUser).
+]
+
 { #category : #rendering }
 CabeceraComponent >> renderBackButtonOn: aCanvas [
 	aCanvas space.
 	aCanvas anchor
 		callback: [ self volver ];
 		with: [ aCanvas button: 'Volver' ].
+	aCanvas space.
+		aCanvas anchor 
+			callback: [ self volverHome];
+			with: [ aCanvas button: 'Home' ].
 	aCanvas space.
 	aCanvas horizontalRule
 ]
@@ -42,4 +54,9 @@ CabeceraComponent >> renderPerfilUserOn: aCanvas [.
 { #category : #'as yet unclassified' }
 CabeceraComponent >> volver [
 	self answer .
+]
+
+{ #category : #callback }
+CabeceraComponent >> volverHome [
+	self call: HomePage new.
 ]

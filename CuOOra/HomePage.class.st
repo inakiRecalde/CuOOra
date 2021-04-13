@@ -34,14 +34,6 @@ HomePage >> model [
 	^ CuOOra soleInstance.
 ]
 
-{ #category : #callback }
-HomePage >> perfilUser: aUser [
-
-	(self session user == aUser)
-	ifTrue: [self call: (PerfilUserComponent user: aUser)].
-	self call: (PerfilVisitorComponent new user: aUser).
-]
-
 { #category : #rendering }
 HomePage >> renderContentOn: aCanvas [
 	self renderCabecera: aCanvas.
