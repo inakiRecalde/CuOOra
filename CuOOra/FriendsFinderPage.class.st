@@ -15,6 +15,8 @@ FriendsFinderPage >> initialize [
 
 { #category : #rendering }
 FriendsFinderPage >> renderContentOn: aCanvas [
+	self renderCabecera: aCanvas.
+	aCanvas horizontalRule.
 	self renderbuttonsOn: aCanvas.
 	self renderSearchFormOn: aCanvas.
 	self renderSearchResultsOn: aCanvas.

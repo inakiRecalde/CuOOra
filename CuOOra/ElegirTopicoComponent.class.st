@@ -23,7 +23,7 @@ ElegirTopicoComponent >> renderContentOn: aCanvas [
 	self renderBackButtonOn: aCanvas.
 	aCanvas
 		form: [ self renderTopicosOn: aCanvas.
-			aCanvas text: 'no le interesan ? Crea uno!!'.
+			aCanvas text: 'No le interesan ? Crea uno!'.
 			self renderButtonsOn: aCanvas ]
 ]
 
