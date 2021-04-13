@@ -80,6 +80,7 @@ HomePage >> renderPostsOn: canvas [
 				( self session model preguntasRelevantes: self session user )
 				do: [ :each |  
 					canvas listItem: [ 
+								self renderTitulo: canvas pregunta:each. 
 								self renderListItem: canvas pregunta: each . ]]].
 												
 	canvas anchor 

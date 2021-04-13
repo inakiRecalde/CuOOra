@@ -38,9 +38,6 @@ InteraccionesComponent >> renderListItem: canvas post: each [
 
 { #category : #rendering }
 InteraccionesComponent >> renderListItem: canvas pregunta: each [
-								(canvas anchor 
-								callback:[(self verPregunta: each)];
-								with: each titulo).
 								canvas break.
 								canvas text: 'Topicos: '.
 								each topicos 
@@ -49,6 +46,21 @@ InteraccionesComponent >> renderListItem: canvas pregunta: each [
 								canvas text: 'Respuestas: '.
 								canvas text: each cantRespuestas .
 								self renderListItem: canvas post: each. 
+]
+
+{ #category : #rendering }
+InteraccionesComponent >> renderListItem: canvas preguntaEnDetalle: pregunta [
+	self renderTitulo: canvas pregunta: pregunta.
+	canvas break.
+	canvas text: pregunta text.
+	self renderListItem: canvas pregunta: pregunta. 
+]
+
+{ #category : #rendering }
+InteraccionesComponent >> renderTitulo: canvas pregunta: pregunta [ 	
+			(canvas anchor 
+			callback:[(self verPregunta: pregunta)];
+			with: pregunta titulo).
 ]
 
 { #category : #callback }

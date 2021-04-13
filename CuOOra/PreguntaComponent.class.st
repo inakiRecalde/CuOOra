@@ -58,19 +58,10 @@ PreguntaComponent >> renderContentOn: canvas [
 	self renderCabecera: canvas.
 	self renderBackButtonOn: canvas.
 	
-	self renderListItem: canvas pregunta: pregunta.
+	self renderListItem: canvas preguntaEnDetalle: pregunta.
 	
 	self renderComentariosOn: canvas.
 	self renderComentarOn: canvas.
-]
-
-{ #category : #rendering }
-PreguntaComponent >> renderPreguntaOn: canvas [
-	canvas text: pregunta titulo.
-	canvas space.
-	self renderListItem: canvas post: pregunta.
-	canvas space.
-	canvas text: 'Respuestas: '. canvas text: pregunta cantRespuestas . 
 ]
 
 { #category : #accessing }
