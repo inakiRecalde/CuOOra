@@ -14,6 +14,16 @@ Topico class >> nombre: unNombre descripcion: unaDescripcion [
 ]
 
 { #category : #accessing }
+Topico >> descripcion [
+	^ descripcion
+]
+
+{ #category : #accessing }
+Topico >> descripcion: anObject [
+	descripcion := anObject
+]
+
+{ #category : #accessing }
 Topico >> esIgualA: unTopico [
  	^( nombre == unTopico nombre).
 	
@@ -28,6 +38,11 @@ Topico >> initialize [
 { #category : #accessing }
 Topico >> nombre [
 	^nombre .
+]
+
+{ #category : #accessing }
+Topico >> nombre: anObject [
+	nombre := anObject
 ]
 
 { #category : #construction }

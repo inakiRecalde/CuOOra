@@ -62,12 +62,28 @@ CuOOra >> elegirTopicoInteres: aUser topico: topico [
 ]
 
 { #category : #accesing }
-CuOOra >> eliminarPregunta: unaPregunta [ 
-	|preg|
-	preg:= preguntas detect: [ :p | p esIgualA: unaPregunta  ] 
-	ifFound: [ (preg preguntaDeUser: unaPregunta user)
-					ifTrue: [ unaPregunta eliminarRespuestas 
-								preguntas remove: unaPregunta  ] ]. 
+CuOOra >> eliminarPregunta: unaPregunta [
+	| preg |
+	preg := preguntas
+		detect: [ :p | p esIgualA: unaPregunta ]
+		ifFound: [ (preg preguntaDeUser: unaPregunta user)
+				ifTrue:
+					[ unaPregunta eliminarRespuestas preguntas remove: unaPregunta ] ]
+]
+
+{ #category : #adding }
+CuOOra >> incluyePregunta: unaPregunta [
+	^preguntas includes: unaPregunta.
+]
+
+{ #category : #adding }
+CuOOra >> incluyeTopico: unTopico [
+	^topicos includes: unTopico.
+]
+
+{ #category : #adding }
+CuOOra >> incluyeUsuario: unUser [
+	^usuarios includes: unUser.
 ]
 
 { #category : #initialization }

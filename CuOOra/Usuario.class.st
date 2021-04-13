@@ -62,13 +62,6 @@ Usuario >> dejarDeSeguirUser: unUsuario [
 	ifTrue: [ follows remove: unUsuario ]
 ]
 
-{ #category : #'adding/removing' }
-Usuario >> dejarDeSeguirUsuer: unUsuario [ 
-
-	"verificar si el usuario existe en la coleccion"
-	follows remove: unUsuario .
-]
-
 { #category : #accessing }
 Usuario >> email [
 	^ email
@@ -136,6 +129,11 @@ Usuario >> registrarTopicoDeInteres: unTopico [
 Usuario >> seguirUser: unUsuario [
 	(follows includes: unUsuario )
 	ifFalse: [ follows add: unUsuario ]
+]
+
+{ #category : #'adding/removing' }
+Usuario >> sigoA: unUsuario [
+	^follows includes: unUsuario.
 ]
 
 { #category : #accessing }
