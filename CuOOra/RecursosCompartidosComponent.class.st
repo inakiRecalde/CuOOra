@@ -28,6 +28,7 @@ RecursosCompartidosComponent >> renderListItem: canvas post: each [
 		with: 'like'.
 	canvas space.
 	canvas text: each cantLikes.
+	canvas text: ' | '.
 	canvas space.
 	canvas anchor
 		callback: [ self darDislike: each ];
