@@ -23,7 +23,7 @@ Usuario class >> nombre: unNombre contrasena: unaContra email: unMail [
 { #category : #'adding/removing' }
 Usuario >> agregarComentario: unText aPregunta: pregunta [
 	|r|
-	r:= Respuesta text: unText.
+	r:= Respuesta text: unText user: self.
 	pregunta agregarRespuesta: r	.
 ]
 
@@ -113,11 +113,6 @@ Usuario >> nombre: unNombre contrasena: unaContra email: unMail [
 { #category : #accesing }
 Usuario >> nombreIgual: aUserNombre [
 	^ nombre == aUserNombre.
-]
-
-{ #category : #accesing }
-Usuario >> puntajeParticipacionesRespuestas [
-	(self respuestasDeUser: self size ) * 50. 
 ]
 
 { #category : #'adding/removing' }

@@ -1,21 +1,21 @@
 Class {
-	#name : #InteraccionesComponent,
+	#name : #RecursosCompartidosComponent,
 	#superclass : #CabeceraComponent,
 	#category : #'CuOOra-ui'
 }
 
 { #category : #callback }
-InteraccionesComponent >> darDislike: unPost [
+RecursosCompartidosComponent >> darDislike: unPost [
 	 unPost darDislike: self session user .
 ]
 
 { #category : #callback }
-InteraccionesComponent >> darLike: unPost [
+RecursosCompartidosComponent >> darLike: unPost [
 	 unPost darLike: self session user.
 ]
 
 { #category : #rendering }
-InteraccionesComponent >> renderListItem: canvas post: each [
+RecursosCompartidosComponent >> renderListItem: canvas post: each [
 	canvas break.
 	canvas text: 'Realizada por: '.
 	canvas anchor
@@ -37,7 +37,7 @@ InteraccionesComponent >> renderListItem: canvas post: each [
 ]
 
 { #category : #rendering }
-InteraccionesComponent >> renderListItem: canvas pregunta: each [
+RecursosCompartidosComponent >> renderListItem: canvas pregunta: each [
 								canvas break.
 								canvas text: 'Topicos: '.
 								each topicos 
@@ -49,7 +49,7 @@ InteraccionesComponent >> renderListItem: canvas pregunta: each [
 ]
 
 { #category : #rendering }
-InteraccionesComponent >> renderListItem: canvas preguntaEnDetalle: pregunta [
+RecursosCompartidosComponent >> renderListItem: canvas preguntaEnDetalle: pregunta [
 	self renderTitulo: canvas pregunta: pregunta.
 	canvas break.
 	canvas text: pregunta text.
@@ -57,13 +57,13 @@ InteraccionesComponent >> renderListItem: canvas preguntaEnDetalle: pregunta [
 ]
 
 { #category : #rendering }
-InteraccionesComponent >> renderTitulo: canvas pregunta: pregunta [ 	
+RecursosCompartidosComponent >> renderTitulo: canvas pregunta: pregunta [ 	
 			(canvas anchor 
 			callback:[(self verPregunta: pregunta)];
 			with: pregunta titulo).
 ]
 
 { #category : #callback }
-InteraccionesComponent >> verPregunta: unaPregunta [ 
+RecursosCompartidosComponent >> verPregunta: unaPregunta [ 
 	self call: (PreguntaComponent pregunta: unaPregunta ).
 ]

@@ -1,6 +1,6 @@
 Class {
 	#name : #PreguntaComponent,
-	#superclass : #InteraccionesComponent,
+	#superclass : #RecursosCompartidosComponent,
 	#instVars : [
 		'pregunta',
 		'textComent'

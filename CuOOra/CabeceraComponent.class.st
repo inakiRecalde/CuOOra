@@ -6,7 +6,7 @@ Class {
 
 { #category : #callback }
 CabeceraComponent >> findFriend [
-	self call: FriendsFinderPage new.
+	self call: FriendsFinderComponent new.
 ]
 
 { #category : #callback }
@@ -67,10 +67,10 @@ CabeceraComponent >> volver [
 
 { #category : #callback }
 CabeceraComponent >> volverHome [
-	self call: HomePage new.
+	self call: HomeComponent new.
 ]
 
 { #category : #callback }
 CabeceraComponent >> volverLogin [
-	self call: WelcomePage new.
+	self call: WelcomePageComponent new.
 ]

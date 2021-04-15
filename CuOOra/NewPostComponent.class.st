@@ -1,5 +1,5 @@
 Class {
-	#name : #NewPostPage,
+	#name : #NewPostComponent,
 	#superclass : #CabeceraComponent,
 	#instVars : [
 		'title',
@@ -10,38 +10,38 @@ Class {
 }
 
 { #category : #callback }
-NewPostPage >> agregarTopico: aTopic [ 
+NewPostComponent >> agregarTopico: aTopic [ 
 	top add: aTopic.
 ]
 
 { #category : #accessing }
-NewPostPage >> desc [
+NewPostComponent >> desc [
 	^ desc
 ]
 
 { #category : #accessing }
-NewPostPage >> desc: anObject [
+NewPostComponent >> desc: anObject [
 	desc := anObject
 ]
 
 { #category : #callback }
-NewPostPage >> elegirTopico [ 
+NewPostComponent >> elegirTopico [ 
 	self call: CrearTopicoComponent new.
 ]
 
 { #category : #callback }
-NewPostPage >> eliminarTopico: aTopic [ 
+NewPostComponent >> eliminarTopico: aTopic [ 
 	top remove: aTopic.
 ]
 
 { #category : #initialize }
-NewPostPage >> initialize [
+NewPostComponent >> initialize [
 	super initialize .
 	top:= OrderedCollection new.
 ]
 
 { #category : #callback }
-NewPostPage >> post [
+NewPostComponent >> post [
 	title | desc  ifEmpty: [ ^ self ].
 	top ifEmpty: [ ^ self ].
 	CuOOra soleInstance
@@ -51,7 +51,7 @@ NewPostPage >> post [
 ]
 
 { #category : #rendering }
-NewPostPage >> renderButtonsOn: aCanvas [
+NewPostComponent >> renderButtonsOn: aCanvas [
 	aCanvas text: 'Publicar post'.
 	aCanvas space.
 	aCanvas submitButton
@@ -68,7 +68,7 @@ NewPostPage >> renderButtonsOn: aCanvas [
 ]
 
 { #category : #rendering }
-NewPostPage >> renderContentOn: aCanvas [
+NewPostComponent >> renderContentOn: aCanvas [
 	self renderCabecera: aCanvas.
 	self renderBackButtonOn: aCanvas.
 	aCanvas
@@ -78,7 +78,7 @@ NewPostPage >> renderContentOn: aCanvas [
 ]
 
 { #category : #rendering }
-NewPostPage >> renderInputElementOn: aCanvas [
+NewPostComponent >> renderInputElementOn: aCanvas [
 	aCanvas
 				paragraph: [ aCanvas label: 'Titulo: '.
 					aCanvas textInput on: #title of: self ].
@@ -105,22 +105,22 @@ NewPostPage >> renderInputElementOn: aCanvas [
 										with: 'X' ] ] ].
 ]
 
-{ #category : #callback }
-NewPostPage >> title [
+{ #category : #accessing }
+NewPostComponent >> title [
 	^ title
 ]
 
 { #category : #accessing }
-NewPostPage >> title: anObject [
+NewPostComponent >> title: anObject [
 	title := anObject
 ]
 
 { #category : #accessing }
-NewPostPage >> top [
+NewPostComponent >> top [
 	^ top
 ]
 
 { #category : #accessing }
-NewPostPage >> top: anObject [
+NewPostComponent >> top: anObject [
 	top := anObject
 ]

@@ -1,6 +1,6 @@
 Class {
 	#name : #PerfilComponent,
-	#superclass : #InteraccionesComponent,
+	#superclass : #RecursosCompartidosComponent,
 	#instVars : [
 		'user'
 	],

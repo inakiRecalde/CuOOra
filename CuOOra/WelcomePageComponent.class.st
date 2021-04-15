@@ -1,5 +1,5 @@
 Class {
-	#name : #WelcomePage,
+	#name : #WelcomePageComponent,
 	#superclass : #WAComponent,
 	#instVars : [
 		'email',
@@ -9,17 +9,17 @@ Class {
 }
 
 { #category : #accessing }
-WelcomePage >> email [
+WelcomePageComponent >> email [
 	^ email
 ]
 
 { #category : #accessing }
-WelcomePage >> email: anObject [
+WelcomePageComponent >> email: anObject [
 	email := anObject
 ]
 
 { #category : #callbacks }
-WelcomePage >> loguear [
+WelcomePageComponent >> loguear [
 	(self model usuario: email protectedBy: pass)
 		ifNotNil: [ :it | self proceedWith: it ].
 	email := nil.
@@ -28,33 +28,33 @@ WelcomePage >> loguear [
 ]
 
 { #category : #model }
-WelcomePage >> model [
+WelcomePageComponent >> model [
 	^ CuOOra soleInstance
 ]
 
 { #category : #accessing }
-WelcomePage >> pass [
+WelcomePageComponent >> pass [
 	^ pass
 ]
 
 { #category : #accessing }
-WelcomePage >> pass: anObject [
+WelcomePageComponent >> pass: anObject [
 	pass := anObject
 ]
 
 { #category : #private }
-WelcomePage >> proceedWith: aUser [
+WelcomePageComponent >> proceedWith: aUser [
 	self session user: aUser. 
-	self call: HomePage new.
+	self call: HomeComponent new.
 ]
 
 { #category : #callbacks }
-WelcomePage >> registerNewUser [
-	self call: RegisterPage new.
+WelcomePageComponent >> registerNewUser [
+	self call: RegisterComponent new.
 ]
 
 { #category : #rendering }
-WelcomePage >> renderContentOn: canvas [
+WelcomePageComponent >> renderContentOn: canvas [
 	canvas heading: 'CuOOra'.
 	canvas horizontalRule .
 		canvas
@@ -69,7 +69,7 @@ WelcomePage >> renderContentOn: canvas [
 ]
 
 { #category : #rendering }
-WelcomePage >> renderInputElementsOn: aCanvas [
+WelcomePageComponent >> renderInputElementsOn: aCanvas [
 	aCanvas label: 'Ingrese su email o su usuario'.
 	aCanvas paragraph: [ aCanvas textInput on: #email of: self ].
 	aCanvas label: 'Ingrese su contraseña'.
@@ -77,7 +77,7 @@ WelcomePage >> renderInputElementsOn: aCanvas [
 ]
 
 { #category : #rendering }
-WelcomePage >> renderSignUpButtonOn: aCanvas [
+WelcomePageComponent >> renderSignUpButtonOn: aCanvas [
 	aCanvas submitButton
 		callback: [ self registerNewUser ];
 		with: 'Registrarse'.

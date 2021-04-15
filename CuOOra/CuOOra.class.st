@@ -63,12 +63,12 @@ CuOOra >> elegirTopicoInteres: aUser topico: topico [
 
 { #category : #accesing }
 CuOOra >> eliminarPregunta: unaPregunta [
-	| preg |
-	preg := preguntas
+	preguntas
 		detect: [ :p | p esIgualA: unaPregunta ]
-		ifFound: [ (preg preguntaDeUser: unaPregunta user)
+		ifFound: [ :it | (it preguntaDeUser: unaPregunta user)
 				ifTrue:
-					[ unaPregunta eliminarRespuestas preguntas remove: unaPregunta ] ]
+					[ unaPregunta eliminarRespuestas.
+					preguntas remove: unaPregunta ] ]
 ]
 
 { #category : #adding }
@@ -184,7 +184,7 @@ CuOOra >> pruebas [
 
 { #category : #accesing }
 CuOOra >> puntajeParticipaciones: user [
-	^ preguntas sumNumbers:  [ :preg | preg preguntaDeUserPuntaje: user ].
+	^ preguntas sumNumbers:  [ :preg | preg userPuntaje: user ].
 ]
 
 { #category : #accesing }

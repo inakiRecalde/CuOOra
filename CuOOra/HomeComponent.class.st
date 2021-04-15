@@ -1,26 +1,26 @@
 Class {
-	#name : #HomePage,
-	#superclass : #InteraccionesComponent,
+	#name : #HomeComponent,
+	#superclass : #RecursosCompartidosComponent,
 	#category : #'CuOOra-ui'
 }
 
 { #category : #callback }
-HomePage >> createNewPost [
-	self call: NewPostPage new.
+HomeComponent >> createNewPost [
+	self call: NewPostComponent new.
 ]
 
 { #category : #callback }
-HomePage >> elegirTopico [
+HomeComponent >> elegirTopico [
 	self call: ElegirTopicoComponent new.
 ]
 
 { #category : #accessing }
-HomePage >> model [
+HomeComponent >> model [
 	^ CuOOra soleInstance.
 ]
 
 { #category : #rendering }
-HomePage >> renderContentOn: aCanvas [
+HomeComponent >> renderContentOn: aCanvas [
 	self renderCabecera: aCanvas.
 	aCanvas horizontalRule.
 	
@@ -48,7 +48,7 @@ HomePage >> renderContentOn: aCanvas [
 ]
 
 { #category : #rendering }
-HomePage >> renderFriendsOn: aCanvas [
+HomeComponent >> renderFriendsOn: aCanvas [
 	aCanvas heading
 		level: 2;
 		with: 'Friends'.
@@ -66,7 +66,7 @@ HomePage >> renderFriendsOn: aCanvas [
 ]
 
 { #category : #rendering }
-HomePage >> renderPostsOn: canvas [
+HomeComponent >> renderPostsOn: canvas [
 	canvas heading
 			level: 2;
 			with: 'Ultimas Preguntas'.
@@ -84,7 +84,10 @@ HomePage >> renderPostsOn: canvas [
 ]
 
 { #category : #rendering }
-HomePage >> renderTopicoInteresOn: aCanvas [
+HomeComponent >> renderTopicoInteresOn: aCanvas [
+	aCanvas heading
+			level: 4;
+			with: 'Elegi el topico que mas te guste!'.
 	aCanvas form:[
 		aCanvas submitButton 
 					callback: [ self elegirTopico ];	

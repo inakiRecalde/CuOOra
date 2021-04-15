@@ -1,6 +1,6 @@
 Class {
-	#name : #RegisterPage,
-	#superclass : #WelcomePage,
+	#name : #RegisterComponent,
+	#superclass : #WelcomePageComponent,
 	#instVars : [
 		'name'
 	],
@@ -8,17 +8,17 @@ Class {
 }
 
 { #category : #accessing }
-RegisterPage >> name [
+RegisterComponent >> name [
 	^ name
 ]
 
 { #category : #accessing }
-RegisterPage >> name: anObject [
+RegisterComponent >> name: anObject [
 	name := anObject
 ]
 
 { #category : #callback }
-RegisterPage >> register [
+RegisterComponent >> register [
 	| theUser |
 	theUser := Usuario nombre: name contrasena: pass email: email.
 	self session model addUsuario: theUser.
@@ -27,24 +27,24 @@ RegisterPage >> register [
 ]
 
 { #category : #rendering }
-RegisterPage >> renderContentOn: canvas [
+RegisterComponent >> renderContentOn: canvas [
 	canvas heading: 'CuOOra'.
 	canvas horizontalRule .
 	canvas form: [  
 	self renderInputElementsOn: canvas.
-	self renderSignUpButtonOn: canvas. 
+	self renderSignInButtonOn: canvas. 
 	canvas text: 'una vez registrado volvera a la pagina de login'. ]
 ]
 
 { #category : #rendering }
-RegisterPage >> renderInputElementsOn: aCanvas [
+RegisterComponent >> renderInputElementsOn: aCanvas [
 	aCanvas label: 'Name'.
 	aCanvas paragraph: [ aCanvas textInput on: #name of: self ].
 	super renderInputElementsOn: aCanvas
 ]
 
 { #category : #rendering }
-RegisterPage >> renderSignUpButtonOn: aCanvas [
+RegisterComponent >> renderSignInButtonOn: aCanvas [
 	aCanvas submitButton
 		callback: [ self register ];
 		with: 'Registrar'

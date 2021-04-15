@@ -9,5 +9,5 @@ Class {
 
 { #category : #'code-critics' }
 ManifestCuOOra class >> ruleRBUtilityMethodsRuleV1FalsePositive [
-	^ #(#(#(#RGMethodDefinition #(#WelcomePage #renderContentOn: #false)) #'2021-04-02T04:27:47.528942-03:00') )
+	^ #(#(#(#RGMethodDefinition #(#WelcomePageComponent #renderContentOn: #false)) #'2021-04-02T04:27:47.528942-03:00') )
 ]

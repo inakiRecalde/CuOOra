@@ -11,20 +11,13 @@ ElegirTopicoComponent >> crearTopico [
 ]
 
 { #category : #rendering }
-ElegirTopicoComponent >> renderButtonsOn:  aCanvas [
-	aCanvas submitButton 
-			callback: [ self crearTopico ];
-			with: 'Crear topico'.
-]
-
-{ #category : #rendering }
 ElegirTopicoComponent >> renderContentOn: aCanvas [
 	self renderCabecera: aCanvas.
 	self renderBackButtonOn: aCanvas.
 	aCanvas
 		form: [ self renderTopicosOn: aCanvas.
 			aCanvas text: 'No le interesan ? Crea uno!'.
-			self renderButtonsOn: aCanvas ]
+			self renderButtonOn: aCanvas ]
 ]
 
 { #category : #rendering }

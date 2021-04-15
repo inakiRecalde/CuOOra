@@ -1,5 +1,5 @@
 Class {
-	#name : #FriendsFinderPage,
+	#name : #FriendsFinderComponent,
 	#superclass : #CabeceraComponent,
 	#instVars : [
 		'searchText'
@@ -8,13 +8,13 @@ Class {
 }
 
 { #category : #initialization }
-FriendsFinderPage >> initialize [
+FriendsFinderComponent >> initialize [
 	super initialize.
 	searchText := ''
 ]
 
 { #category : #rendering }
-FriendsFinderPage >> renderContentOn: aCanvas [
+FriendsFinderComponent >> renderContentOn: aCanvas [
 	self renderCabecera: aCanvas.
 	aCanvas horizontalRule.
 	self renderbuttonsOn: aCanvas.
@@ -27,7 +27,7 @@ FriendsFinderPage >> renderContentOn: aCanvas [
 ]
 
 { #category : #rendering }
-FriendsFinderPage >> renderSearchFormOn: aCanvas [
+FriendsFinderComponent >> renderSearchFormOn: aCanvas [
 	aCanvas
 		form: [ aCanvas textInput on: #searchText of: self.
 			aCanvas space.
@@ -35,7 +35,7 @@ FriendsFinderPage >> renderSearchFormOn: aCanvas [
 ]
 
 { #category : #rendering }
-FriendsFinderPage >> renderSearchResultsOn: aCanvas [
+FriendsFinderComponent >> renderSearchResultsOn: aCanvas [
 	| users |
 	searchText ifEmpty: [ ^ self ]. 
 	users := CuOOra soleInstance usersMatchingNamePart: searchText.
@@ -47,7 +47,7 @@ FriendsFinderPage >> renderSearchResultsOn: aCanvas [
 ]
 
 { #category : #rendering }
-FriendsFinderPage >> renderUsers: users on: aCanvas [
+FriendsFinderComponent >> renderUsers: users on: aCanvas [
 	^ aCanvas
 		unorderedList: [ users
 				do: [ :each | 
@@ -62,7 +62,7 @@ FriendsFinderPage >> renderUsers: users on: aCanvas [
 ]
 
 { #category : #rendering }
-FriendsFinderPage >> renderbuttonsOn: aCanvas [
+FriendsFinderComponent >> renderbuttonsOn: aCanvas [
 	aCanvas anchor 
 			callback: [ self answer];
 			with: [ aCanvas button: 'volver' ].
@@ -73,16 +73,16 @@ FriendsFinderPage >> renderbuttonsOn: aCanvas [
 ]
 
 { #category : #accessing }
-FriendsFinderPage >> searchText [
+FriendsFinderComponent >> searchText [
 	^ searchText
 ]
 
 { #category : #accessing }
-FriendsFinderPage >> searchText: anObject [
+FriendsFinderComponent >> searchText: anObject [
 	searchText := anObject
 ]
 
 { #category : #callbacks }
-FriendsFinderPage >> seguirA: anUser [
+FriendsFinderComponent >> seguirA: anUser [
 	self session user seguirUser: anUser
 ]
