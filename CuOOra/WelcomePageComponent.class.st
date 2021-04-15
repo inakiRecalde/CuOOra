@@ -24,7 +24,7 @@ WelcomePageComponent >> loguear [
 		ifNotNil: [ :it | self proceedWith: it ].
 	email := nil.
 	pass := nil.
- "CuOOra clearSoleInstance ."
+ "CuOOra clearSoleInstance" .
 ]
 
 { #category : #model }

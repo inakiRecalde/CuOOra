@@ -70,6 +70,11 @@ Posteo >> eliminarRespuestas [
 	self subclassResponsibility .
 ]
 
+{ #category : #accesing }
+Posteo >> esDe: aUser [
+	^ user = aUser.
+]
+
 { #category : #accessing }
 Posteo >> fecha [
 	^ fecha

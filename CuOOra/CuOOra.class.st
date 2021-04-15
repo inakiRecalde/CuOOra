@@ -17,9 +17,15 @@ CuOOra class >> clearSoleInstance [
 	soleInstance:= nil
 ]
 
+{ #category : #'as yet unclassified' }
+CuOOra class >> constructorInterface [
+	^ self new 
+			pruebas .
+]
+
 { #category : #accessing }
 CuOOra class >> soleInstance [
-	^ soleInstance ifNil: [ soleInstance := self new ]
+	^ soleInstance ifNil: [ soleInstance := self constructorInterface]
 ]
 
 { #category : #initialization }
@@ -91,7 +97,6 @@ CuOOra >> initialize [
 	topicos := Set new.
 	usuarios := Set new.
 	preguntas := Set new.
-	self pruebas.
 ]
 
 { #category : #accessing }
@@ -101,10 +106,7 @@ CuOOra >> preguntas [
 
 { #category : #accesing }
 CuOOra >> preguntasDeSeguidores: follows [
-	|pregs|
-	pregs:= OrderedCollection new.
-	follows do: [ :each | pregs addAll: (self preguntasDeUser: each) ] .
-	^pregs.
+	^ preguntas select: [ :each | follows includes: each user ].
 ]
 
 { #category : #accesing }
@@ -113,17 +115,14 @@ CuOOra >> preguntasDeUnTopico: unTopico [
 ]
 
 { #category : #accesing }
-CuOOra >> preguntasDeUser: user [
-	^ preguntas select: [ :preg | preg preguntaDeUser: user ].
+CuOOra >> preguntasDeUser: aUser [
+	^ preguntas select: [ :each | each esDe: aUser ].
 ]
 
 { #category : #accesing }
 CuOOra >> preguntasRelevantes: user [
-	|pregRelevantes|
-	pregRelevantes := Set new.
-	pregRelevantes addAll: (self preguntasDeUnTopico: user topicoDeInteres ).
-	pregRelevantes addAll: (self preguntasDeSeguidores: user follows ).
-	^pregRelevantes.
+	^(self preguntasDeUnTopico: user topicoDeInteres ) union: 
+		(self preguntasDeSeguidores: user follows ).
 ]
 
 { #category : #initialization }
