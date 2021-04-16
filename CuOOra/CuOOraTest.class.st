@@ -112,6 +112,39 @@ CuOOraTest >> testPreguntasSeguidores [
 ]
 
 { #category : #tests }
+CuOOraTest >> testPuntajeDeUsuarios [
+	| topico  cuora pregunta  coleccionT  usuario usuario2  |
+	
+	coleccionT := OrderedCollection new.
+	cuora := CuOOra new.
+	topico := Topico nombre: 'futbol' descripcion: 'deporte con pelota'.
+	cuora agregarTopico: topico.
+	coleccionT add: topico.
+	
+	usuario := Usuario
+		nombre: 'Jose'
+		contrasena: '123'
+		email: 'jose@gmail.com'.
+	cuora addUsuario: usuario.
+	usuario topicoDeInteres: topico.
+	usuario2 := Usuario
+		nombre: 'pedrop'
+		contrasena: '123'
+		email: 'jose@gmail.com'.
+	cuora addUsuario: usuario2.
+	
+	pregunta := Pregunta
+		titulo: 'Posteando'
+		descripcion: 'mi primer posteo '
+		topicos: coleccionT
+		user: usuario2.
+	cuora agregarPregunta: pregunta.
+	
+	pregunta respuestas: (Respuesta text: 'textComent'  user:usuario ).
+
+]
+
+{ #category : #tests }
 CuOOraTest >> testTopicos [
 |topico cuora|
 	cuora := CuOOra new.
