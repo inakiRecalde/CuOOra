@@ -163,5 +163,5 @@ CuOOraTest >> testUsuario [
 		email: 'jose@gmail.com'.
 	cuora addUsuario: usuario.
 	
-	self assert: (cuora buscarUsuario: usuario) identicalTo: usuario
+	self assert: (cuora usuario: usuario nombre protectedBy:  '123') identicalTo: usuario
 ]
