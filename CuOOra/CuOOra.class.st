@@ -199,11 +199,11 @@ CuOOra >> usersMatchingNamePart: aString [
 			[ :each | each nombre asLowercase includesSubstring: aString asLowercase ]
 ]
 
-{ #category : #utility }
-CuOOra >> usuario: unEmail protectedBy: contraseña [
+{ #category : #utilities }
+CuOOra >> usuario: unNommbre protectedBy: contraseña [
 	^ usuarios
 		detect: [ :each | 
-			((each email = unEmail) | (each nombre = unEmail)
+			((each email = unNommbre) | (each nombre = unNommbre)
 				& (each contrasena = contraseña)) ]
 		ifNone: [ nil ]
 ]
