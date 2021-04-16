@@ -178,8 +178,9 @@ CuOOra >> puntajeParticipaciones: user [
 
 { #category : #accesing }
 CuOOra >> respuestasDePregunta: unaPregunta [
-	"FALTA ordenar de manera decreciente por puntaje de likes"
-	 ^ (usuarios collect: [ :user | user preguntasIncluye: unaPregunta ] ) respuestas .
+	 ^ ((preguntas detect: [ :preg | preg == unaPregunta ] ) respuestas)
+			asSortedCollection: [:unaResp :otraResp | 
+					unaResp puntajeParticipaciones > unaResp puntajeParticipaciones ]. 
 ]
 
 { #category : #accesing }

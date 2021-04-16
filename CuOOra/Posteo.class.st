@@ -57,7 +57,7 @@ Posteo >> eliminarParticipaciones [
 
 { #category : #accesing }
 Posteo >> esDe: aUser [
-	^ user = aUser.
+	^ user == aUser.
 ]
 
 { #category : #accessing }

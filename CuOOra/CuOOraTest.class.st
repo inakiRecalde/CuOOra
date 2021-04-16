@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #tests }
-CuOOraTest >> testPreguntas [
+CuOOraTest >> testAgregarPregunta [
 	| pregunta cuora |
 	cuora := CuOOra new.
 	pregunta := Pregunta
@@ -15,6 +15,17 @@ CuOOraTest >> testPreguntas [
 		user: 'usuario'.
 	cuora agregarPregunta: pregunta.
 	self assert: (cuora incluyePregunta: pregunta).
+]
+
+{ #category : #tests }
+CuOOraTest >> testEliminarPregunta [
+	| pregunta cuora |
+	cuora := CuOOra new.
+	pregunta := Pregunta
+		titulo: 'Posteando'
+		descripcion: 'mi primer posteo '
+		topicos: 'futbol'
+		user: 'usuario'.
 	cuora eliminarPregunta: pregunta.
 	self assert: (cuora incluyePregunta: pregunta) not.
 ]
@@ -112,7 +123,53 @@ CuOOraTest >> testPreguntasSeguidores [
 ]
 
 { #category : #tests }
-CuOOraTest >> testPuntajeDeUsuarios [
+CuOOraTest >> testRespuestasDePregunta [
+	|cuora pregunta r1 r2 colt t u|
+	cuora := CuOOra new.
+	colt:= Set new.
+	t:= (Topico nombre: 'a' descripcion:'a').
+	colt add: t.
+	u:= Usuario nombre: 'b' contrasena:'123'  email:'b@gmail.com' .
+	pregunta := Pregunta titulo: 'titulo' descripcion:'a'  topicos: colt user: u.
+	
+	r1:= Respuesta text: 'hola2' user: u. 
+	r2 := Respuesta text: 'holaa' user: u.
+	r2 darLike: u.
+	
+	cuora agregarTopico: colt. cuora addUsuario: u.
+	cuora agregarPregunta: pregunta.
+	pregunta respuestas: r1.
+	pregunta respuestas: r2.
+	
+	self assert:  (((cuora respuestasDePregunta: pregunta) first) = r1).
+	
+	
+]
+
+{ #category : #tests }
+CuOOraTest >> testTopicos [
+|topico cuora|
+	cuora := CuOOra new.
+	topico := Topico nombre: 'futbol' descripcion: 'deporte con pelota'.
+	cuora agregarTopico: topico.
+	self assert: (cuora incluyeTopico:topico).
+]
+
+{ #category : #tests }
+CuOOraTest >> testaddUsuario [
+	| usuario cuora |
+	cuora := CuOOra new.
+	usuario := Usuario
+		nombre: 'Jose'
+		contrasena: '123'
+		email: 'jose@gmail.com'.
+	cuora addUsuario: usuario.
+	
+	self assert: (cuora usuarios includes: usuario)
+]
+
+{ #category : #tests }
+CuOOraTest >> testcalcularPuntaje [
 	| topico  cuora pregunta  coleccionT  usuario usuario2  |
 	
 	coleccionT := OrderedCollection new.
@@ -140,28 +197,16 @@ CuOOraTest >> testPuntajeDeUsuarios [
 		user: usuario2.
 	cuora agregarPregunta: pregunta.
 	
-	pregunta respuestas: (Respuesta text: 'textComent'  user:usuario ).
-
-]
-
-{ #category : #tests }
-CuOOraTest >> testTopicos [
-|topico cuora|
-	cuora := CuOOra new.
-	topico := Topico nombre: 'futbol' descripcion: 'deporte con pelota'.
-	cuora agregarTopico: topico.
-	self assert: (cuora incluyeTopico:topico).
-]
-
-{ #category : #tests }
-CuOOraTest >> testUsuario [
-	| usuario cuora |
-	cuora := CuOOra new.
-	usuario := Usuario
-		nombre: 'Jose'
-		contrasena: '123'
-		email: 'jose@gmail.com'.
-	cuora addUsuario: usuario.
+		pregunta := Pregunta
+		titulo: 'Posteando2'
+		descripcion: 'mi primer posteo '
+		topicos: coleccionT
+		user: usuario.
+	cuora agregarPregunta: pregunta.
 	
-	self assert: (cuora buscarUsuario: usuario) identicalTo: usuario
+	pregunta respuestas: (Respuesta text: 'textComent'  user:usuario ).
+	pregunta respuestas: (Respuesta text: 'textComent'  user:usuario2 ).
+	
+	self assert: ((cuora calcularPuntaje: usuario) = 70).
+
 ]
