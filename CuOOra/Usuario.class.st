@@ -20,13 +20,6 @@ Usuario class >> nombre: unNombre contrasena: unaContra email: unMail [
 		yourself
 ]
 
-{ #category : #'adding/removing' }
-Usuario >> agregarComentario: unText aPregunta: pregunta [
-	|r|
-	r:= Respuesta text: unText user: self.
-	pregunta agregarRespuesta: r	.
-]
-
 { #category : #accessing }
 Usuario >> contrasena [
 	^ contrasena
@@ -37,19 +30,9 @@ Usuario >> contrasena: anObject [
 	contrasena := anObject
 ]
 
-{ #category : #accesing }
-Usuario >> darDislike:  posteo [
-	posteo darDislike: self .
-]
-
-{ #category : #accesing }
-Usuario >> darLike:  posteo [
-	posteo like: self .
-]
-
 { #category : #'adding/removing' }
 Usuario >> dejarDeSeguirA: unUsuario [
-	(follows includes: unUsuario )
+	(self sigoA: unUsuario)
 	ifTrue: [ follows remove: unUsuario ]
 ]
 
@@ -106,7 +89,7 @@ Usuario >> nombreIgual: aUserNombre [
 	^ nombre == aUserNombre.
 ]
 
-{ #category : #testing }
+{ #category : #accesing }
 Usuario >> puedeSeguirA: aUser [
 	aUser == self
 		ifTrue: [ ^ false ].
@@ -122,7 +105,7 @@ Usuario >> registrarTopicoDeInteres: unTopico [
 
 { #category : #'adding/removing' }
 Usuario >> seguirUser: unUsuario [
-	(follows includes: unUsuario )
+	(self sigoA: unUsuario)
 	ifFalse: [ follows add: unUsuario ]
 ]
 

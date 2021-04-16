@@ -9,21 +9,9 @@ Respuesta class >> text: unText user: aUser [
 	^ self new text: unText user: aUser .
 ]
 
-{ #category : #'adding/removing' }
-Respuesta >> eliminarRespuestas [ 
-	^self .
-]
-
 { #category : #initialization }
 Respuesta >> initialize [ 
 	super initialize .
-]
-
-{ #category : #accessing }
-Respuesta >> respuestaDeUserPuntaje: aUser [
-	(user equals: aUser)
-	ifTrue: [ ^ self puntajeParticipaciones  ].
-	^false.
 ]
 
 { #category : #constructor }

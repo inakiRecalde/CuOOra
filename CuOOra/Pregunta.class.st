@@ -27,17 +27,12 @@ Pregunta >> agregarRespuesta: unaRespuesta [
 { #category : #accesing }
 Pregunta >> calcularPuntaje [ 
 	" chequemaos que las respuestas no sean de el, esas no suman puntos"
-	^ (respuestas sumNumbers: [ :resp | resp userDiferenteA: self ] ) * 50 .
+	^ ((respuestas select: [ :resp | resp userDiferenteA: self ] ) size * 50) .
 ]
 
 { #category : #accesing }
 Pregunta >> cantRespuestas [
 	^ respuestas size.
-]
-
-{ #category : #accesing }
-Pregunta >> darDislike: aUser [
-	^super darDislike: aUser.
 ]
 
 { #category : #'adding/removing' }
@@ -81,8 +76,8 @@ Pregunta >> respuestas: anObject [
 ]
 
 { #category : #accesing }
-Pregunta >> respuestasDeUser: user [
-	^ respuestas collect: [ :resp | resp userIgualA: user ]
+Pregunta >> respuestasDeUser: aUser [
+	^ respuestas select: [ :resp | resp userIgualA: aUser ].
 ]
 
 { #category : #accessing }
@@ -126,5 +121,5 @@ Pregunta >> userPuntaje: aUser [
 	ifTrue: [ ^ self puntajeParticipaciones + 
 			respuestas sumNumbers: [ :resp | resp userPuntaje: aUser ]  ]
 	ifFalse:[ ^ respuestas sumNumbers: [ :resp | resp userPuntaje: aUser ] ] 
-	"si es falso ,la pregunta no es de el y m e fijo si hizo comentarios ya q los comnetarios propios en una pregunta suyya no valen"
+	"si es falso ,la pregunta no es de el y me fijo si hizo comentarios ya q los comnetarios propios en una pregunta suyya no valen"
 ]

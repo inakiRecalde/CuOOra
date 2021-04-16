@@ -17,7 +17,7 @@ CuOOra class >> clearSoleInstance [
 	soleInstance:= nil
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #constructor }
 CuOOra class >> constructorInterface [
 	^ self new 
 			pruebas .
@@ -28,7 +28,7 @@ CuOOra class >> soleInstance [
 	^ soleInstance ifNil: [ soleInstance := self constructorInterface]
 ]
 
-{ #category : #initialization }
+{ #category : #adding }
 CuOOra >> addUsuario: aUser [
 		^ usuarios
 		detect: [ :each | 
@@ -45,11 +45,6 @@ CuOOra >> agregarPregunta: unaPregunta [
 CuOOra >> agregarTopico: unTopico [
 	topicos detect: [ :topic | topic esIgualA: unTopico ]
 	 ifNone:[topicos add: unTopico]
-]
-
-{ #category : #accesing }
-CuOOra >> buscarUsuario: unNombre [
-	^ usuarios detect: [ :user | user nombre == unNombre ] ifNone: [ usuarios anyOne ].
 ]
 
 { #category : #accesing }
@@ -204,7 +199,7 @@ CuOOra >> usersMatchingNamePart: aString [
 			[ :each | each nombre asLowercase includesSubstring: aString asLowercase ]
 ]
 
-{ #category : #utilities }
+{ #category : #utility }
 CuOOra >> usuario: unEmail protectedBy: contraseña [
 	^ usuarios
 		detect: [ :each | 

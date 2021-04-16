@@ -50,16 +50,6 @@ NewPostComponent >> post [
 	self answer.
 ]
 
-{ #category : #accessing }
-NewPostComponent >> postText [
-	^ postText
-]
-
-{ #category : #accessing }
-NewPostComponent >> postText: anObject [
-	postText := anObject
-]
-
 { #category : #rendering }
 NewPostComponent >> renderButtonsOn: aCanvas [
 	aCanvas text: 'Publicar post'.

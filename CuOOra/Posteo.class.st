@@ -27,16 +27,6 @@ Posteo >> chequearCol: aCol user: aUser [
 	ifFound: [ :it | aCol remove: it] .
 ]
 
-{ #category : #accesing }
-Posteo >> dar: colInteraccion chequear: colOtroTipoInteraccion de: aUser [
-	colInteraccion detect: [ :interaccion | interaccion esDe: aUser ] 
-	ifFound: [ :it | colInteraccion remove: it ]
-	ifNone:  [ colInteraccion add: (Interacciones user: aUser).
-		self chequearCol:  colOtroTipoInteraccion user: aUser . ].
-	
-	"preguntar, seria un darLike o dislike para no repetir codigo pero le tendrian q pasar la colecciones por parametro"
-]
-
 { #category : #'adding/removing' }
 Posteo >> darDislike: aUser [
 	 dislikes detect: [ :interaccion | interaccion esDe: aUser ] 
@@ -63,11 +53,6 @@ Posteo >> eliminarParticipaciones [
 	likes removeAll .
 	dislikes removeAll .
 	self eliminarRespuestas.
-]
-
-{ #category : #abstract }
-Posteo >> eliminarRespuestas [ 
-	self subclassResponsibility .
 ]
 
 { #category : #accesing }
