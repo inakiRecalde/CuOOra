@@ -1,3 +1,8 @@
+"
+| application |
+    application := WAAdmin register: WelcomePageComponent asApplicationAt: 'Welcome'.
+    application preferenceAt: #sessionClass put: SessionWithUser .
+"
 Class {
 	#name : #WelcomePageComponent,
 	#superclass : #WAComponent,

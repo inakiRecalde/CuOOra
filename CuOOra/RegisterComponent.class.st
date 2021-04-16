@@ -29,7 +29,7 @@ RegisterComponent >> register [
 { #category : #rendering }
 RegisterComponent >> registerAndLogin [
 	| theUser |
-	theUser := User name: name email: email password: password.
+	theUser := Usuario nombre: name contrasena: pass email: email.
 	self model addUser: theUser.
 	self proceedWith: theUser
 ]
