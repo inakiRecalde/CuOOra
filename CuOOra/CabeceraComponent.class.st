@@ -36,21 +36,26 @@ CabeceraComponent >> renderBuscarOn: aCanvas [.
 { #category : #rendering }
 CabeceraComponent >> renderCabecera: aCanvas [
 	aCanvas heading: 'CuOOra'. 
+
 	self renderPerfilUserOn: aCanvas.
 	aCanvas space.
 	self renderLogoutButtonOn: aCanvas.
 	aCanvas space.
 	self renderBuscarOn: aCanvas.
+	self style.
 
+	
 	
 ]
 
 { #category : #rendering }
 CabeceraComponent >> renderLogoutButtonOn: aCanvas [
 	aCanvas
-		paragraph: [ aCanvas anchor
+		paragraph:
+			[ aCanvas anchor
 				callback: [ self volverLogin ];
-				with: [ aCanvas button with: 'Logout' ] ]
+				with: [ aCanvas button with: 'Logout' ] ].
+		 self style
 ]
 
 { #category : #rendering }
@@ -58,6 +63,18 @@ CabeceraComponent >> renderPerfilUserOn: aCanvas [.
 	aCanvas anchor
 			callback: [ self perfilUser: self session user];
 			with: self session user nombre.
+	self style.
+]
+
+{ #category : #sytles }
+CabeceraComponent >> style [
+
+	^ '
+		class: CabeceraCompoent: {color:blue;
+								background-color: red;
+								}
+			
+    '
 ]
 
 { #category : #callback }

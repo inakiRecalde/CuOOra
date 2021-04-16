@@ -77,17 +77,17 @@ CuOOra >> eliminarPregunta: unaPregunta [
 					preguntas remove: unaPregunta ] ]
 ]
 
-{ #category : #adding }
+{ #category : #private }
 CuOOra >> incluyePregunta: unaPregunta [
 	^preguntas includes: unaPregunta.
 ]
 
-{ #category : #adding }
+{ #category : #private }
 CuOOra >> incluyeTopico: unTopico [
 	^topicos includes: unTopico.
 ]
 
-{ #category : #adding }
+{ #category : #private }
 CuOOra >> incluyeUsuario: unUser [
 	^usuarios includes: unUser.
 ]
