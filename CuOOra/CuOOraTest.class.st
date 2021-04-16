@@ -1,7 +1,7 @@
 Class {
 	#name : #CuOOraTest,
 	#superclass : #TestCase,
-	#category : #'CuOOra-model'
+	#category : #'CuOOra-test'
 }
 
 { #category : #tests }
