@@ -27,7 +27,7 @@ Pregunta >> agregarRespuesta: unaRespuesta [
 { #category : #accesing }
 Pregunta >> calcularPuntaje [ 
 	" chequemaos que las respuestas no sean de el, esas no suman puntos"
-	^ ((respuestas select: [ :resp | resp userDiferenteA: self ] ) size * 50) .
+	^ ((respuestas select: [ :resp | resp userDiferenteA: user] ) size * 50) .
 ]
 
 { #category : #accesing }
@@ -117,9 +117,8 @@ Pregunta >> topicos: anObject [
 
 { #category : #accesing }
 Pregunta >> userPuntaje: aUser [
-	(user equals: aUser)
+	(user == aUser)
 	ifTrue: [ ^ self puntajeParticipaciones + 
-			respuestas sumNumbers: [ :resp | resp userPuntaje: aUser ]  ]
+			(respuestas sumNumbers: [ :resp | resp userPuntaje: aUser ])  ]
 	ifFalse:[ ^ respuestas sumNumbers: [ :resp | resp userPuntaje: aUser ] ] 
-	"si es falso ,la pregunta no es de el y me fijo si hizo comentarios ya q los comnetarios propios en una pregunta suyya no valen"
 ]

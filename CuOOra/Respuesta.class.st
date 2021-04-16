@@ -22,17 +22,17 @@ Respuesta >> text: aText user: aUser [
 
 { #category : #accessing }
 Respuesta >> userDiferenteA: aUser [
-	^ user equals: aUser not .
+	^ (user ~= aUser).
 ]
 
 { #category : #accessing }
 Respuesta >> userIgualA: aUser [
-	^ user equals: aUser .
+	^ user == aUser .
 ]
 
 { #category : #accessing }
 Respuesta >> userPuntaje: aUser [
-	(user equals: aUser)
+	(user == aUser)
 	ifTrue: [ ^ self puntajeParticipaciones  ].
-	^false.
+	^0.
 ]
