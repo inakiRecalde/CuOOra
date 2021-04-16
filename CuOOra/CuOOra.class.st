@@ -49,7 +49,7 @@ CuOOra >> agregarTopico: unTopico [
 
 { #category : #accesing }
 CuOOra >> buscarUsuario: unNombre [
-	^ usuarios detect: [ :user | user nombre == unNombre ].
+	^ usuarios detect: [ :user | user nombre == unNombre ] ifNone: [ usuarios anyOne ].
 ]
 
 { #category : #accesing }
@@ -70,7 +70,7 @@ CuOOra >> elegirTopicoInteres: aUser topico: topico [
 { #category : #accesing }
 CuOOra >> eliminarPregunta: unaPregunta [
 	preguntas
-		detect: [ :p | p esIgualA: unaPregunta ]
+		detect: [ :p | p == unaPregunta ]
 		ifFound: [ :it | (it preguntaDeUser: unaPregunta user)
 				ifTrue:
 					[ unaPregunta eliminarRespuestas.
@@ -85,11 +85,6 @@ CuOOra >> incluyePregunta: unaPregunta [
 { #category : #private }
 CuOOra >> incluyeTopico: unTopico [
 	^topicos includes: unTopico.
-]
-
-{ #category : #private }
-CuOOra >> incluyeUsuario: unUser [
-	^usuarios includes: unUser.
 ]
 
 { #category : #initialization }

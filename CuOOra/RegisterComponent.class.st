@@ -27,6 +27,19 @@ RegisterComponent >> register [
 ]
 
 { #category : #rendering }
+RegisterComponent >> registerAndLogin [
+	| theUser |
+	theUser := User name: name email: email password: password.
+	self model addUser: theUser.
+	self proceedWith: theUser
+]
+
+{ #category : #rendering }
+RegisterComponent >> renderButtonsOn: aCanvas [ 
+	self renderSignUpButtonOn: aCanvas
+]
+
+{ #category : #rendering }
 RegisterComponent >> renderContentOn: canvas [
 	canvas heading: 'CuOOra'.
 	canvas horizontalRule .
@@ -48,4 +61,11 @@ RegisterComponent >> renderSignInButtonOn: aCanvas [
 	aCanvas submitButton
 		callback: [ self register ];
 		with: 'Registrar'
+]
+
+{ #category : #rendering }
+RegisterComponent >> renderSignUpButtonOn: aCanvas [
+	aCanvas submitButton
+		callback: [ self registerAndLogin ];
+		with: 'Register'
 ]

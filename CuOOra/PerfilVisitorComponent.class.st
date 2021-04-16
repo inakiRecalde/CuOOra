@@ -6,7 +6,7 @@ Class {
 
 { #category : #'accessing structure variables' }
 PerfilVisitorComponent >> button: aCanvas [
-	(self session user canBefriend: user)
+	(self session user puedeSeguirA: user)
 		ifFalse: [ ^[aCanvas anchor
 										callback: [ self seguirA: user ];
 										with: 'Seguir' ] ];
@@ -19,7 +19,7 @@ PerfilVisitorComponent >> button: aCanvas [
 
 { #category : #callbacks }
 PerfilVisitorComponent >> dejarDeSeguirA: anUser [
-	self session user dejarDeSeguirUser: anUser
+	self session user dejarDeSeguirA: anUser
 ]
 
 { #category : #rendering }
@@ -33,7 +33,7 @@ PerfilVisitorComponent >> renderContentOn: aCanvas [
 
 { #category : #rendering }
 PerfilVisitorComponent >> renderFollowsButtonsOn: aCanvas [
-(self session user canBefriend: user)
+(self session user puedeSeguirA: user)
 		ifTrue: [aCanvas anchor
 										callback: [ self seguirA: user ];
 										with: 'Seguir' ];

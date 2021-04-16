@@ -14,6 +14,11 @@ HomeComponent >> elegirTopico [
 	self call: ElegirTopicoComponent new.
 ]
 
+{ #category : #callbacks }
+HomeComponent >> findFriend [
+	self call: FriendsFinderComponent new
+]
+
 { #category : #accessing }
 HomeComponent >> model [
 	^ CuOOra soleInstance.
@@ -63,6 +68,14 @@ HomeComponent >> renderFriendsOn: aCanvas [
 	aCanvas anchor
 		callback: [ self findFriend ];
 		with: [ aCanvas button: 'Buscar Amigos' ]
+]
+
+{ #category : #rendering }
+HomeComponent >> renderLogoutButtonOn: aCanvas [
+	aCanvas
+		paragraph: [ aCanvas anchor
+				callback: [ self answer ];
+				with: [ aCanvas button with: 'Logout' ] ]
 ]
 
 { #category : #rendering }

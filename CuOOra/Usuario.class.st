@@ -27,15 +27,6 @@ Usuario >> agregarComentario: unText aPregunta: pregunta [
 	pregunta agregarRespuesta: r	.
 ]
 
-{ #category : #testing }
-Usuario >> canBefriend: aUser [
-	aUser == self
-		ifTrue: [ ^ false ].
-	(follows includes: aUser)
-		ifTrue: [ ^ false ].
-	^ true
-]
-
 { #category : #accessing }
 Usuario >> contrasena [
 	^ contrasena
@@ -57,7 +48,7 @@ Usuario >> darLike:  posteo [
 ]
 
 { #category : #'adding/removing' }
-Usuario >> dejarDeSeguirUser: unUsuario [
+Usuario >> dejarDeSeguirA: unUsuario [
 	(follows includes: unUsuario )
 	ifTrue: [ follows remove: unUsuario ]
 ]
@@ -113,6 +104,15 @@ Usuario >> nombre: unNombre contrasena: unaContra email: unMail [
 { #category : #accesing }
 Usuario >> nombreIgual: aUserNombre [
 	^ nombre == aUserNombre.
+]
+
+{ #category : #testing }
+Usuario >> puedeSeguirA: aUser [
+	aUser == self
+		ifTrue: [ ^ false ].
+	(follows includes: aUser)
+		ifTrue: [ ^ false ].
+	^ true
 ]
 
 { #category : #'adding/removing' }

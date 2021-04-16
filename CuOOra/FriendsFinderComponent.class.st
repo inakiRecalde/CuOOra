@@ -7,6 +7,11 @@ Class {
 	#category : #'CuOOra-ui'
 }
 
+{ #category : #callbacks }
+FriendsFinderComponent >> befriend: anUser [
+	self session user befriend: anUser
+]
+
 { #category : #initialization }
 FriendsFinderComponent >> initialize [
 	super initialize.
@@ -55,7 +60,7 @@ FriendsFinderComponent >> renderUsers: users on: aCanvas [
 						listItem: [ aCanvas anchor
 								callback: [ self perfilUser: each  ];
 								with: each nombre.
-							(self session user canBefriend: each)
+							(self session user puedeSeguirA: each)
 								ifTrue: [ aCanvas anchor
 										callback: [ self seguirA: each ];
 										with: [ aCanvas button: 'Seguir' ] ] ] ] ]

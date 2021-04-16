@@ -22,8 +22,8 @@ UsuarioTest >> testSeguir [
 	self assert: usuario follows isEmpty.
 	usuario seguirUser: usuario2.
 	self assert: (usuario sigoA: usuario2).
-	self assert: (usuario canBefriend: usuario2) not.
-	usuario dejarDeSeguirUser: usuario2.
+	self assert: (usuario puedeSeguirA: usuario2) not.
+	usuario dejarDeSeguirA: usuario2.
 	self assert: (usuario sigoA: usuario2) not.
 	
 ]
