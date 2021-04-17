@@ -38,18 +38,7 @@ HomeComponent >> renderContentOn: aCanvas [
 	self renderTopicoInteresOn: aCanvas.
 	aCanvas horizontalRule.
 	
-	aCanvas text: 'Registro de usuarios'.
-	aCanvas
-		unorderedList: [ self model usuarios
-				do: [ :each | 
-					aCanvas
-						listItem:[
-							aCanvas anchor
-								callback: [ self perfilUser: each ];
-								with: each nombre ]] ].
-	aCanvas text: 'Topicos'.
-	aCanvas
-		unorderedList: [ self model topicos do: [ :each | aCanvas listItem: each nombre ] ]
+	
 ]
 
 { #category : #rendering }
