@@ -31,6 +31,32 @@ CuOOraTest >> testEliminarPregunta [
 ]
 
 { #category : #tests }
+CuOOraTest >> testPreguntasDeSeguidores [
+	| pregunta cuora usuario usuario2 |
+	cuora := CuOOra new.
+	usuario := Usuario
+		nombre: 'Jose'
+		contrasena: '123'
+		email: 'jose@gmail.com'.
+	cuora addUsuario: usuario.
+	usuario2 := Usuario
+		nombre: 'Pedro'
+		contrasena: '123'
+		email: 'pedro@gmail.com'.
+	cuora addUsuario: usuario2.
+	usuario seguirUser: usuario2.
+	usuario2 seguirUser: usuario.
+	pregunta := Pregunta
+		titulo: 'Posteando'
+		descripcion: 'mi primer posteo '
+		topicos: 'futbol'
+		user: usuario2.
+		cuora agregarPregunta: pregunta.
+	self
+		assert: ((cuora preguntasDeSeguidores: usuario follows) includes: pregunta)
+]
+
+{ #category : #tests }
 CuOOraTest >> testPreguntasDeUnTopico [
 	| topico cuora pregunta coleccionT|
 	coleccionT:= OrderedCollection new.
@@ -45,6 +71,23 @@ CuOOraTest >> testPreguntasDeUnTopico [
 		user: 'usuario'.
 	cuora agregarPregunta: pregunta.
 	self assert: ((cuora preguntasDeUnTopico:  topico) includes:pregunta)
+]
+
+{ #category : #tests }
+CuOOraTest >> testPreguntasDeUsuario [
+|pregunta usuario2 cuora|
+		cuora:= CuOOra new.
+		usuario2 := Usuario
+		nombre: 'Jose'
+		contrasena: '123'
+		email: 'jose@gmail.com'.
+		pregunta := Pregunta
+		titulo: 'Posteando'
+		descripcion: 'mi primer posteo '
+		topicos: 'futbol'
+		user: usuario2.
+		cuora agregarPregunta: pregunta.
+	self assert: ((cuora preguntasDeUser: usuario2 ) includes: pregunta)
 ]
 
 { #category : #tests }
@@ -97,32 +140,6 @@ CuOOraTest >> testPreguntasRelevantes [
 ]
 
 { #category : #tests }
-CuOOraTest >> testPreguntasSeguidores [
-	| pregunta cuora usuario usuario2 |
-	cuora := CuOOra new.
-	usuario := Usuario
-		nombre: 'Jose'
-		contrasena: '123'
-		email: 'jose@gmail.com'.
-	cuora addUsuario: usuario.
-	usuario2 := Usuario
-		nombre: 'Pedro'
-		contrasena: '123'
-		email: 'pedro@gmail.com'.
-	cuora addUsuario: usuario2.
-	usuario seguirUser: usuario2.
-	usuario2 seguirUser: usuario.
-	pregunta := Pregunta
-		titulo: 'Posteando'
-		descripcion: 'mi primer posteo '
-		topicos: 'futbol'
-		user: usuario2.
-		cuora agregarPregunta: pregunta.
-	self
-		assert: ((cuora preguntasDeSeguidores: usuario follows) includes: pregunta)
-]
-
-{ #category : #tests }
 CuOOraTest >> testRespuestasDePregunta [
 	|cuora pregunta r1 r2 colt t u|
 	cuora := CuOOra new.
@@ -141,9 +158,29 @@ CuOOraTest >> testRespuestasDePregunta [
 	pregunta respuestas: r1.
 	pregunta respuestas: r2.
 	
-	self assert:  (((cuora respuestasDePregunta: pregunta) first) = r1).
+	self assert:  ((((cuora respuestasDePregunta: pregunta) asOrderedCollection ) first) = r2).
 	
 	
+]
+
+{ #category : #tests }
+CuOOraTest >> testRespuestasDeUsuario [
+	|cuora pregunta r1 r2 colt t u r|
+	cuora := CuOOra new.
+	colt:= Set new.
+	t:= (Topico nombre: 'a' descripcion:'a').
+	colt add: t.
+	u:= Usuario nombre: 'b' contrasena:'123'  email:'b@gmail.com' .
+	pregunta := Pregunta titulo: 'titulo' descripcion:'a'  topicos: colt user: u.
+	r1:= Respuesta text: 'hola2' user: u. 
+	r2 := Respuesta text: 'holaa' user: u.
+	
+	cuora agregarTopico: colt. cuora addUsuario: u.
+	cuora agregarPregunta: pregunta.
+	pregunta respuestas: r1.
+	pregunta respuestas: r2.
+	
+	self assert: ((cuora respuestasDeUsuario: u) includes: r1)
 ]
 
 { #category : #tests }

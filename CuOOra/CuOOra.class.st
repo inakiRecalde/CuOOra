@@ -178,14 +178,14 @@ CuOOra >> puntajeParticipaciones: user [
 
 { #category : #accesing }
 CuOOra >> respuestasDePregunta: unaPregunta [
-	 ^ ((preguntas detect: [ :preg | preg == unaPregunta ] ) respuestas)
+	 ^ (((preguntas detect: [ :preg | preg == unaPregunta ] ) respuestas)
 			asSortedCollection: [:unaResp :otraResp | 
-					unaResp puntajeParticipaciones > unaResp puntajeParticipaciones ]. 
+					unaResp puntajeParticipaciones > unaResp puntajeParticipaciones ] ). 
 ]
 
 { #category : #accesing }
 CuOOra >> respuestasDeUsuario: unUsuario [
-	^ usuarios collect: [ :user | user respuestasDeUser: unUsuario  ].
+	^ preguntas collect: [ :preg | preg respuestasDeUser: unUsuario  ].
 ]
 
 { #category : #accessing }
