@@ -141,46 +141,50 @@ CuOOraTest >> testPreguntasRelevantes [
 
 { #category : #tests }
 CuOOraTest >> testRespuestasDePregunta [
-	|cuora pregunta r1 r2 colt t u|
+	| cuora pregunta r1 r2 colt t u |
 	cuora := CuOOra new.
-	colt:= Set new.
-	t:= (Topico nombre: 'a' descripcion:'a').
+	colt := Set new.
+	t := Topico nombre: 'a' descripcion: 'a'.
 	colt add: t.
-	u:= Usuario nombre: 'b' contrasena:'123'  email:'b@gmail.com' .
-	pregunta := Pregunta titulo: 'titulo' descripcion:'a'  topicos: colt user: u.
-	
-	r1:= Respuesta text: 'hola2' user: u. 
+	u := Usuario nombre: 'b' contrasena: '123' email: 'b@gmail.com'.
+	pregunta := Pregunta
+		titulo: 'titulo'
+		descripcion: 'a'
+		topicos: colt
+		user: u.
+	r1 := Respuesta text: 'hola2' user: u.
 	r2 := Respuesta text: 'holaa' user: u.
 	r2 darLike: u.
-	
-	cuora agregarTopico: colt. cuora addUsuario: u.
+	cuora agregarTopico: colt.
+	cuora addUsuario: u.
 	cuora agregarPregunta: pregunta.
 	pregunta respuestas: r1.
 	pregunta respuestas: r2.
-	
-	self assert:  ((((cuora respuestasDePregunta: pregunta) asOrderedCollection ) first) = r2).
-	
-	
+	self
+		assert: ((cuora respuestasDePregunta: pregunta) includes: r1)
 ]
 
 { #category : #tests }
 CuOOraTest >> testRespuestasDeUsuario [
-	|cuora pregunta r1 r2 colt t u r|
+	| cuora pregunta r1 r2 colt topico usuario |
 	cuora := CuOOra new.
-	colt:= Set new.
-	t:= (Topico nombre: 'a' descripcion:'a').
-	colt add: t.
-	u:= Usuario nombre: 'b' contrasena:'123'  email:'b@gmail.com' .
-	pregunta := Pregunta titulo: 'titulo' descripcion:'a'  topicos: colt user: u.
-	r1:= Respuesta text: 'hola2' user: u. 
-	r2 := Respuesta text: 'holaa' user: u.
-	
-	cuora agregarTopico: colt. cuora addUsuario: u.
+	colt := Set new.
+	topico := Topico nombre: 'a' descripcion: 'a'.
+	colt add: topico.
+	usuario := Usuario nombre: 'b' contrasena: '123' email: 'b@gmail.com'.
+	pregunta := Pregunta
+		titulo: 'titulo'
+		descripcion: 'a'
+		topicos: colt
+		user: usuario.
+	r1 := Respuesta text: 'hola2' user: usuario.
+	r2 := Respuesta text: 'holaa' user: usuario.
+	cuora agregarTopico: colt.
+	cuora addUsuario: usuario.
 	cuora agregarPregunta: pregunta.
 	pregunta respuestas: r1.
 	pregunta respuestas: r2.
-	
-	self assert: ((cuora respuestasDeUsuario: u) includes: r1)
+	self assert: ((cuora respuestasDeUsuario: usuario) includes: r1)
 ]
 
 { #category : #tests }

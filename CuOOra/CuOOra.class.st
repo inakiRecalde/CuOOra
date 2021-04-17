@@ -117,58 +117,90 @@ CuOOra >> preguntasRelevantes: user [
 
 { #category : #initialization }
 CuOOra >> pruebas [
+	| pedro diego juan oo1 test smalltalk admin preg preg1 respuesta respuesta1 topicos1 |
+	topicos1 := OrderedCollection new.
 
-| pedro diego  juan oo1 test smalltalk admin preg  topicos1 |
-	topicos1:=  OrderedCollection new.
-	
 	"Nuevo topic"
-	oo1 := Topico nombre:'OO1' descripcion:'Información sobre la materia OO1' .
-	test := Topico nombre:' Test de unidad' descripcion:'Información sobre los test' .
-	smalltalk := Topico nombre:'Smalltalk' descripcion:'Información sobre Smalltalk' .
+	oo1 := Topico
+		nombre: 'OO1'
+		descripcion: 'Información sobre la materia OO1'.
+	test := Topico
+		nombre: ' Test de unidad'
+		descripcion: 'Información sobre los test'.
+	smalltalk := Topico
+		nombre: 'Smalltalk'
+		descripcion: 'Información sobre Smalltalk'.
 	self agregarTopico: oo1.
 	self agregarTopico: test.
 	self agregarTopico: smalltalk.
-	
+
 	"Usuarios: pedro@cuoora.com, diego@cuoora.com, juan@cuoora.com"
 	"Nuevo usuario"
-	pedro := Usuario nombre: 'pedro' contrasena: 'pedro' email: 'pedro@cuoora.com@gmail.com'.
-	topicos1 add:oo1.
+	pedro := Usuario
+		nombre: 'pedro'
+		contrasena: 'pedro'
+		email: 'pedro@cuoora.com@gmail.com'.
+	topicos1 add: oo1.
 	topicos1 add: test.
-	preg :=Pregunta titulo: 'Duda metodo setUp' descripcion: '¿Para qué sirve el método SetUp?' topicos: topicos1 user: pedro .
+	preg := Pregunta
+		titulo: 'Duda metodo setUp'
+		descripcion: '¿Para qué sirve el método SetUp?'
+		topicos: topicos1
+		user: pedro.
 	self agregarPregunta: preg.
 	self addUsuario: pedro.
 	"Nuevo usuario"
-	juan := Usuario nombre: 'juan' contrasena: 'juan@cuoora.com' email: 'juan@cuoora.com'.
+	juan := Usuario
+		nombre: 'juan'
+		contrasena: 'juan@cuoora.com'
+		email: 'juan@cuoora.com'.
 	self addUsuario: juan.
 	self agregarPregunta: preg.
 	"Nuevo usuario"
-	topicos1:=  OrderedCollection new.
-	topicos1 add:oo1.
+	topicos1 := OrderedCollection new.
+	topicos1 add: oo1.
 	topicos1 add: smalltalk.
-	diego := Usuario nombre: 'diego' contrasena: 'diego@cuoora.com' email: 'diego@cuoora.com'.
-	preg :=Pregunta titulo: 'Ayuda con error SmallTalk' descripcion: '¿Qué significa #messageNotUnderstood?' topicos:topicos1 user: diego .
+	diego := Usuario
+		nombre: 'diego'
+		contrasena: 'diego@cuoora.com'
+		email: 'diego@cuoora.com'.
+	preg1 := Pregunta
+		titulo: '¿Qué significa #messageNotUnderstood?'
+		descripcion:
+			' Necesito ayuda con este error. ¿Alguien sabe qué significa #messageNotUnderstood?'
+		topicos: topicos1
+		user: diego.
 	self addUsuario: diego.
-	self agregarPregunta: preg.
-	
-	
-	
-	
+	self agregarPregunta: preg1.
+	respuesta := Respuesta
+		text:
+			'Sirve para instanciar los objetos que son
+evaluados por el test en un único método y que se ejecute
+siempre antes de cada test.'
+		user: diego.
+	respuesta1 := Respuesta
+		text:
+			'Significa que el objeto que recibió el mensaje
+no encontró ningún método para ejecutar en respuesta.'
+		user: pedro.
+	preg respuestas: respuesta.
+	preg1 respuestas: respuesta1.
+
 	"relaciones"
 	juan seguirUser: diego.
 	pedro seguirUser: juan.
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	"Nuevo usuario"
-	admin := Usuario nombre: 'admin' contrasena: 'admin' email: 'admin@gmail.com'.
-	self addUsuario: admin.
-	
-
-
-	
+	admin := Usuario
+		nombre: 'admin'
+		contrasena: 'admin'
+		email: 'admin@gmail.com'.
+	self addUsuario: admin
 ]
 
 { #category : #accesing }
@@ -185,7 +217,10 @@ CuOOra >> respuestasDePregunta: unaPregunta [
 
 { #category : #accesing }
 CuOOra >> respuestasDeUsuario: unUsuario [
-	^ preguntas collect: [ :preg | preg respuestasDeUser: unUsuario  ].
+
+	^preguntas flatCollect:[ :preg | preg respuestasDeUser: unUsuario ]
+
+		
 ]
 
 { #category : #accessing }
