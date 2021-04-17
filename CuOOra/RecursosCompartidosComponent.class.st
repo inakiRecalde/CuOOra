@@ -20,7 +20,7 @@ RecursosCompartidosComponent >> renderListItem: canvas post: each [
 	canvas text: 'Realizada por: '.
 	canvas anchor
 		callback: [ self
-				perfilUser: (CuOOra soleInstance buscarUsuario: each user nombre) ];
+				perfilUser: (each user ) ];
 		with: each user nombre.
 	canvas break.
 	canvas anchor

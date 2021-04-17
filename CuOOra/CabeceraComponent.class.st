@@ -55,7 +55,6 @@ CabeceraComponent >> renderLogoutButtonOn: aCanvas [
 			[ aCanvas anchor
 				callback: [ self volverLogin ];
 				with: [ aCanvas button with: 'Logout' ] ].
-		 self style
 ]
 
 { #category : #rendering }
@@ -63,7 +62,6 @@ CabeceraComponent >> renderPerfilUserOn: aCanvas [.
 	aCanvas anchor
 			callback: [ self perfilUser: self session user];
 			with: self session user nombre.
-	self style.
 ]
 
 { #category : #sytles }

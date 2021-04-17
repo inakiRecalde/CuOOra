@@ -47,6 +47,11 @@ CuOOra >> agregarTopico: unTopico [
 	 ifNone:[topicos add: unTopico]
 ]
 
+{ #category : #'as yet unclassified' }
+CuOOra >> buscarUsuario: aUser [
+
+]
+
 { #category : #accesing }
 CuOOra >> calcularPuntaje: user [ 
 	|pregUser|

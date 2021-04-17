@@ -52,7 +52,7 @@ HomeComponent >> renderFriendsOn: aCanvas [
 					aCanvas
 						listItem:
 							[aCanvas anchor
-								callback: [ self perfilUser: (self model buscarUsuario: each  nombre) ];
+								callback: [ self perfilUser: each ];
 								with: each  nombre]] ].
 	aCanvas anchor
 		callback: [ self findFriend ];
