@@ -195,12 +195,7 @@ no encontró ningún método para ejecutar en respuesta.'
 
 
 
-	"Nuevo usuario"
-	admin := Usuario
-		nombre: 'admin'
-		contrasena: 'admin'
-		email: 'admin@gmail.com'.
-	self addUsuario: admin
+
 ]
 
 { #category : #accesing }
